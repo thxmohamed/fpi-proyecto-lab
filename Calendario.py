@@ -2,16 +2,16 @@
 def interseccion_horas(dia):
     i = 0
     while i < len(dia):
-        j = 0
-        while j < len(dia):}
-            if dia[i][0][0] <= dia[j][0][0] and  dia[i][0][1] >= dia[j][0][0]:
+        j = 1
+        while j < len(dia):
+            if dia[i][0][0] >= dia[j][0][0] and  dia[i][0][1] <= dia[j][0][0]:
                 return print(("Sus horarios no son compatibles..."))
-            elif dia[j][0][0] <= dia[i][0][0] and  dia[j][0][1] >= dia[i][0][0]:
+            elif dia[j][0][1] >= dia[i][0][0] and  dia[j][0][1] <= dia[i][0][1]:
                 return print(("Sus horarios no son compatibles..."))
-            elif dia[i][0][0] <= dia[j][0][1] and  dia[i][0][1] >= dia[j][0][1]:
+            elif dia[i][0][0] >= dia[j][0][0] and  dia[i][0][0] <= dia[j][0][1]:
                 return print(("Sus horarios no son compatibles..."))
             elif dia[j][0][0] <= dia[i][0][1] and  dia[j][0][1] >= dia[i][0][1]:
-                return print(("Sus horarios no son compatibles..."))
+                return print(("Sus horarios no son compatibles...")) 
             j = j + 1
         i = i + 1
 #Entrada
@@ -24,23 +24,26 @@ Sabado=[]
 Domingo=[]
 switch = True
 while switch:
-    dia = input("Escriba el día de la semana al que quiere agregar horario: ")
+    dia = int(input("Escriba el día de la semana al que quiere agregar horario\n\
+con números enteros del 1 al 7, empezando del lunes hasta el domingo: "))
     hora = input("Escriba la hora de inicio y de término de la actividad: ").split(" ")
     actividad = input("Escriba la actividad a realizar: ")
-    if dia.lower == "lunes":
+    if dia == 1:
         Lunes.append([hora, actividad])
-    elif dia.lower == "martes":
+    elif dia == 2:
         Martes.append([hora, actividad])
-    elif dia.lower == "miércoles" or dia.lower == "miercoles":
+    elif dia == 3:
         Miercoles.append([hora, actividad])
-    elif dia.lower == "jueves":
+    elif dia == 4:
         Jueves.append([hora, actividad])
-    elif dia.lower == "viernes":
+    elif dia == 5:
         Viernes.append([hora, actividad])
-    elif dia.lower == "sabado" or dia.lower == "sábado":
+    elif dia == 6:
         Sabado.append([hora, actividad])
-    elif dia.lower == "domingo":
+    elif dia == 7:
         Domingo.append([hora, actividad])
+    else:
+        print("Una wea: ")
     aux = bool(int(input("¿Quiere agregar más datos?: (Escriba 1 si sí y 0 si no)")))
     switch = bool(int(aux))
 #Proceso
