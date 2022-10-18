@@ -44,3 +44,10 @@ while switch:
     aux = bool(int(input("¿Quiere agregar más datos?: (Escriba 1 si sí y 0 si no)")))
     switch = bool(int(aux))
 #Proceso
+interseccion_horas(Lunes)
+interseccion_horas(Martes)
+interseccion_horas(Miercoles)
+interseccion_horas(Jueves)
+interseccion_horas(Viernes)
+interseccion_horas(Sabado)
+interseccion_horas(Domingo)
