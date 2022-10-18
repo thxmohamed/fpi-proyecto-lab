@@ -43,7 +43,7 @@ con números enteros del 1 al 7, empezando del lunes hasta el domingo: "))
     elif dia == 7:
         Domingo.append([hora, actividad])
     else:
-        print("Una wea: ")
+        print("Por favor, ingrese el horario bien...")
     aux = bool(int(input("¿Quiere agregar más datos?: (Escriba 1 si sí y 0 si no)")))
     switch = bool(int(aux))
 #Proceso
