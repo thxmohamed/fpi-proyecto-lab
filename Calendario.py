@@ -1,3 +1,19 @@
+#Funciones
+def interseccion_horas(dia):
+    i = 0
+    while i < len(dia):
+        j = 0
+        while j < len(dia):}
+            if dia[i][0][0] <= dia[j][0][0] and  dia[i][0][1] >= dia[j][0][0]:
+                print("Sus horarios no son compatibles...")
+            elif dia[j][0][0] <= dia[i][0][0] and  dia[j][0][1] >= dia[i][0][0]:
+                print("Sus horarios no son compatibles...")
+            elif dia[i][0][0] <= dia[j][0][1] and  dia[i][0][1] >= dia[j][0][1]:
+                print("Sus horarios no son compatibles...")
+            elif dia[j][0][0] <= dia[i][0][1] and  dia[j][0][1] >= dia[i][0][1]:
+                print("Sus horarios no son compatibles...")
+            j = j + 1
+        i = i + 1
 #Entrada
 Lunes=[]
 Martes=[]
@@ -25,5 +41,6 @@ while switch:
         Sabado.append([hora, actividad])
     elif dia.lower == "domingo":
         Domingo.append([hora, actividad])
-    a = input("¿Quiere agregar más datos?: (Escriba 1 si sí y 0 si no)")
-    switch = bool(int(a))
+    aux = bool(int(input("¿Quiere agregar más datos?: (Escriba 1 si sí y 0 si no)")))
+    switch = bool(int(aux))
+#Proceso
