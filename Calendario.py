@@ -5,13 +5,13 @@ def interseccion_horas(dia):
         j = 0
         while j < len(dia):}
             if dia[i][0][0] <= dia[j][0][0] and  dia[i][0][1] >= dia[j][0][0]:
-                return ("Sus horarios no son compatibles...")
+                return print(("Sus horarios no son compatibles..."))
             elif dia[j][0][0] <= dia[i][0][0] and  dia[j][0][1] >= dia[i][0][0]:
-                return ("Sus horarios no son compatibles...")
+                return print(("Sus horarios no son compatibles..."))
             elif dia[i][0][0] <= dia[j][0][1] and  dia[i][0][1] >= dia[j][0][1]:
-                return ("Sus horarios no son compatibles...")
+                return print(("Sus horarios no son compatibles..."))
             elif dia[j][0][0] <= dia[i][0][1] and  dia[j][0][1] >= dia[i][0][1]:
-                return ("Sus horarios no son compatibles...")
+                return print(("Sus horarios no son compatibles..."))
             j = j + 1
         i = i + 1
 #Entrada
