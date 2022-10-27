@@ -14,6 +14,20 @@ def interseccion_horas(dia):
                 return print(("Sus horarios no son compatibles...")) 
             j = j + 1
         i = i + 1
+def hora_correcta(dia):
+    i = 0
+    while i < len(dia):
+        dos_puntos = dia[i][0][0].find(":")
+        if float(dia[i][0][0][0:dos_puntos]) >= 24:
+            return print("Sus horarios no están bien escritos...")
+        if float(dia[i][0][0][dos_puntos + 1:]) >= 60:
+            return print("Sus horarios no están bien escritos...")
+        dos_puntos = dia[i][0][1].find(":")
+        if float(dia[i][0][1][0:dos_puntos]) >= 24:
+            return print("Sus horarios no están bien escritos...")
+        if float(dia[i][0][1][dos_puntos + 1:]) >= 60:
+            return print("Sus horarios no están bien escritos...")
+        i = i + 1
 #Entrada
 Lunes=[]
 Martes=[]
