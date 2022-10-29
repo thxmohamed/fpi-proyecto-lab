@@ -28,6 +28,14 @@ def hora_correcta(dia):
         if float(dia[i][0][1][dos_puntos + 1:]) >= 60:
             return print("Sus horarios no están bien escritos...")
         i = i + 1
+def agregar_cero(dia):
+    for i in dia:
+        dos_puntos = i[0][0].find(":")
+        if len(i[0][0][:dos_puntos]) < 2:
+            i[0][0] = "0" + i[0][0]
+        if len(i[0][1][:dos_puntos]) < 2:
+            i[0][1] = "0" + i[0][1]
+    return (dia)
 #Entrada
 Lunes=[]
 Martes=[]
