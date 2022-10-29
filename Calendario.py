@@ -52,6 +52,9 @@ con números enteros del 1 al 7, empezando del lunes hasta el domingo: "))
     actividad = input("Escriba la actividad a realizar: ")
     if dia == 1:
         Lunes.append([hora, actividad])
+        interseccion_horas(Lunes)
+        hora_correcta(Lunes)
+        agregar_cero(Lunes)
     elif dia == 2:
         Martes.append([hora, actividad])
     elif dia == 3:
