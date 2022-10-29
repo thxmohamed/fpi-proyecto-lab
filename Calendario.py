@@ -55,6 +55,9 @@ con números enteros del 1 al 7, empezando del lunes hasta el domingo: "))
         interseccion_horas(Lunes)
         hora_correcta(Lunes)
         agregar_cero(Lunes)
+        switch2 = True
+        while switch2: # Intento de ingresar el horario según día de la semana
+            switch2 = bool(input("Quiere agregar más actividades este día? (0 si no, 1 si sí): "))
     elif dia == 2:
         Martes.append([hora, actividad])
     elif dia == 3:
