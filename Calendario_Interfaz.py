@@ -105,16 +105,58 @@ jueves6.config(bg = "yellow", width = 100, height = 100)
 jueves6.grid(row = 6, column = 3)
 
 
-'''
+
 #Viernes
-viernes = Frame(root)
-viernes.config(bg = "green", width = 100, height = 600)
-viernes.grid(row = 0, column = 4)
+viernes1 = Frame(root)
+viernes1.config(bg = "green", width = 100, height = 100)
+viernes1.grid(row = 1, column = 4)
+
+viernes2 = Frame(root)
+viernes2.config(bg = "green", width = 100, height = 100)
+viernes2.grid(row = 2, column = 4)
+
+viernes3 = Frame(root)
+viernes3.config(bg = "green", width = 100, height = 100)
+viernes3.grid(row = 3, column = 4)
+
+viernes4 = Frame(root)
+viernes4.config(bg = "green", width = 100, height = 100)
+viernes4.grid(row = 4, column = 4)
+
+viernes5 = Frame(root)
+viernes5.config(bg = "green", width = 100, height = 100)
+viernes5.grid(row = 5, column = 4)
+
+viernes6 = Frame(root)
+viernes6.config(bg = "green", width = 100, height = 100)
+viernes6.grid(row = 6, column = 4)
+
+
+
 #Sábado
-sabado = Frame(root)
-sabado.config(bg = "darkgreen", width = 100, height = 600)
-sabado.grid(row = 0, column = 5)
-'''
+sabado1 = Frame(root)
+sabado1.config(bg = "darkgreen", width = 100, height = 100)
+sabado1.grid(row = 1, column = 5)
+
+sabado2 = Frame(root)
+sabado2.config(bg = "darkgreen", width = 100, height = 100)
+sabado2.grid(row = 2, column = 5)
+
+sabado3 = Frame(root)
+sabado3.config(bg = "darkgreen", width = 100, height = 100)
+sabado3.grid(row = 3, column = 5)
+
+sabado4 = Frame(root)
+sabado4.config(bg = "darkgreen", width = 100, height = 100)
+sabado4.grid(row = 4, column = 5)
+
+sabado5 = Frame(root)
+sabado5.config(bg = "darkgreen", width = 100, height = 100)
+sabado5.grid(row = 5, column = 5)
+
+sabado6 = Frame(root)
+sabado6.config(bg = "darkgreen", width = 100, height = 100)
+sabado6.grid(row = 6, column = 5)
 
 #Asignación de días
 
@@ -138,6 +180,16 @@ jueves = Frame(root)
 textoJ = Label(root, text = "Jueves", bg = "yellow", font = ("Arial",14)).grid(row = 0, column = 3)
 jueves.config(bg = "yellow", width = 100, height = 30)
 jueves.grid(row = 0, column =3)
+
+viernes = Frame(root)
+textoV = Label(root, text = "Viernes", bg = "green", font = ("Arial",14)).grid(row = 0, column = 4)
+viernes.config(bg = "green", width = 100, height = 30)
+viernes.grid(row = 0, column =4)
+
+sabado = Frame(root)
+textoV = Label(root, text = "Sábado", bg = "darkgreen", font = ("Arial",14)).grid(row = 0, column = 5)
+sabado.config(bg = "darkgreen", width = 100, height = 30)
+sabado.grid(row = 0, column =5)
 
 #Botones Lunes
 
@@ -194,5 +246,33 @@ botonJ4 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=
 botonJ5 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=5, column=3)
 
 botonJ6 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=6, column=3)
+
+# Botones Viernes
+
+botonV1 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=1, column=4)
+
+botonV2 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=2, column=4)
+
+botonV3 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=3, column=4)
+
+botonV4 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=4, column=4)
+
+botonV5 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=5, column=4)
+
+botonV6 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=6, column=4)
+
+# Botones Sabado
+
+botonS1 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=1, column=5)
+
+botonS2 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=2, column=5)
+
+botonS3 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=3, column=5)
+
+botonS4 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=4, column=5)
+
+botonS5 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=5, column=5)
+
+botonS6 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=6, column=5)
 
 root.mainloop()
