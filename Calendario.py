@@ -1,8 +1,8 @@
 #Funciones
 def interseccion_horas(dia):
-    i = 0
-    while i < len(dia):
-        j = 1
+    i = len(dia) - 1
+    while i > 0:
+        j = 0
         while j < len(dia)-i:
             if dia[i][0][0] >= dia[j][0][0] and  dia[i][0][1] <= dia[j][0][0]:
                 return print(("Sus horarios no son compatibles..."))
