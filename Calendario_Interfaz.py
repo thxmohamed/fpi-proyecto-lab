@@ -78,11 +78,34 @@ miercoles = Frame(root)
 miercoles.config(bg = "orange", width = 100, height = 100)
 miercoles.grid(row = 6, column = 2)
 
-'''
+
 #Jueves
-jueves = Frame(root)
-jueves.config(bg = "yellow", width = 100, height = 600)
-jueves.grid(row = 0, column = 3)
+jueves1 = Frame(root)
+jueves1.config(bg = "yellow", width = 100, height = 100)
+jueves1.grid(row = 1, column = 3)
+
+jueves2 = Frame(root)
+jueves2.config(bg = "yellow", width = 100, height = 100)
+jueves2.grid(row = 2, column = 3)
+
+jueves3 = Frame(root)
+jueves3.config(bg = "yellow", width = 100, height = 100)
+jueves3.grid(row = 3, column = 3)
+
+jueves4 = Frame(root)
+jueves4.config(bg = "yellow", width = 100, height = 100)
+jueves4.grid(row = 4, column = 3)
+
+jueves5 = Frame(root)
+jueves5.config(bg = "yellow", width = 100, height = 100)
+jueves5.grid(row = 5, column = 3)
+
+jueves6 = Frame(root)
+jueves6.config(bg = "yellow", width = 100, height = 100)
+jueves6.grid(row = 6, column = 3)
+
+
+'''
 #Viernes
 viernes = Frame(root)
 viernes.config(bg = "green", width = 100, height = 600)
@@ -94,11 +117,7 @@ sabado.grid(row = 0, column = 5)
 '''
 
 #Asignación de días
-'''
-marco_principal2 = Frame()
-texto = Label(root, text="metelos datos de tu tarjeta pa mc gratis :)")
-texto.grid(row = 2, column = 0)
-'''
+
 
 lunes = Frame(root)
 textoL = Label(root, text = "Lunes", bg = "red", font = ("Arial",14)).grid(row = 0, column = 0)
@@ -114,6 +133,11 @@ miercoles = Frame(root)
 textoW = Label(root, text = "Miércoles", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 2)
 miercoles.config(bg = "orange", width = 100, height = 30)
 miercoles.grid(row = 0, column =2)
+
+jueves = Frame(root)
+textoJ = Label(root, text = "Jueves", bg = "yellow", font = ("Arial",14)).grid(row = 0, column = 3)
+jueves.config(bg = "yellow", width = 100, height = 30)
+jueves.grid(row = 0, column =3)
 
 #Botones Lunes
 
@@ -157,6 +181,18 @@ botonW5 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=
 
 botonW6 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=6, column=2)
 
+# Botones Jueves
+
+botonJ1 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=1, column=3)
+
+botonJ2 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=2, column=3)
+
+botonJ3 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=3, column=3)
+
+botonJ4 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=4, column=3)
+
+botonJ5 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=5, column=3)
+
+botonJ6 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=6, column=3)
+
 root.mainloop()
-
-
