@@ -1,5 +1,17 @@
+# BLOQUE DE DEFINICIÓN
+
+# Importación de funciones
+
 from tkinter import *
 root = Tk()
+
+# Definición de funciones
+
+# Definición de constantes
+
+
+# BLOQUE PRINCIPAL 
+
 
 #Lunes
 lunes1 = Frame(root)
