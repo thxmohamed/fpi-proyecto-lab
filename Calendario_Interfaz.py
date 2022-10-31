@@ -51,11 +51,33 @@ martes5.grid(row = 4, column = 1)
 martes6 = Frame(root)
 martes6.config(bg = "lightblue", width = 100, height = 100)
 martes6.grid(row = 5, column = 1)
-'''
+
 #Miércoles
+miercoles1 = Frame(root)
+miercoles1.config(bg = "orange", width = 100, height = 100)
+miercoles1.grid(row = 0, column = 2)
+
+miercoles2 = Frame(root)
+miercoles2.config(bg = "orange", width = 100, height = 100)
+miercoles2.grid(row = 1, column = 2)
+
+miercoles3 = Frame(root)
+miercoles3.config(bg = "orange", width = 100, height = 100)
+miercoles3.grid(row = 2, column = 2)
+
+miercoles4 = Frame(root)
+miercoles4.config(bg = "orange", width = 100, height = 100)
+miercoles4.grid(row = 3, column = 2)
+
+miercoles5 = Frame(root)
+miercoles5.config(bg = "orange", width = 100, height = 100)
+miercoles5.grid(row = 4, column = 2)
+
 miercoles = Frame(root)
-miercoles.config(bg = "orange", width = 100, height = 600)
-miercoles.grid(row = 0, column = 2)
+miercoles.config(bg = "orange", width = 100, height = 100)
+miercoles.grid(row = 5, column = 2)
+
+'''
 #Jueves
 jueves = Frame(root)
 jueves.config(bg = "yellow", width = 100, height = 600)
@@ -70,7 +92,7 @@ sabado.config(bg = "darkgreen", width = 100, height = 600)
 sabado.grid(row = 0, column = 5)
 '''
 
-#Botones Lunes
+# Botones Lunes
 
 botonL1 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=0, column=0)
 
@@ -84,7 +106,7 @@ botonL5 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=
 
 botonL6 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=5, column=0)
 
-#Botones Martes
+# Botones Martes
 
 botonM1 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=0, column=1)
 
@@ -97,6 +119,19 @@ botonM4 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=
 botonM5 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=4, column=1)
 
 botonM6 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=5, column=1)
+
+# Botones Miercoles 
+botonW1 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=0, column=2)
+
+botonW2 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=1, column=2)
+
+botonW3 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=2, column=2)
+
+botonW4 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=3, column=2)
+
+botonW5 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=4, column=2)
+
+botonW6 = Button(root, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=5, column=2)
 
 root.mainloop()
 
