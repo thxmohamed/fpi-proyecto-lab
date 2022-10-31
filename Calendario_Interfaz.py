@@ -14,7 +14,7 @@ def ventana_entra_act():
     boton_enviar.grid(row=1)
     #boton1.config(text=alo)
 #Ventana del calendario
-def cambia_ventana():
+def cambia_ventana(): #CON ESTA FUNCION CREAMOS EL DISEÑO DEL CALENDARIO CON SUS BOTONES PARA ASIGNAR LAS ACTIVIDADES.
     ventana_nueva=Toplevel()
     ventana_nueva.title("ventana secundaria")
     ventana_nueva.geometry("900x900")
@@ -211,7 +211,7 @@ def cambia_ventana():
     sabado.grid(row = 0, column =5)
 
     #Botones Lunes
-    """
+    """  NO SABEMOS DONDE COLOCAR ESTA FUNCION AUN, CON ESTO QUERIAMOS HACER QUE EL USUARIO ESCIRBA SU ACTIVIDAD DONDE SELECCIONO Y SE ESCRIBIERA ESTA EN EL MODULO.
     def ventana_entra_act():
         ventana_entrada=Toplevel()
         ventana_entrada.title("ventana secundaria")
@@ -307,5 +307,5 @@ def cambia_ventana():
 
     botonS6 = Button(ventana_nueva, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=6, column=5)
 
-Button(root,text="enviar", command=cambia_ventana, bg="red").grid(row=1,column=0)
+Button(root,text="enviar", command=cambia_ventana, bg="red").grid(row=1,column=0)#boton de inicio del programa, lleva al horario
 root.mainloop()
