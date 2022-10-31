@@ -1,7 +1,6 @@
 from tkinter import *
 root = Tk()
-
-
+#Ventana de entrada de actividades
 def ventana_entra_act():
     ventana_entrada=Toplevel()
     ventana_entrada.title("ventana secundaria")
@@ -14,14 +13,13 @@ def ventana_entra_act():
     boton_enviar=Button(ventana_entrada,text="guardar",command=boton_enviar,bg="red")
     boton_enviar.grid(row=1)
     #boton1.config(text=alo)
-
-#Lunes
+#Ventana del calendario
 def cambia_ventana():
     ventana_nueva=Toplevel()
     ventana_nueva.title("ventana secundaria")
     ventana_nueva.geometry("900x900")
     etiqueta=Label(ventana_nueva,text="olas")
-
+    #Lunes
     lunes1 = Frame(ventana_nueva)
     lunes1.config(bg = "red", width = 100, height = 100)
     lunes1.grid(row = 1, column = 0)
