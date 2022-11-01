@@ -225,7 +225,7 @@ def cambia_ventana(): #CON ESTA FUNCION CREAMOS EL DISEÑO DEL CALENDARIO CON SU
         boton_enviar.grid(row=1)
         #boton1.config(text=alo)    
     """
-    botonL1.grid(row=1, column=0)
+    botonL1 = Button(ventana_nueva, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=1, column=0)
         
     botonL2 = Button(ventana_nueva, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=2, column=0)
 
