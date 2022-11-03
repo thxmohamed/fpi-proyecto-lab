@@ -1,23 +1,29 @@
 from tkinter import *
 root = Tk()
 #Ventana de entrada de actividades
-def ventana_entra_act():
-    ventana_entrada=Toplevel()
-    ventana_entrada.title("ventana secundaria")
-    ventana_entrada.geometry("100x50")
-    entrada=Entry(ventana_entrada)
-    entrada.insert(0,"ingrsa actividad")
-    entrada.grid(row=0)
-    def boton_enviar():
-        botonL1.config(text=entrada.get())
-    boton_enviar=Button(ventana_entrada,text="guardar",command=boton_enviar,bg="red")
-    boton_enviar.grid(row=1)
-    #boton1.config(text=alo)
+
+#   boton1.config(text=alo)
 #Ventana del calendario
 def cambia_ventana(): #CON ESTA FUNCION CREAMOS EL DISEÑO DEL CALENDARIO CON SUS BOTONES PARA ASIGNAR LAS ACTIVIDADES.
+
+    def ventana_entra_act():
+        ventana_entrada=Toplevel()
+        ventana_entrada.title("ventana secundaria")
+        ventana_entrada.geometry("100x50")
+        entrada=Entry(ventana_entrada)
+        entrada.insert(0,"ingrsa actividad")
+        entrada.grid(row=0)
+        def boton_enviar():
+
+    ##            botonL1.config(text=entrada.get())
+            texto = Label(ventana_nueva, text = entrada.get()).grid(row=1, column=0)
+                
+        boton_enviar=Button(ventana_entrada,text="guardar",command=boton_enviar,bg="red")
+        boton_enviar.grid(row=1)
+    
     ventana_nueva=Toplevel()
     ventana_nueva.title("ventana secundaria")
-    ventana_nueva.geometry("900x900")
+    ventana_nueva.geometry("600x610")
     etiqueta=Label(ventana_nueva,text="olas")
     #Lunes
     lunes1 = Frame(ventana_nueva)
@@ -211,8 +217,7 @@ def cambia_ventana(): #CON ESTA FUNCION CREAMOS EL DISEÑO DEL CALENDARIO CON SU
     sabado.grid(row = 0, column =5)
 
     #Botones Lunes
-    """  NO SABEMOS DONDE COLOCAR ESTA FUNCION AUN, CON ESTO QUERIAMOS HACER QUE EL USUARIO 
-    ESCIRBA SU ACTIVIDAD DONDE SELECCIONO Y SE ESCRIBIERA ESTA EN EL MODULO.
+    """  NO SABEMOS DONDE COLOCAR ESTA FUNCION AUN, CON ESTO QUERIAMOS HACER QUE EL USUARIO ESCIRBA SU ACTIVIDAD DONDE SELECCIONO Y SE ESCRIBIERA ESTA EN EL MODULO.
     def ventana_entra_act():
         ventana_entrada=Toplevel()
         ventana_entrada.title("ventana secundaria")
@@ -226,8 +231,8 @@ def cambia_ventana(): #CON ESTA FUNCION CREAMOS EL DISEÑO DEL CALENDARIO CON SU
         boton_enviar.grid(row=1)
         #boton1.config(text=alo)    
     """
-    botonL1 = Button(ventana_nueva, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=1, column=0)
-        
+    botonL1 = Button(ventana_nueva, text = "enviar", bg="yellow",padx=20, pady= 12, command = ventana_entra_act).grid(row=1, column=0)
+
     botonL2 = Button(ventana_nueva, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=2, column=0)
 
     botonL3 = Button(ventana_nueva, text = "enviar", bg="yellow",padx=20, pady= 12).grid(row=3, column=0)
@@ -310,3 +315,4 @@ def cambia_ventana(): #CON ESTA FUNCION CREAMOS EL DISEÑO DEL CALENDARIO CON SU
 
 Button(root,text="enviar", command=cambia_ventana, bg="red").grid(row=1,column=0)#boton de inicio del programa, lleva al horario
 root.mainloop()
+
