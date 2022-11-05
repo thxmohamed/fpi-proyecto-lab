@@ -43,17 +43,26 @@ def cambia_ventana():
         # Aquí se define el botón de "asignar", al pulsar este botón, la actividad ingresada se
         # ubicará en el bloque ingresado
         def boton_enviar():
-            lista_entrada=entrada.get().split(" ")
-            letras=["L","M","W","J","V","S"]
-            numeros=["1","2","3","4","5","6"]
+            lista_entrada = str(entrada.get()).split(" ")
+            letras = ["L","M","W","J","V","S"]
+            numeros = ["1","2","3","4","5","6"]
+            verificador = 0
+            switch = True
+            while verificador < len(lista_entrada) and switch:
+                switch = False
+                if lista_entrada[verificador] in letras or \
+                   lista_entrada[verificador] in numeros:
+                    verificador = verificador + 1
+                    switch = True
+                else:
+                    showinfo(message = "Ingrese los horarios en un formato correcto", title = "Error")
             for dia in letras:
-                if dia==lista_entrada[0]:
-                    j=int(letras.index(dia)+1)      
+                if dia == lista_entrada[0]:
+                    j = int(letras.index(dia))
             for bloque in numeros:
-                if bloque==lista_entrada[1]:
-                    i=int(numeros.index(bloque)+1)
-                    
-            texto = Label(root, text = actividad.get(), bg ="lightgreen", font = ("Arial", 8)).grid(row=i, column=j)
+                if bloque == lista_entrada[1]:
+                    i = int(numeros.index(bloque))
+            texto = Label(root, text = actividad.get(), bg ="lightgreen", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)
             
         boton_enviar=Button(ventana_entrada,text="asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
         boton_enviar.grid(row=2)
