@@ -10,6 +10,7 @@ def cambia_ventana():
         ventana_entrada=Toplevel()
         ventana_entrada.title("ventana secundaria")
         ventana_entrada.geometry("300x450")
+        # entrada es la variable que define el cuadro de texto en donde se ingresará el bloque
         entrada=Entry(ventana_entrada, bg = "aquamarine", fg = "black")
 
         marco1 = Frame(ventana_entrada)
@@ -27,18 +28,20 @@ def cambia_ventana():
         marco4 = Frame(ventana_entrada)
         marco4.config(bg = "lightgreen", width = 300, height = 150)
         marco4.grid(row = 5, column = 0)
+        # La variable llamada bloque se trata de una explicación al usuario de lo 
+        # que tiene que ingresar en el cuadro de texto y en qué formato hacerlo
         
         bloque = Label(ventana_entrada, text = "Ingrese el Bloque separado por un espacio. Ej: (L 5)", bg = "lightgreen", font = ("Arial", 9)).grid(row = 0, column = 0)
-        
         entrada.grid(row=1)
         nueva_entrada=str(entrada.get())
-
+        # una explicación de lo que tiene que ingresar el usuario en el segundo cuadro de texto
         explicacion = Label(ventana_entrada, text = "Ingrese su actividad, tras esto,\n"
                             "pulse en asignar", bg = "lightgreen", font = ("Arial", 9)).grid(row = 3, column = 0)
 
         actividad = Entry(ventana_entrada, bg = "aquamarine", fg = "black")
         actividad.grid(row=4)
-        
+        # Aquí se define el botón de "asignar", al pulsar este botón, la actividad ingresada se
+        # ubicará en el bloque ingresado
         def boton_enviar():
             lista_entrada=entrada.get().split(" ")
             letras=["L","M","W","J","V","S"]
