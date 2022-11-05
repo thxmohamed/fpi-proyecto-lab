@@ -24,7 +24,10 @@ def cambia_ventana():
 
     # Asignacion de bloques, se vizualizarán en la columna de la izquierda e indicarán el bloque
     # horario correspondiente.
-
+    root =Toplevel()
+    root.title("Horario")
+    root.geometry("700x630")
+    
     bloque1 = Frame(root)
     textoB1 = Label(root, text = "Bloque 1", bg = "orange", font = ("Arial",14)).grid(row = 1, column = 0)
     bloque1.config(bg = "orange", width = 100, height =  100)
