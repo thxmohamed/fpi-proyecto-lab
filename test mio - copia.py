@@ -6,20 +6,29 @@ root = Tk()
 def cambia_ventana():
 
 #Esta segunda función creará la ventana dedicada a ingresar las actividades.
-    
     def ventana_entra_act():
         ventana_entrada=Toplevel()
         ventana_entrada.title("ventana secundaria")
         ventana_entrada.geometry("300x450")
         entrada=Entry(ventana_entrada)
-        entrada.insert(0,"ingresa actividad")
         entrada.grid(row=0)
+        nueva_entrada=str(entrada.get())
         def boton_enviar():
-            
-            texto = Label(root, text = entrada.get(), bg ="lightgreen", font = ("Arial", 8)).grid(row=1, column=1)
+            lista_entrada=entrada.get().split(" ")
+            letras=["L","M","W","J","V","S"]
+            numeros=["1","2","3","4","5","6"]
+            for dia in letras:
+                if dia==lista_entrada[0]:
+                    j=int(letras.index(dia)+1)      
+            for bloque in numeros:
+                if bloque==lista_entrada[1]:
+                    i=int(numeros.index(bloque)+1)
+                    
+            texto = Label(root, text = "hola", bg ="lightgreen", font = ("Arial", 8)).grid(row=i, column=j)
             
         boton_enviar=Button(ventana_entrada,text="guardar",command=boton_enviar,bg="red")
         boton_enviar.grid(row=1)
+
 
 
     # Asignacion de bloques, se vizualizarán en la columna de la izquierda e indicarán el bloque
