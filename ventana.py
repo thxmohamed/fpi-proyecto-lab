@@ -12,28 +12,50 @@ def cambia_ventana():
 
 #Esta segunda función creará la ventana dedicada a ingresar las actividades.
     def ventana_entra_act():
-        ventana_entrada=Toplevel()
+        ventana_entrada = Toplevel()
         ventana_entrada.title("ventana secundaria")
-        ventana_entrada.geometry("280x480")
-        entrada=Entry(ventana_entrada)
-        entrada.grid(row=0)
+        ventana_entrada.geometry("350x450")
+        entrada = Entry(ventana_entrada)
+        entrada.config(width = 60)
+        entrada_dia =  Entry(ventana_entrada)
+        entrada_dia.config(width = 31)
+        entrada.insert(0, "Horario de la actividad en este formato:(Día de la semana, bloque)")
+        entrada_dia.insert(0, "Nombre de la actividad en cuestión")
+        entrada_dia.grid(row = 1)
+        entrada.grid(row = 0)
         nueva_entrada=str(entrada.get())
         def boton_enviar():
-            lista_entrada=entrada.get().split(" ")
-            letras=["L","M","W","J","V","S"]
-            numeros=["1","2","3","4","5","6"]
+            lista_entrada = str(entrada.get()).split(" ")
+            letras = ["L","M","W","J","V","S"]
+            numeros = ["1","2","3","4","5","6"]
+            verificador = 0
+            switch = True
+            while verificador < len(letras) and switch:
+                switch = False
+                if letras[verificador] not in lista_entrada:
+                    showinfo(message = "Ingrese los horarios en un formato correcto", title = "Error")
+                else:
+                    i = i + 1
+                    switch = True
+            verificador = 0
+            switch = True
+            while verificador < len(numeros) and switch:
+                switch = False
+                if numeros[verificador] not in lista_entrada:
+                    showinfo(message = "Ingrese los bloques en un formato correcto", title = "Error")
+                else:
+                    i = i + 1
+                    switch = True
             for dia in letras:
-                if dia==lista_entrada[0]:
-                    j=int(letras.index(dia)+1)      
+                if dia == lista_entrada[0]:
+                    j = int(letras.index(dia))
             for bloque in numeros:
-                if bloque==lista_entrada[1]:
-                    i=int(numeros.index(bloque)+1)
-                    
-            texto = Label(root, text = "hola", bg ="lightgreen", font = ("Arial", 8)).grid(row=i, column=j)
+                if bloque == lista_entrada[1]:
+                    i = int(numeros.index(bloque))
+            texto = Label(root, text = entrada_dia.get(), bg ="lightgreen", font = ("Arial", 12)).grid(row = i + 1, column = j + 1)
             
         boton_enviar=Button(ventana_entrada,text="guardar",command=boton_enviar,bg="red")
-        boton_enviar.grid(row=1)
-
+        boton_enviar.grid(row=2)
 
 
     # Asignacion de bloques, se vizualizarán en la columna de la izquierda e indicarán el bloque
