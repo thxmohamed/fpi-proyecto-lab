@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.messagebox import *
 root = Tk()
 
 # Definición de la función que creará la ventana en la que será posible visualizar el horario.
