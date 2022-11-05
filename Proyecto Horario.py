@@ -10,9 +10,35 @@ def cambia_ventana():
         ventana_entrada=Toplevel()
         ventana_entrada.title("ventana secundaria")
         ventana_entrada.geometry("300x450")
-        entrada=Entry(ventana_entrada)
-        entrada.grid(row=0)
+        entrada=Entry(ventana_entrada, bg = "aquamarine", fg = "black")
+
+        marco1 = Frame(ventana_entrada)
+        marco1.config(bg = "lightgreen", width = 300, height = 100)
+        marco1.grid(row = 0, column = 0)
+
+        marco2 = Frame(ventana_entrada)
+        marco2.config(bg = "lightgreen", width = 300, height = 50)
+        marco2.grid(row = 2, column = 0)
+
+        marco3 = Frame(ventana_entrada)
+        marco3.config(bg = "lightgreen", width = 300, height = 130)
+        marco3.grid(row = 3, column = 0)
+
+        marco4 = Frame(ventana_entrada)
+        marco4.config(bg = "lightgreen", width = 300, height = 150)
+        marco4.grid(row = 5, column = 0)
+        
+        bloque = Label(ventana_entrada, text = "Ingrese el Bloque separado por un espacio. Ej: (L 5)", bg = "lightgreen", font = ("Arial", 9)).grid(row = 0, column = 0)
+        
+        entrada.grid(row=1)
         nueva_entrada=str(entrada.get())
+
+        explicacion = Label(ventana_entrada, text = "Ingrese su actividad, tras esto,\n"
+                            "pulse en asignar", bg = "lightgreen", font = ("Arial", 9)).grid(row = 3, column = 0)
+
+        actividad = Entry(ventana_entrada, bg = "aquamarine", fg = "black")
+        actividad.grid(row=4)
+        
         def boton_enviar():
             lista_entrada=entrada.get().split(" ")
             letras=["L","M","W","J","V","S"]
@@ -24,10 +50,10 @@ def cambia_ventana():
                 if bloque==lista_entrada[1]:
                     i=int(numeros.index(bloque)+1)
                     
-            texto = Label(root, text = "hola", bg ="lightgreen", font = ("Arial", 8)).grid(row=i, column=j)
+            texto = Label(root, text = actividad.get(), bg ="lightgreen", font = ("Arial", 8)).grid(row=i, column=j)
             
-        boton_enviar=Button(ventana_entrada,text="guardar",command=boton_enviar,bg="red")
-        boton_enviar.grid(row=1)
+        boton_enviar=Button(ventana_entrada,text="asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
+        boton_enviar.grid(row=2)
 
 
 
