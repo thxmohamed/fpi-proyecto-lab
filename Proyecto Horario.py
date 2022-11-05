@@ -271,7 +271,9 @@ def cambia_ventana():
 
 marco_principal1 = Frame()
 texto = Label(root,
-              text= "Este programa tiene la finalidad\nde ayudarte a organizar tu horario, para así\nmejorar tu rendimiento académico\n y lograr optimizar tu tiempo",
+              text= "Este programa tiene la finalidad\nde ayudarte a organizar tu horario, para así\n"
+              "mejorar tu rendimiento académico\n y lograr optimizar tu tiempo\npara eso, debes pulsar el botón de abajo,\n"
+              "y cuando se abra la nueva ventana\ndebes pulsar el botón de la esquina\nsuperior izquierda",
               bg = "pink")
 
 
