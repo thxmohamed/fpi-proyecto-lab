@@ -109,8 +109,7 @@ def cambia_ventana():
     root2 =Toplevel()
     root2.title("Horario")
     root2.geometry("700x630")
-
-    
+  
     bloque1 = Frame(root2)
     textoB1 = Label(root2, text = "Bloque 1", bg = "orange", font = ("Arial",14)).grid(row = 1, column = 0)
     bloque1.config(bg = "orange", width = 100, height =  100)
@@ -169,8 +168,7 @@ def cambia_ventana():
     lunes6 = Frame(root2)
     lunes6.config(bg = "lightblue", width = 100, height = 100)
     lunes6.grid(row = 6, column = 1)
-
-
+    
     #Martes
     martes1 = Frame(root2)
     martes1.config(bg = "lightblue", width = 100, height = 100)
@@ -195,7 +193,6 @@ def cambia_ventana():
     martes6 = Frame(root2)
     martes6.config(bg = "lightgreen", width = 100, height = 100)
     martes6.grid(row = 6, column = 2)
-
 
     #Miércoles
     miercoles1 = Frame(root2)
@@ -222,7 +219,6 @@ def cambia_ventana():
     miercoles.config(bg = "lightblue", width = 100, height = 100)
     miercoles.grid(row = 6, column = 3)
 
-
     #Jueves
     jueves1 = Frame(root2)
     jueves1.config(bg = "lightblue", width = 100, height = 100)
@@ -248,8 +244,6 @@ def cambia_ventana():
     jueves6.config(bg = "lightgreen", width = 100, height = 100)
     jueves6.grid(row = 6, column = 4)
 
-
-
     #Viernes
     viernes1 = Frame(root2)
     viernes1.config(bg = "lightgreen", width = 100, height = 100)
@@ -274,8 +268,6 @@ def cambia_ventana():
     viernes6 = Frame(root2)
     viernes6.config(bg = "lightblue", width = 100, height = 100)
     viernes6.grid(row = 6, column = 5)
-
-
 
     #Sábado
     sabado1 = Frame(root2)
@@ -303,7 +295,6 @@ def cambia_ventana():
     sabado6.grid(row = 6, column = 6)
 
     #Asignación de días, se mostrará el nombre del día a lo largo de la primera fila
-
 
     lunes = Frame(root2)
     textoL = Label(root2, text = "Lunes", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 1)
@@ -337,12 +328,10 @@ def cambia_ventana():
 
     # Definición del botón, al hacer click, este llevará a la ventana para ingresar actividad
 
-
     boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5, pady= 2.1, command = ventana_entra_act).grid(row=0, column = 0)
     
 # DEFINICIÓN DE CONSTANTES
 # De momento, en nuestro programa no se definió ninguna constante
-
 
 # BLOQUE PRINCIPAL
  
