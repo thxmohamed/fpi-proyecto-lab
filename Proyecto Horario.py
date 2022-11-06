@@ -1,3 +1,21 @@
+# FUNDAMENTOS DE PROGRAMACIÓN PARA INGENIERÍA
+# SECCIÓN DEL CURSO: 0-L-19
+# PROFESOR DE TEORÍA: ALEJANDRO CISTERNA VILLALOBOS
+# PROFESOR DE LABORATORIO: Gery Gerena
+# GRUPO : 3
+#
+# AUTORES
+# INTEGRANTES: -Mohamed Al-Marzuk/rut:22.594.262-5 
+#               -Victor Duarte/rut: 
+#               -Vicente Fernandez/rut:20.957.898-0 
+#               -Rodrigo Sepulveda 
+#               -Nicolas Morales/rut:21.566.658-1.
+# CARRERA: Ingeniería Civil Informática e Ingenieria Civil Electrica
+
+
+
+
+
 from tkinter import *
 from tkinter.messagebox import *
 root = Tk()
