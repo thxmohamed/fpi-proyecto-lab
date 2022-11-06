@@ -22,7 +22,6 @@
 
 from tkinter import *
 from tkinter.messagebox import *
-root = Tk()
 
 # DEFINICIÓN DE FUNCIONES
 
@@ -327,7 +326,6 @@ def cambia_ventana():
     sabado.grid(row = 0, column =6)
 
     # Definición del botón, al hacer click, este llevará a la ventana para ingresar actividad
-
     boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5, pady= 2.1, command = ventana_entra_act).grid(row=0, column = 0)
     
 # DEFINICIÓN DE CONSTANTES
@@ -337,10 +335,12 @@ def cambia_ventana():
  
 # ENTRADA
 
-# La entrada está considerada dentro de la función ventana_entra_act(), definida más arriba
-    
+# La entrada está considerada dentro de la función ventana_entra_act(), definida más arriba   
 # Ventana inicial, incluye una pequeña explicación de lo que hace el programa y un botón que lleva a la ventana del horario
 
+# PROCESAMIENTO
+root = Tk()
+root.title("Entrada")
 marco_principal1 = Frame()
 texto = Label(root,
               text= "Este programa tiene la finalidad\nde ayudarte a organizar tu horario, para así\n"
@@ -348,7 +348,6 @@ texto = Label(root,
               "y cuando se abra la nueva ventana\ndebes pulsar el botón de la esquina\nsuperior izquierda",
               bg = "pink")
 
-# PROCESAMIENTO
 
 marco_principal1.grid(row=0, column=0)
 texto.grid(row=0, column=0)
@@ -359,5 +358,4 @@ marco_principal1.config(bg = "pink")
 boton_inicio = Button(root,text="Comenzar", command=cambia_ventana, bg="red", width="28", font = ("Arial", 12), fg = "white").grid(row=1,column=0)
 
 # SALIDA
-
 root.mainloop()
