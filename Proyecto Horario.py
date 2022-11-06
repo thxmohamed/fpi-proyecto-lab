@@ -9,11 +9,11 @@ def cambia_ventana():
 #Esta segunda función creará la ventana dedicada a ingresar las actividades.
     def ventana_entra_act():
         ventana_entrada=Toplevel()
-        ventana_entrada.title("ventana secundaria")
+        ventana_entrada.title("Agregar Actividad")
         ventana_entrada.geometry("300x450")
         # entrada es la variable que define el cuadro de texto en donde se ingresará el bloque
 
-        entrada=Entry(ventana_entrada, bg = "aquamarine", fg = "black")
+        entrada=Entry(ventana_entrada, bg = "aquamarine", fg = "black", width =49)
 
         marco1 = Frame(ventana_entrada)
         marco1.config(bg = "lightgreen", width = 300, height = 100)
@@ -40,7 +40,7 @@ def cambia_ventana():
         explicacion = Label(ventana_entrada, text = "Ingrese su actividad, tras esto,\n"
                             "pulse en asignar", bg = "lightgreen", font = ("Arial", 9)).grid(row = 3, column = 0)
 
-        actividad = Entry(ventana_entrada, bg = "aquamarine", fg = "black")
+        actividad = Entry(ventana_entrada, bg = "aquamarine", fg = "black", width = 49)
         actividad.grid(row=4)
 
         # Aquí se define el botón de "asignar", al pulsar este botón, la actividad ingresada se
@@ -68,10 +68,11 @@ def cambia_ventana():
                     i = int(numeros.index(bloque))
             texto = Label(root2, text = actividad.get(), bg ="lightgreen", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)
             
-        boton_enviar=Button(ventana_entrada,text="asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
+        boton_enviar=Button(ventana_entrada,text="Asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
         boton_enviar.grid(row=2)
 
-
+        boton_cerrar = Button(ventana_entrada, text = "Finalizar Programa", command = root.destroy, bg = "red",
+                              fg = "white", font = ("Arial", 12)).grid(row = 5)
 
     # Asignacion de bloques, se vizualizarán en la columna de la izquierda e indicarán el bloque
     # horario correspondiente.
@@ -307,7 +308,8 @@ def cambia_ventana():
     # Definición del botón, al hacer click, este llevará a la ventana para ingresar actividad
 
 
-    boton = Button(root2, text = "+", bg= "cyan", font = ("Arial",8), padx=43, pady= 3, command = ventana_entra_act).grid(row=0, column=0)
+    boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5, pady= 2.1, command = ventana_entra_act).grid(row=0, column = 0)
+
 # Ventana inicial, incluye una pequeña explicación de lo que hace el programa y un botón que lleva a la ventana del horario
 
 
@@ -325,6 +327,6 @@ texto.grid(row=0, column=0)
 marco_principal1.config(width = "260", height = "370")
 marco_principal1.config(bg = "pink")
 
-boton_inicio = Button(root,text="enviar", command=cambia_ventana, bg="red", width="36").grid(row=1,column=0)
+boton_inicio = Button(root,text="Comenzar", command=cambia_ventana, bg="red", width="28", font = ("Arial", 12), fg = "white").grid(row=1,column=0)
 
 root.mainloop()
