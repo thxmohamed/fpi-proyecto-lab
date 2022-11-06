@@ -80,7 +80,7 @@ def cambia_ventana():
         boton_cerrar = Button(ventana_entrada, text = "Finalizar Programa", command = root.destroy, bg = "red",
                               fg = "white", font = ("Arial", 12)).grid(row = 5)
 
-    # Asignacion de bloques, se vizualizarán en la columna de la izquierda e indicarán el bloque
+    # Asignacion de bloques, se visualizarán en la columna de la izquierda e indicarán el bloque
     # horario correspondiente.
     root2 =Toplevel()
     root2.title("Horario")
