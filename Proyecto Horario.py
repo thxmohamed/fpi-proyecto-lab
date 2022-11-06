@@ -12,13 +12,19 @@
 #               -Nicolas Morales/rut:21.566.658-1.
 # CARRERA: Ingeniería Civil Informática e Ingenieria Civil Electrica
 
+# Este programa mostrará un horario separado por bloques de la universidad, donde el usuario podrá
+# ingresar sus actividades diarias y mirarlas por pantalla, ayudando a la
+# organización de su tiempo. Para esto, se utilizará la librería Tkinter. 
 
+# BLOQUE DE DEFINICIÓN
 
-
+# IMPORTACIÓN DE FUNCIONES
 
 from tkinter import *
 from tkinter.messagebox import *
 root = Tk()
+
+# DEFINICIÓN DE FUNCIONES
 
 # Definición de la función que creará la ventana en la que será posible visualizar el horario.
 
