@@ -62,11 +62,17 @@ def cambia_ventana():
                     showinfo(message = "Ingrese los horarios en un formato correcto", title = "Error")
             for dia in letras:
                 if dia == lista_entrada[0]:
-                    j = int(letras.index(dia))
+                    j = letras.index(dia)
             for bloque in numeros:
                 if bloque == lista_entrada[1]:
-                    i = int(numeros.index(bloque))
-            texto = Label(root2, text = actividad.get(), bg ="lightgreen", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)
+                    i = numeros.index(bloque)
+
+            if (i +1) % 2 == 1 and (j + 1) % 2 == 1:                
+                texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)
+            elif (i + 1) % 2 == 0 and (j + 1) % 2 == 0:
+                texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)        
+            else:
+                texto = Label(root2, text = actividad.get(), bg = "lightblue", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)
             
         boton_enviar=Button(ventana_entrada,text="Asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
         boton_enviar.grid(row=2)
