@@ -71,7 +71,7 @@ def cambia_ventana():
         # ubicará en el bloque ingresado
 
         def boton_enviar():
-            lista_entrada = str(entrada.get()).split(" ")
+            lista_entrada = str(entrada.get()).split(" ")       
             letras = ["L","M","W","J","V","S"]
             numeros = ["1","2","3","4","5","6"]
             verificador = 0
@@ -339,9 +339,18 @@ def cambia_ventana():
 
 
     boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5, pady= 2.1, command = ventana_entra_act).grid(row=0, column = 0)
+    
+# DEFINICIÓN DE CONSTANTES
+# De momento, en nuestro programa no se definió ninguna constante
 
+
+# BLOQUE PRINCIPAL
+ 
+# ENTRADA
+
+# La entrada está considerada dentro de la función ventana_entra_act(), definida más arriba
+    
 # Ventana inicial, incluye una pequeña explicación de lo que hace el programa y un botón que lleva a la ventana del horario
-
 
 marco_principal1 = Frame()
 texto = Label(root,
@@ -350,6 +359,7 @@ texto = Label(root,
               "y cuando se abra la nueva ventana\ndebes pulsar el botón de la esquina\nsuperior izquierda",
               bg = "pink")
 
+# PROCESAMIENTO
 
 marco_principal1.grid(row=0, column=0)
 texto.grid(row=0, column=0)
@@ -358,5 +368,7 @@ marco_principal1.config(width = "260", height = "370")
 marco_principal1.config(bg = "pink")
 
 boton_inicio = Button(root,text="Comenzar", command=cambia_ventana, bg="red", width="28", font = ("Arial", 12), fg = "white").grid(row=1,column=0)
+
+# SALIDA
 
 root.mainloop()
