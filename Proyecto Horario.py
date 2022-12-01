@@ -32,7 +32,7 @@ def cambia_ventana():
     def ventana_entra_act():
         ventana_entrada = Toplevel()
         ventana_entrada.title("Agregar Actividad")
-        ventana_entrada.geometry("300x460")
+        ventana_entrada.geometry("300x490")
         # entrada es la variable que define el cuadro de texto en donde se ingresará el bloque
 
         entrada=Entry(ventana_entrada, bg = "aquamarine", fg = "black", width =49)
@@ -58,19 +58,21 @@ def cambia_ventana():
         marco5.grid(row = 6, column = 0)
         
         marco6 = Frame(ventana_entrada)
-        marco6.config(bg = "lightgreen", width = 300, height = 95)
+        marco6.config(bg = "lightgreen", width = 300, height = 65)
         marco6.grid(row = 7, column = 0)
 
+        marco6 = Frame(ventana_entrada)
+        marco6.config(bg = "lightgreen", width = 300, height = 65)
+        marco6.grid(row = 8, column = 0)
         
         # La variable llamada bloque se trata de una explicación al usuario de lo 
         # que tiene que ingresar en el cuadro de texto y en qué formato hacerlo
         
-        bloque = Label(ventana_entrada, text = "Ingrese el Bloque separado por un espacio. Ej: (L 5)",
+        bloque = Label(ventana_entrada, text = "Ingrese el Bloque separado por un espacio. Ej: (L 5)",\
                        bg = "lightgreen", font = ("Arial", 9)).grid(row = 0, column = 0)
         entrada.grid(row=1)
-        nueva_entrada=str(entrada.get())
         # una explicación de lo que tiene que ingresar el usuario en el segundo cuadro de texto
-        explicacion = Label(ventana_entrada, text = "Ingrese su actividad, tras esto,\n"
+        explicacion = Label(ventana_entrada, text = "Ingrese su actividad, tras esto,\n"\
                             "pulse en asignar", bg = "lightgreen",
                             font = ("Arial", 9)).grid(row = 3, column = 0)
 
@@ -78,8 +80,8 @@ def cambia_ventana():
         actividad.grid(row=4)
         # otra explicación para que el usuario ingrese el nombre del archivo csv que va
         # a usar para su horario
-        explicacion_archivo = Label(ventana_entrada, text = "Ingrese el nombre del archivo csv \n"
-                            "que va a usar para su horario (sin formato)", bg = "lightgreen",
+        explicacion_archivo = Label(ventana_entrada, text = "Ingrese el nombre del archivo csv \n"\
+                            "que va a usar para su horario (sin formato)", bg = "lightgreen",\
                             font = ("Arial", 9)).grid(row = 5, column = 0)
         entrada_archivo = Entry(ventana_entrada, bg = "aquamarine", fg = "black", width = 49)
         entrada_archivo.grid(row=6)
@@ -138,16 +140,38 @@ def cambia_ventana():
                 texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)        
             else:
                 texto = Label(root2, text = actividad.get(), bg = "lightblue", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)
+
+            # Al lado derecho, estará el botón verde que sirve para guardar
+    # los datos ingresados en un archivo .csv
+
             #Finalmente, el botón de asignar, lo que hace es enviar
             #la actividad ingresada al bloque correspondiente.
+
         boton_enviar=Button(ventana_entrada,text="Asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
         boton_enviar.grid(row=2)
+        boton_guardar_archivo = Button(ventana_entrada, text = "Guardar", bg = "green",\
+                                       font = ("Arial", 11), padx = 16, command = boton_guardar).grid(row = 8)
 
     #Primero se creará la ventana en donde se visualizará el horario
     #Esta tendrá un tamaño de 700x665 pixeles.
     root2 =Toplevel()
     root2.title("Horario")
     root2.geometry("700x665")
+    
+    def boton_guardar():
+        with open(entrada_archivo.get() + ".csv","w") as calendario:
+        # Hacemos una listas de listas que extraigan los datos del archivo
+            lista = []
+            for fila in calendario:
+                lista.append(fila.strip().split(";"))
+        i = 1
+        while i < len(lista):
+            j = 1
+            while j < len(lista[1]):
+                texto = Label(root2, text = lista[i][j], bg = "lightgreen",\
+                              font = ("Arial", 8)).grid(row = i, column = j)
+                j = j + 1
+            i = i + 1
 
     #Asignación de días, se mostrará el nombre del día a lo largo de la primera fila
     #Para eso se crearán distintos  rectángulos del mismo tamaño, alternando
@@ -417,10 +441,6 @@ def cambia_ventana():
     # Al lado izquierdo estará el botón rojo de cerrar el programa
     boton_cerrar = Button(root2, text = "Cerrar", command = root.destroy, bg = "red", \
                           fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 2)
-    # Al lado derecho, estará el botón verde que sirve para guardar
-    # los datos ingresados en un archivo .csv
-    boton_guardar_archivo = Button(root2, text = "Guardar", bg = "green", \
-                                   font = ("Arial", 11), padx = 16).grid(row = 7, column = 4)
     
 # DEFINICIÓN DE CONSTANTES
 # De momento, en nuestro programa no se definió ninguna constante
