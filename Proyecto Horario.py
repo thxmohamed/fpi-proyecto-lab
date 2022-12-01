@@ -135,12 +135,48 @@ def cambia_ventana():
         boton_enviar=Button(ventana_entrada,text="Asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
         boton_enviar.grid(row=2)
 
-    # Asignacion de bloques, se visualizarán en la columna de la izquierda e indicarán el bloque
-    # horario correspondiente.
+    #Asignación de días, se mostrará el nombre del día a lo largo de la primera fila
     root2 =Toplevel()
     root2.title("Horario")
     root2.geometry("700x665")
-  
+
+    lunes = Frame(root2)
+    textoL = Label(root2, text = "Lunes", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 1)
+    lunes.config(bg = "orange", width = 100, height =  30)
+    lunes.grid(row = 0, column = 1)
+
+    martes = Frame(root2)
+    textoM = Label(root2, text = "Martes", bg = "darkorange", font = ("Arial",14)).grid(row = 0, column = 2)
+    martes.config(bg = "darkorange", width = 100, height = 30)
+    martes.grid(row = 0, column =2)
+
+    miercoles = Frame(root2)
+    textoW = Label(root2, text = "Miércoles", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 3)
+    miercoles.config(bg = "orange", width = 100, height = 30)
+    miercoles.grid(row = 0, column =3)
+
+    jueves = Frame(root2)
+    textoJ = Label(root2, text = "Jueves", bg = "darkorange", font = ("Arial",14)).grid(row = 0, column = 4)
+    jueves.config(bg = "darkorange", width = 100, height = 30)
+    jueves.grid(row = 0, column =4)
+
+    viernes = Frame(root2)
+    textoV = Label(root2, text = "Viernes", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 5)
+    viernes.config(bg = "orange", width = 100, height = 30)
+    viernes.grid(row = 0, column =5)
+
+    sabado = Frame(root2)
+    textoV = Label(root2, text = "Sábado", bg = "darkorange", font = ("Arial",14)).grid(row = 0, column = 6)
+    sabado.config(bg = "darkorange", width = 100, height = 30)
+    sabado.grid(row = 0, column =6)
+
+    # Asignacion de bloques, se visualizarán en la columna de la izquierda e indicarán el bloque
+    # horario correspondiente.
+
+    bloque0 = Frame(root2)
+    bloque0.config(bg = "darkorange", width = 100, height = 30)
+    bloque0.grid(row = 0, column = 0)
+    
     bloque1 = Frame(root2)
     textoB1 = Label(root2, text = "Bloque 1\n08:15-09:35", bg = "orange", font = ("Arial",12)).grid(row = 1, column = 0)
     bloque1.config(bg = "orange", width = 100, height =  100)
@@ -354,39 +390,7 @@ def cambia_ventana():
     sabado6 = Frame(root2)
     sabado6.config(bg = "lightgreen", width = 100, height = 100)
     sabado6.grid(row = 6, column = 6)
-
-    #Asignación de días, se mostrará el nombre del día a lo largo de la primera fila
-
-    lunes = Frame(root2)
-    textoL = Label(root2, text = "Lunes", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 1)
-    lunes.config(bg = "orange", width = 100, height =  30)
-    lunes.grid(row = 0, column = 1)
-
-    martes = Frame(root2)
-    textoM = Label(root2, text = "Martes", bg = "darkorange", font = ("Arial",14)).grid(row = 0, column = 2)
-    martes.config(bg = "darkorange", width = 100, height = 30)
-    martes.grid(row = 0, column =2)
-
-    miercoles = Frame(root2)
-    textoW = Label(root2, text = "Miércoles", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 3)
-    miercoles.config(bg = "orange", width = 100, height = 30)
-    miercoles.grid(row = 0, column =3)
-
-    jueves = Frame(root2)
-    textoJ = Label(root2, text = "Jueves", bg = "darkorange", font = ("Arial",14)).grid(row = 0, column = 4)
-    jueves.config(bg = "darkorange", width = 100, height = 30)
-    jueves.grid(row = 0, column =4)
-
-    viernes = Frame(root2)
-    textoV = Label(root2, text = "Viernes", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 5)
-    viernes.config(bg = "orange", width = 100, height = 30)
-    viernes.grid(row = 0, column =5)
-
-    sabado = Frame(root2)
-    textoV = Label(root2, text = "Sábado", bg = "darkorange", font = ("Arial",14)).grid(row = 0, column = 6)
-    sabado.config(bg = "darkorange", width = 100, height = 30)
-    sabado.grid(row = 0, column =6)
-
+    
     # Definición del botón, al hacer click, este llevará a la ventana para ingresar actividad
     boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5,\
                    pady= 2.1, command = ventana_entra_act).grid(row=7, column = 3)
@@ -416,7 +420,6 @@ texto = Label(root,
               "mejorar tu rendimiento académico\n y lograr optimizar tu tiempo,\npara esto debes pulsar el botón de abajo,\n"
               "y cuando se abra la nueva ventana\ndebes pulsar el botón de la esquina\nsuperior izquierda",
               bg = "pink")
-
 
 marco_principal1.grid(row=0, column=0)
 texto.grid(row=0, column=0)
