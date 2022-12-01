@@ -85,6 +85,7 @@ def cambia_ventana():
                 lista = []
                 for fila in calendario:
                     lista.append(fila.strip().split(";"))
+            # Ponemos los datos en el calendario
             i = 1
             while i < len(lista):
                 j = 1
