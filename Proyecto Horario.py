@@ -95,8 +95,12 @@ def cambia_ventana():
             while i < len(lista):
                 j = 1
                 while j < len(lista[1]):
-                    texto = Label(root2, text = lista[i][j], bg = "lightgreen",
-                                  font = ("Arial", 8)).grid(row = i, column = j)
+                    if i % 2 == 1 and j % 2 == 1:                
+                        texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i, column = j)
+                    elif i % 2 == 0 and j % 2 == 0:
+                        texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i, column = j)
+                    else:
+                        texto = Label(root2, text = actividad.get(), bg = "lightblue", font = ("Arial", 8)).grid(row = i, column = j)
                     j = j + 1
                 i = i + 1
         boton_subir=Button(ventana_entrada,text = "Subir Archivo",command=boton_subir,bg = "green", font = ("Arial", 12))        
