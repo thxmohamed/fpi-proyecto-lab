@@ -24,22 +24,21 @@ from tkinter import *
 from tkinter.messagebox import *
 
 # DEFINICIÓN DE FUNCIONES
-
+# Definiremos la función que leerá el horario
 # Definición de la función que creará la ventana en la que será posible visualizar el horario.
-
 def cambia_ventana():
     root.withdraw()
 #Esta segunda función creará la ventana dedicada a ingresar las actividades.
     def ventana_entra_act():
-        ventana_entrada=Toplevel()
+        ventana_entrada = Toplevel()
         ventana_entrada.title("Agregar Actividad")
-        ventana_entrada.geometry("300x450")
+        ventana_entrada.geometry("300x460")
         # entrada es la variable que define el cuadro de texto en donde se ingresará el bloque
 
         entrada=Entry(ventana_entrada, bg = "aquamarine", fg = "black", width =49)
 
         marco1 = Frame(ventana_entrada)
-        marco1.config(bg = "lightgreen", width = 300, height = 100)
+        marco1.config(bg = "lightgreen", width = 300, height = 70)
         marco1.grid(row = 0, column = 0)
 
         marco2 = Frame(ventana_entrada)
@@ -47,32 +46,68 @@ def cambia_ventana():
         marco2.grid(row = 2, column = 0)
 
         marco3 = Frame(ventana_entrada)
-        marco3.config(bg = "lightgreen", width = 300, height = 130)
+        marco3.config(bg = "lightgreen", width = 300, height = 70)
         marco3.grid(row = 3, column = 0)
 
         marco4 = Frame(ventana_entrada)
-        marco4.config(bg = "lightgreen", width = 300, height = 150)
+        marco4.config(bg = "lightgreen", width = 300, height = 70)
         marco4.grid(row = 5, column = 0)
+
+        marco5 = Frame(ventana_entrada)
+        marco5.config(bg = "lightgreen", width = 300, height = 70)
+        marco5.grid(row = 6, column = 0)
+        
+        marco6 = Frame(ventana_entrada)
+        marco6.config(bg = "lightgreen", width = 300, height = 95)
+        marco6.grid(row = 7, column = 0)
+
+        
         # La variable llamada bloque se trata de una explicación al usuario de lo 
         # que tiene que ingresar en el cuadro de texto y en qué formato hacerlo
         
-        bloque = Label(ventana_entrada, text = "Ingrese el Bloque separado por un espacio. Ej: (L 5)", bg = "lightgreen", font = ("Arial", 9)).grid(row = 0, column = 0)
+        bloque = Label(ventana_entrada, text = "Ingrese el Bloque separado por un espacio. Ej: (L 5)",
+                       bg = "lightgreen", font = ("Arial", 9)).grid(row = 0, column = 0)
         entrada.grid(row=1)
         nueva_entrada=str(entrada.get())
         # una explicación de lo que tiene que ingresar el usuario en el segundo cuadro de texto
         explicacion = Label(ventana_entrada, text = "Ingrese su actividad, tras esto,\n"
-                            "pulse en asignar", bg = "lightgreen", font = ("Arial", 9)).grid(row = 3, column = 0)
+                            "pulse en asignar", bg = "lightgreen",
+                            font = ("Arial", 9)).grid(row = 3, column = 0)
 
         actividad = Entry(ventana_entrada, bg = "aquamarine", fg = "black", width = 49)
         actividad.grid(row=4)
-
+        # otra explicación para que el usuario ingrese el nombre del archivo csv que va
+        #a usar para su horario
+        explicacion_archivo = Label(ventana_entrada, text = "Ingrese el nombre del archivo csv \n"
+                            "que va a usar para su horario", bg = "lightgreen",
+                            font = ("Arial", 9)).grid(row = 5, column = 0)
+        entrada_archivo = Entry(ventana_entrada, bg = "aquamarine", fg = "black", width = 49)
+        entrada_archivo.grid(row=6)
         # Aquí se define el botón de "asignar", al pulsar este botón, la actividad ingresada se
         # ubicará en el bloque ingresado
-
+        def boton_subir():
+            with open(entrada_archivo.get() + ".csv","r") as calendario:
+            # Hacemos una listas de listas que extraigan los datos del archivo
+                lista = []
+                for fila in calendario:
+                    lista.append(fila.strip().split(";"))
+            i = 1
+            while i < len(lista):
+                j = 1
+                while j < len(lista[1]):
+                    texto = Label(root2, text = lista[i][j], bg = "lightgreen",
+                                  font = ("Arial", 8)).grid(row = i, column = j)
+                    j = j + 1
+                i = i + 1
+        boton_subir=Button(ventana_entrada,text = "Subir Archivo",command=boton_subir,bg = "green", font = ("Arial", 12))        
+        boton_subir.grid(row = 7)
+        
         def boton_enviar():
             lista_entrada = str(entrada.get()).split(" ")       
             letras = ["L","M","W","J","V","S"]
             numeros = ["1","2","3","4","5","6"]
+            #El siguiente ciclo verificará si la entrada que ingresó el usuario
+            #tiene el formato correcto
             verificador = 0
             switch = True
             while verificador < len(lista_entrada) and switch:
@@ -100,14 +135,11 @@ def cambia_ventana():
         boton_enviar=Button(ventana_entrada,text="Asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
         boton_enviar.grid(row=2)
 
-        boton_cerrar = Button(ventana_entrada, text = "Finalizar Programa", command = root.destroy, bg = "red",
-                              fg = "white", font = ("Arial", 12)).grid(row = 5)
-
     # Asignacion de bloques, se visualizarán en la columna de la izquierda e indicarán el bloque
     # horario correspondiente.
     root2 =Toplevel()
     root2.title("Horario")
-    root2.geometry("700x630")
+    root2.geometry("700x665")
   
     bloque1 = Frame(root2)
     textoB1 = Label(root2, text = "Bloque 1", bg = "orange", font = ("Arial",14)).grid(row = 1, column = 0)
@@ -139,6 +171,36 @@ def cambia_ventana():
     bloque6.config(bg = "darkorange", width = 100, height = 100)
     bloque6.grid(row = 6, column =0)
 
+    #Aqui se mostrará la última fila, en donde se agregarán los botones
+    
+    fila_botones = Frame(root2)
+    fila_botones.config(bg = "orange", width = 100, height = 35)
+    fila_botones.grid(row = 7, column = 0)
+    
+    ultima1 = Frame(root2)
+    ultima1.config(bg = "lightgray",width = 100, height = 35)
+    ultima1.grid(row = 7, column = 1)
+
+    ultima2 = Frame(root2)
+    ultima2.config(bg = "lightgray",width = 100, height = 35)
+    ultima2.grid(row = 7, column = 2)
+    
+    ultima3 = Frame(root2)
+    ultima3.config(bg = "lightgray",width = 100, height = 35)
+    ultima3.grid(row = 7, column = 3)
+    
+    ultima4 = Frame(root2)
+    ultima4.config(bg = "lightgray",width = 100, height = 35)
+    ultima4.grid(row = 7, column = 4)
+    
+    ultima5 = Frame(root2)
+    ultima5.config(bg = "lightgray",width = 100, height = 35)
+    ultima5.grid(row = 7, column = 5)
+
+    ultima6 = Frame(root2)
+    ultima6.config(bg = "lightgray",width = 100, height = 35)
+    ultima6.grid(row = 7, column = 6)
+    
     # Aquí abajo se mostrará cada bloque de cada día correspondiente, generando como un sistema
     # de coordenadas.
 
@@ -326,7 +388,14 @@ def cambia_ventana():
     sabado.grid(row = 0, column =6)
 
     # Definición del botón, al hacer click, este llevará a la ventana para ingresar actividad
-    boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5, pady= 2.1, command = ventana_entra_act).grid(row=0, column = 0)
+    boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5,\
+                   pady= 2.1, command = ventana_entra_act).grid(row=7, column = 3)
+    
+    boton_cerrar = Button(root2, text = "Cerrar", command = root.destroy, bg = "red", \
+                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 2)
+    
+    boton_guardar_archivo = Button(root2, text = "Guardar", bg = "green", \
+                                   font = ("Arial", 11), padx = 16).grid(row = 7, column = 4)
     
 # DEFINICIÓN DE CONSTANTES
 # De momento, en nuestro programa no se definió ninguna constante
@@ -347,7 +416,6 @@ texto = Label(root,
               "mejorar tu rendimiento académico\n y lograr optimizar tu tiempo,\npara esto debes pulsar el botón de abajo,\n"
               "y cuando se abra la nueva ventana\ndebes pulsar el botón de la esquina\nsuperior izquierda",
               bg = "pink")
-
 
 marco_principal1.grid(row=0, column=0)
 texto.grid(row=0, column=0)
