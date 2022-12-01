@@ -77,9 +77,9 @@ def cambia_ventana():
         actividad = Entry(ventana_entrada, bg = "aquamarine", fg = "black", width = 49)
         actividad.grid(row=4)
         # otra explicación para que el usuario ingrese el nombre del archivo csv que va
-        #a usar para su horario
+        # a usar para su horario
         explicacion_archivo = Label(ventana_entrada, text = "Ingrese el nombre del archivo csv \n"
-                            "que va a usar para su horario", bg = "lightgreen",
+                            "que va a usar para su horario (sin formato)", bg = "lightgreen",
                             font = ("Arial", 9)).grid(row = 5, column = 0)
         entrada_archivo = Entry(ventana_entrada, bg = "aquamarine", fg = "black", width = 49)
         entrada_archivo.grid(row=6)
@@ -95,12 +95,8 @@ def cambia_ventana():
             while i < len(lista):
                 j = 1
                 while j < len(lista[1]):
-                    if i % 2 == 1 and j % 2 == 1:                
-                        texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i, column = j)
-                    elif i % 2 == 0 and j % 2 == 0:
-                        texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i, column = j)
-                    else:
-                        texto = Label(root2, text = actividad.get(), bg = "lightblue", font = ("Arial", 8)).grid(row = i, column = j)
+                    texto = Label(root2, text = lista[i][j], bg = "lightgreen",
+                                  font = ("Arial", 8)).grid(row = i, column = j)
                     j = j + 1
                 i = i + 1
         boton_subir=Button(ventana_entrada,text = "Subir Archivo",command=boton_subir,bg = "green", font = ("Arial", 12))        
@@ -111,7 +107,10 @@ def cambia_ventana():
             letras = ["L","M","W","J","V","S"]
             numeros = ["1","2","3","4","5","6"]
             #El siguiente ciclo verificará si la entrada que ingresó el usuario
-            #tiene el formato correcto
+            #tiene el formato correcto, utilizando una variable llamada "switch"
+            #si esta variable pasa de verdadero a falso y no vuelve a
+            #verdadero, significa que el usuario ingresó una entrada incorrecta,
+            #por lo que tirará un mensaje de error por pantalla.
             verificador = 0
             switch = True
             while verificador < len(lista_entrada) and switch:
@@ -122,27 +121,37 @@ def cambia_ventana():
                     switch = True
                 else:
                     showinfo(message = "Ingrese los horarios en un formato correcto", title = "Error")
+
+            #Este ciclo for lo que hace es agregar la actividad ingresada
+            #por el usuario al bloque que corresponda.
             for dia in letras:
                 if dia == lista_entrada[0]:
                     j = letras.index(dia)
             for bloque in numeros:
                 if bloque == lista_entrada[1]:
                     i = numeros.index(bloque)
-
+            #Aquí se hace una comprobación del color de fondo de debe
+            #tener cada texto, dependiendo del bloque en el que esté.
             if (i +1) % 2 == 1 and (j + 1) % 2 == 1:                
                 texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)
             elif (i + 1) % 2 == 0 and (j + 1) % 2 == 0:
                 texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)        
             else:
                 texto = Label(root2, text = actividad.get(), bg = "lightblue", font = ("Arial", 8)).grid(row = i + 1, column = j + 1)
-            
+            #Finalmente, el botón de asignar, lo que hace es enviar
+            #la actividad ingresada al bloque correspondiente.
         boton_enviar=Button(ventana_entrada,text="Asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
         boton_enviar.grid(row=2)
 
-    #Asignación de días, se mostrará el nombre del día a lo largo de la primera fila
+    #Primero se creará la ventana en donde se visualizará el horario
+    #Esta tendrá un tamaño de 700x665 pixeles.
     root2 =Toplevel()
     root2.title("Horario")
     root2.geometry("700x665")
+
+    #Asignación de días, se mostrará el nombre del día a lo largo de la primera fila
+    #Para eso se crearán distintos  rectángulos del mismo tamaño, alternando
+    #sus colores en un patrón de "ajedrez"
 
     lunes = Frame(root2)
     textoL = Label(root2, text = "Lunes", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 1)
@@ -175,7 +184,8 @@ def cambia_ventana():
     sabado.grid(row = 0, column =6)
 
     # Asignacion de bloques, se visualizarán en la columna de la izquierda e indicarán el bloque
-    # horario correspondiente.
+    # horario correspondiente, para esto se harán varios cuadrados y se irán colocando para
+    # abajo
 
     bloque0 = Frame(root2)
     bloque0.config(bg = "darkorange", width = 100, height = 30)
@@ -212,6 +222,8 @@ def cambia_ventana():
     bloque6.grid(row = 6, column =0)
 
     #Aqui se mostrará la última fila, en donde se agregarán los botones
+    #Esta fila se agrerga más que nada por estética, para que no se vea
+    #blanco al fondo de la ventana.
     
     fila_botones = Frame(root2)
     fila_botones.config(bg = "orange", width = 100, height = 35)
@@ -241,8 +253,10 @@ def cambia_ventana():
     ultima6.config(bg = "lightgray",width = 100, height = 35)
     ultima6.grid(row = 7, column = 6)
     
-    # Aquí abajo se mostrará cada bloque de cada día correspondiente, generando como un sistema
-    # de coordenadas.
+    # Aquí abajo se mostrará cada bloque de cada día correspondiente,
+    # generando como un sistema de coordenadas, se irán creando 
+    # varios cuadrados vacíos, que también tendrán
+    # un patrón de ajedrez.
 
     #Lunes
     
@@ -395,13 +409,16 @@ def cambia_ventana():
     sabado6.config(bg = "lightgreen", width = 100, height = 100)
     sabado6.grid(row = 6, column = 6)
     
-    # Definición del botón, al hacer click, este llevará a la ventana para ingresar actividad
+    # Los botones, en el medio, aparecerá un botón de color
+    # cyan, que se encargará de llevar a una nueva ventana, en
+    # donde el usuario podrá ingresar sus actividades.
     boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5,\
                    pady= 2.1, command = ventana_entra_act).grid(row=7, column = 3)
-    
+    # Al lado izquierdo estará el botón rojo de cerrar el programa
     boton_cerrar = Button(root2, text = "Cerrar", command = root.destroy, bg = "red", \
                           fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 2)
-    
+    # Al lado derecho, estará el botón verde que sirve para guardar
+    # los datos ingresados en un archivo .csv
     boton_guardar_archivo = Button(root2, text = "Guardar", bg = "green", \
                                    font = ("Arial", 11), padx = 16).grid(row = 7, column = 4)
     
@@ -412,7 +429,8 @@ def cambia_ventana():
  
 # ENTRADA
 
-# La entrada está considerada dentro de la función ventana_entra_act(), definida más arriba   
+# La entrada está considerada dentro de la función ventana_entra_act(), definida más arriba.
+
 # Ventana inicial, incluye una pequeña explicación de lo que hace el programa y un botón que lleva a la ventana del horario
 
 # PROCESAMIENTO
