@@ -142,32 +142,32 @@ def cambia_ventana():
     root2.geometry("700x665")
   
     bloque1 = Frame(root2)
-    textoB1 = Label(root2, text = "Bloque 1", bg = "orange", font = ("Arial",14)).grid(row = 1, column = 0)
+    textoB1 = Label(root2, text = "Bloque 1\n08:15-09:35", bg = "orange", font = ("Arial",12)).grid(row = 1, column = 0)
     bloque1.config(bg = "orange", width = 100, height =  100)
     bloque1.grid(row = 1, column = 0)
 
     bloque2 = Frame(root2)
-    textoB2 = Label(root2, text = "Bloque 2", bg = "darkorange", font = ("Arial",14)).grid(row = 2, column = 0)
+    textoB2 = Label(root2, text = "Bloque 2\n09:50-11:10", bg = "darkorange", font = ("Arial",12)).grid(row = 2, column = 0)
     bloque2.config(bg = "darkorange", width = 100, height = 100)
     bloque2.grid(row = 2, column =0)
 
     bloque3 = Frame(root2)
-    textoB3 = Label(root2, text = "Bloque 3", bg = "orange", font = ("Arial",14)).grid(row = 3, column = 0)
+    textoB3 = Label(root2, text = "Bloque 3\n11:25-12:45", bg = "orange", font = ("Arial",12)).grid(row = 3, column = 0)
     bloque3.config(bg = "orange", width = 100, height = 100)
     bloque3.grid(row = 3, column =0)
 
     bloque4 = Frame(root2)
-    textoB4 = Label(root2, text = "Bloque 4", bg = "darkorange", font = ("Arial",14)).grid(row = 4, column = 0)
+    textoB4 = Label(root2, text = "Bloque 4\n13:45-15:05", bg = "darkorange", font = ("Arial",12)).grid(row = 4, column = 0)
     bloque4.config(bg = "darkorange", width = 100, height = 100)
     bloque4.grid(row = 4, column =0)
 
     bloque5 = Frame(root2)
-    textoB5 = Label(root2, text = "Bloque 5", bg = "orange", font = ("Arial",14)).grid(row = 5, column = 0)
+    textoB5 = Label(root2, text = "Bloque 5\n15:20-16:40", bg = "orange", font = ("Arial",12)).grid(row = 5, column = 0)
     bloque5.config(bg = "orange", width = 100, height = 100)
     bloque5.grid(row = 5, column =0)
 
     bloque6 = Frame(root2)
-    textoB6 = Label(root2, text = "Bloque 6", bg = "darkorange", font = ("Arial",14)).grid(row = 6, column = 0)
+    textoB6 = Label(root2, text = "Bloque 6\n16:55-18:15", bg = "darkorange", font = ("Arial",12)).grid(row = 6, column = 0)
     bloque6.config(bg = "darkorange", width = 100, height = 100)
     bloque6.grid(row = 6, column =0)
 
