@@ -24,7 +24,6 @@ from tkinter import *
 from tkinter.messagebox import *
 
 # DEFINICIÓN DE FUNCIONES
-# Definiremos la función que leerá el horario
 # Definición de la función que creará la ventana en la que será posible visualizar el horario.
 def cambia_ventana():
     root.withdraw()
@@ -79,6 +78,7 @@ def cambia_ventana():
         entrada_archivo.grid(row=7)
         # Aquí se define el botón de "asignar", al pulsar este botón, la actividad ingresada se
         # ubicará en el bloque ingresado
+        # Definiremos la función que leerá el archivo
         def boton_subir():
             with open(entrada_archivo.get() + ".csv","r") as calendario:
             # Hacemos una listas de listas que extraigan los datos del archivo
