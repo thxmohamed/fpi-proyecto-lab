@@ -97,7 +97,10 @@ def cambia_ventana():
             while i < len(lista):
                 j = 1
                 while j < len(lista[1]):
-
+            # Esta de abajo es una comprobación meramente estética, para que los
+            # colores del fondo coincidan con los colores del texto, mientras que el ciclo
+            # lo que hace es ir agregando posición a posición la actividad del archivo
+            # correspondiente.
                     if (i ) % 2 == 1 and (j) % 2 == 1:                
                         texto = Label(root2, text = lista[i][j], bg = "lightgreen",\
                                   font = ("Arial", 8)).grid(row = i, column = j)
@@ -110,8 +113,16 @@ def cambia_ventana():
                                   font = ("Arial", 8)).grid(row = i, column = j)
                     j = j + 1
                 i = i + 1
+
+        # El botón que sirve para subir un archivo al programa, utilizará la función de arriba
         boton_subir=Button(ventana_entrada,text = "Subir Archivo",command=boton_subir,bg = "green", font = ("Arial", 12))        
         boton_subir.grid(row = 7)
+
+        # Estas son listas de 7 strings que se definen para tener un lugar en donde
+        # guardar los datos ingresados por el usuario, la primera columna representa
+        # los bloques del día predefinidos por nosotros, y las siguientes 6 posiciones son
+        # las actividades de cada día en el bloque correspondiente, siendo la posición 1 de
+        # cada lista el lunes, la pos 2 el martes, y así hasta la pos 6 que es el sábado.
         
         lista_bloque1=["Bloque 1","","","","","",""]
         lista_bloque2=["Bloque 2","","","","","",""]
@@ -121,7 +132,10 @@ def cambia_ventana():
         lista_bloque6=["Bloque 6","","","","","",""]
         
         def boton_enviar():
-
+            # Aquí definimos una constante, que es una lista de 7 elementos, siendo el
+            # primero (pos 0) un string vacío, y los siguientes los días de la semana, esto
+            # con el fin de guardarlo en un archivo.
+            
             LISTA_DIAS = ["","Lunes", "Martes", "Miércoles","Jueves", "Viernes", "Sábado"]
             lista_entrada = str(entrada.get()).split(" ")       
             letras = ["L","M","W","J","V","S"]
@@ -131,6 +145,7 @@ def cambia_ventana():
             #si esta variable pasa de verdadero a falso y no vuelve a
             #verdadero, significa que el usuario ingresó una entrada incorrecta,
             #por lo que tirará un mensaje de error por pantalla.
+            
             verificador = 0
             switch = True
             while verificador < len(lista_entrada) and switch:
@@ -142,15 +157,18 @@ def cambia_ventana():
                 else:
                     showinfo(message = "Ingrese los horarios en un formato correcto", title = "Error")
 
-            #Este ciclo for lo que hace es agregar la actividad ingresada
-            #por el usuario al bloque que corresponda.
+            # Este ciclo for lo que hace es agregar la actividad ingresada
+            # por el usuario al bloque que corresponda.
             for dia in letras:
                 if dia == lista_entrada[0]:
                     i = letras.index(dia) + 1
             for bloque in numeros:
                 if bloque == lista_entrada[1]:
                     j = numeros.index(bloque) + 1
-    
+            # Este ciclo lo que hace es almacenar las actividades ingresadas
+            # en la lista correspondiente de las 6 que fueron definidas
+            # con anterioridad
+            
             if j==1:
                lista_bloque1[i]=actividad.get()
             elif j==2:
@@ -163,8 +181,11 @@ def cambia_ventana():
                 lista_bloque5[i]=actividad.get()
             elif j==6:
                 lista_bloque6[i]=actividad.get()
-
+        # Esta de aquí es la función para el botón guardar
             def boton_guardar():
+
+                # Se hace un ciclo por cada una de las 7 listas definidas anteriormente
+                # con el fin de agrupar todo en un único string separado por ";"
                 i = 0
                 dias_csv = ""
                 while i < len(LISTA_DIAS):
@@ -206,21 +227,20 @@ def cambia_ventana():
                 while i< len(lista_bloque6):
                     bloque6_csv = bloque6_csv + lista_bloque6[i] + ";"
                     i += 1
+
+                # Aquí simplemente se abre el archivo que ingresa el usuario, y se hace
+                # la comprobación de en qué fila y en qué columna se encuentra, dependiendo
+                # del bloque ingresado (M 4, W 6, etc).
                 
                 with open(entrada_archivo.get() + ".csv","w") as calendario:
                     lista_entrada = str(entrada.get()).split(" ")
                     letras = ["L","M","W","J","V","S"]
                     numeros = ["1","2","3","4","5","6"]
 
+                # Este es el string que va a ser guardado en el archivo .csv, separado por saltos
+                #de linea "\n"
                     horario_a_guardar = dias_csv + "\n" + bloque1_csv + "\n" + bloque2_csv + "\n" \
                                         +  bloque3_csv + "\n" + bloque4_csv + "\n" + bloque5_csv + "\n"  + bloque6_csv
-                    
-                    for dia in letras:
-                        if dia == lista_entrada[0]:
-                            j = letras.index(dia) + 1
-                    for bloque in numeros:
-                        if bloque == lista_entrada[1]:
-                            i = numeros.index(bloque) + 1
                     calendario.write(horario_a_guardar)
 
             boton_guardar_archivo = Button(ventana_entrada, text = "Guardar", bg = "green",\
