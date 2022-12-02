@@ -22,7 +22,6 @@
 
 from tkinter import *
 from tkinter.messagebox import *
-import pandas as pd
 # DEFINICIÓN DE FUNCIONES
 # Definiremos la función que leerá el horario
 # Definición de la función que creará la ventana en la que será posible visualizar el horario.
@@ -98,20 +97,32 @@ def cambia_ventana():
             while i < len(lista):
                 j = 1
                 while j < len(lista[1]):
-                    texto = Label(root2, text = lista[i][j], bg = "lightgreen",
+
+                    if (i ) % 2 == 1 and (j) % 2 == 1:                
+                        texto = Label(root2, text = lista[i][j], bg = "lightgreen",\
+                                  font = ("Arial", 8)).grid(row = i, column = j)
+                        
+                    elif (i ) % 2 == 0 and (j ) % 2 == 0:
+                        texto = Label(root2, text = lista[i][j], bg = "lightgreen",\
+                                  font = ("Arial", 8)).grid(row = i, column = j)      
+                    else:
+                        texto = Label(root2, text = lista[i][j], bg = "lightblue",\
                                   font = ("Arial", 8)).grid(row = i, column = j)
                     j = j + 1
                 i = i + 1
         boton_subir=Button(ventana_entrada,text = "Subir Archivo",command=boton_subir,bg = "green", font = ("Arial", 12))        
         boton_subir.grid(row = 7)
         
-        lista_lunes=["","","","","",""]
-        lista_martes=["","","","","",""]
-        lista_miercoles=["","","","","",""]
-        lista_jueves=["","","","","",""]
-        lista_viernes=["","","","","",""]
-        lista_sabado=["","","","","",""]
+        lista_bloque1=["Bloque 1","","","","","",""]
+        lista_bloque2=["Bloque 2","","","","","",""]
+        lista_bloque3=["Bloque 3","","","","","",""]
+        lista_bloque4=["Bloque 4","","","","","",""]
+        lista_bloque5=["Bloque 5","","","","","",""]
+        lista_bloque6=["Bloque 6","","","","","",""]
+        
         def boton_enviar():
+
+            LISTA_DIAS = ["","Lunes", "Martes", "Miércoles","Jueves", "Viernes", "Sábado"]
             lista_entrada = str(entrada.get()).split(" ")       
             letras = ["L","M","W","J","V","S"]
             numeros = ["1","2","3","4","5","6"]
@@ -135,57 +146,94 @@ def cambia_ventana():
             #por el usuario al bloque que corresponda.
             for dia in letras:
                 if dia == lista_entrada[0]:
-                    j = letras.index(dia)+1
+                    i = letras.index(dia) + 1
             for bloque in numeros:
                 if bloque == lista_entrada[1]:
-                    i = numeros.index(bloque)
-       
-
-    
+                    j = numeros.index(bloque) + 1
     
             if j==1:
-               lista_lunes[i]=actividad.get()
-            if j==2:
-                lista_martes[i]=actividad.get()
-            if j==3:
-                lista_miercoles[i]=actividad.get()
-            if j==4:
-                lista_jueves[i]=actividad.get()
-            if j==5:
-                lista_viernes[i]=actividad.get()
-            if j==6:
-                lista_sabado[i]=actividad.get()
-            print(lista_lunes,lista_martes,lista_sabado,lista_miercoles,lista_viernes,lista_jueves)
-
-
+               lista_bloque1[i]=actividad.get()
+            elif j==2:
+                lista_bloque2[i]=actividad.get()
+            elif j==3:
+                lista_bloque3[i]=actividad.get()
+            elif j==4:
+                lista_bloque4[i]=actividad.get()
+            elif j==5:
+                lista_bloque5[i]=actividad.get()
+            elif j==6:
+                lista_bloque6[i]=actividad.get()
 
             def boton_guardar():
+                i = 0
+                dias_csv = ""
+                while i < len(LISTA_DIAS):
+                    dias_csv = dias_csv + LISTA_DIAS[i] + ";"
+                    i += 1
+                
+                i = 0
+                bloque1_csv = ""
+                while i< len(lista_bloque1):
+                    bloque1_csv = bloque1_csv + lista_bloque1[i] + ";"
+                    i += 1
 
-                horario = {"Lunes":lista_lunes,
-                            "Martes":lista_martes,
-                            "Miercoles":lista_miercoles,
-                            "Jueves":lista_jueves,
-                            "Viernes":lista_viernes,
-                            "Sabado":lista_sabado}
-                df = pd.DataFrame(horario, index = ["Bloque 1","Bloque 2","Bloque 3","Bloque 4","Bloque 5","Bloque 6"])
-                df.to_csv("horario.csv")
-                print(df)
+                i = 0
+                bloque2_csv = ""
+                while i< len(lista_bloque2):
+                    bloque2_csv = bloque2_csv + lista_bloque2[i] + ";"
+                    i += 1
+
+                i = 0
+                bloque3_csv = ""
+                while i< len(lista_bloque3):
+                    bloque3_csv = bloque3_csv + lista_bloque3[i] + ";"
+                    i += 1
+
+                i = 0
+                bloque4_csv = ""
+                while i< len(lista_bloque4):
+                    bloque4_csv = bloque4_csv + lista_bloque4[i] + ";"
+                    i += 1
+                    
+                i = 0
+                bloque5_csv = ""
+                while i< len(lista_bloque5):
+                    bloque5_csv = bloque5_csv + lista_bloque5[i] + ";"
+                    i += 1
+                    
+                i = 0
+                bloque6_csv = ""
+                while i< len(lista_bloque6):
+                    bloque6_csv = bloque6_csv + lista_bloque6[i] + ";"
+                    i += 1
+                
+                with open(entrada_archivo.get() + ".csv","w") as calendario:
+                    lista_entrada = str(entrada.get()).split(" ")
+                    letras = ["L","M","W","J","V","S"]
+                    numeros = ["1","2","3","4","5","6"]
+
+                    horario_a_guardar = dias_csv + "\n" + bloque1_csv + "\n" + bloque2_csv + "\n" \
+                                        +  bloque3_csv + "\n" + bloque4_csv + "\n" + bloque5_csv + "\n"  + bloque6_csv
+                    
+                    for dia in letras:
+                        if dia == lista_entrada[0]:
+                            j = letras.index(dia) + 1
+                    for bloque in numeros:
+                        if bloque == lista_entrada[1]:
+                            i = numeros.index(bloque) + 1
+                    calendario.write(horario_a_guardar)
 
             boton_guardar_archivo = Button(ventana_entrada, text = "Guardar", bg = "green",\
                                        font = ("Arial", 11), padx = 16, command = boton_guardar).grid(row = 8)
-
-
-
-
-
+            
             #Aquí se hace una comprobación del color de fondo de debe
             #tener cada texto, dependiendo del bloque en el que esté.
-            if (i +1) % 2 == 1 and (j) % 2 == 1:                
-                texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i + 1, column = j )
-            elif (i + 1) % 2 == 0 and (j ) % 2 == 0:
-                texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = i + 1, column = j )        
+            if (i ) % 2 == 1 and (j) % 2 == 1:                
+                texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = j, column = i )
+            elif (i ) % 2 == 0 and (j ) % 2 == 0:
+                texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = j , column = i )        
             else:
-                texto = Label(root2, text = actividad.get(), bg = "lightblue", font = ("Arial", 8)).grid(row = i + 1, column = j )
+                texto = Label(root2, text = actividad.get(), bg = "lightblue", font = ("Arial", 8)).grid(row = j , column = i )
             
             # Al lado derecho, estará el botón verde que sirve para guardar
     # los datos ingresados en un archivo .csv
