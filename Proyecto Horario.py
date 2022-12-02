@@ -31,7 +31,7 @@ def cambia_ventana():
     def ventana_entra_act():
         ventana_entrada = Toplevel()
         ventana_entrada.title("Agregar Actividad")
-        ventana_entrada.geometry("300x490")
+        ventana_entrada.geometry("300x500")
         # entrada es la variable que define el cuadro de texto en donde se ingresará el bloque
 
         entrada=Entry(ventana_entrada, bg = "aquamarine", fg = "black", width =49)
@@ -49,20 +49,24 @@ def cambia_ventana():
         marco3.grid(row = 3, column = 0)
 
         marco4 = Frame(ventana_entrada)
-        marco4.config(bg = "lightgreen", width = 300, height = 70)
+        marco4.config(bg = "lightgreen", width = 300, height = 50)
         marco4.grid(row = 5, column = 0)
 
         marco5 = Frame(ventana_entrada)
-        marco5.config(bg = "lightgreen", width = 300, height = 70)
+        marco5.config(bg = "lightgreen", width = 300, height = 60)
         marco5.grid(row = 6, column = 0)
         
         marco6 = Frame(ventana_entrada)
-        marco6.config(bg = "lightgreen", width = 300, height = 65)
+        marco6.config(bg = "lightgreen", width = 300, height = 55)
         marco6.grid(row = 7, column = 0)
 
         marco6 = Frame(ventana_entrada)
-        marco6.config(bg = "lightgreen", width = 300, height = 65)
+        marco6.config(bg = "lightgreen", width = 300, height = 55)
         marco6.grid(row = 8, column = 0)
+
+        marco6 = Frame(ventana_entrada)
+        marco6.config(bg = "lightgreen", width = 300, height = 55)
+        marco6.grid(row = 9, column = 0)
         
         # La variable llamada bloque se trata de una explicación al usuario de lo 
         # que tiene que ingresar en el cuadro de texto y en qué formato hacerlo
@@ -81,7 +85,7 @@ def cambia_ventana():
         # otra explicación para que el usuario ingrese el nombre del archivo csv que va
         # a usar para su horario
         explicacion_archivo = Label(ventana_entrada, text = "Ingrese el nombre del archivo csv \n"\
-                            "que va a usar para su horario (sin formato)", bg = "lightgreen",\
+                            "que va a usar para abrir su horario (sin formato)", bg = "lightgreen",\
                             font = ("Arial", 9)).grid(row = 5, column = 0)
         entrada_archivo = Entry(ventana_entrada, bg = "aquamarine", fg = "black", width = 49)
         entrada_archivo.grid(row=6)
@@ -242,9 +246,11 @@ def cambia_ventana():
                     horario_a_guardar = dias_csv + "\n" + bloque1_csv + "\n" + bloque2_csv + "\n" \
                                         +  bloque3_csv + "\n" + bloque4_csv + "\n" + bloque5_csv + "\n"  + bloque6_csv
                     calendario.write(horario_a_guardar)
-
+            explicacion_guardar = Label(ventana_entrada, text = "Ingrese el nombre del archivo csv \n"\
+                                "que va a usar para guardar su horario (sin formato)", bg = "lightgreen",\
+                                font = ("Arial", 9)).grid(row = 8, column = 0)
             boton_guardar_archivo = Button(ventana_entrada, text = "Guardar", bg = "green",\
-                                       font = ("Arial", 11), padx = 16, command = boton_guardar).grid(row = 8)
+                                       font = ("Arial", 11), padx = 16, command = boton_guardar).grid(row = 9)
             
             #Aquí se hace una comprobación del color de fondo de debe
             #tener cada texto, dependiendo del bloque en el que esté.
