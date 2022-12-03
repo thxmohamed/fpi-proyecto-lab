@@ -8,7 +8,7 @@
 # INTEGRANTES: -Mohamed Al-Marzuk/rut: 22.594.262-5 
 #               -Victor Duarte/rut: 21.467.246-4
 #               -Vicente Fernandez/rut: 20.957.898-0 
-
+#               -Rodrigo Sepulveda(no trabajo, pongale un 1)/rut: 20.651.185-0
 #               -Nicolas Morales/rut: 21.566.658-1.
 # CARRERA: Ingeniería Civil Informática e Ingenieria Civil Electrica
 
@@ -71,7 +71,7 @@ def cambia_ventana():
         # La variable llamada bloque se trata de una explicación al usuario de lo 
         # que tiene que ingresar en el cuadro de texto y en qué formato hacerlo
         
-        bloque = Label(ventana_entrada, text = "Ingrese el Bloque separado por un espacio. Ej: (L 5)",\
+        bloque = Label(ventana_entrada, text = "Ingrese el Bloque. Ej: (L5)",\
                        bg = "lightgreen", font = ("Arial", 9)).grid(row = 0, column = 0)
         entrada.grid(row=1)
         # una explicación de lo que tiene que ingresar el usuario en el segundo cuadro de texto
@@ -102,7 +102,9 @@ def cambia_ventana():
         lista_bloque4=["Bloque 4","","","","","","","",""]
         lista_bloque5=["Bloque 5","","","","","","","",""]
         lista_bloque6=["Bloque 6","","","","","","","",""]
-        
+        def recordatorio():
+            dadads
+
         # Aquí se define el botón de "asignar", al pulsar este botón, la actividad ingresada se
         # ubicará en el bloque ingresado
         def boton_subir():
@@ -156,9 +158,10 @@ def cambia_ventana():
             # Aquí definimos una constante, que es una lista de 7 elementos, siendo el
             # primero (pos 0) un string vacío, y los siguientes los días de la semana, esto
             # con el fin de guardarlo en un archivo.
-            
+            #se guarda el dia y bloque seleciconado por el usuario como string 
+            #y se convierte en mayusculas para evitar errores
             LISTA_DIAS = ["","Lunes", "Martes", "Miércoles","Jueves", "Viernes", "Sábado"]
-            lista_entrada = str(entrada.get()).split(" ")       
+            str_entrada = (entrada.get()).upper()     
             letras = ["L","M","W","J","V","S"]
             numeros = ["1","2","3","4","5","6"]
             #El siguiente ciclo verificará si la entrada que ingresó el usuario
@@ -169,10 +172,10 @@ def cambia_ventana():
             
             verificador = 0
             switch = True
-            while verificador < len(lista_entrada) and switch:
+            while verificador < len(str_entrada) and switch:
                 switch = False
-                if lista_entrada[verificador] in letras or \
-                   lista_entrada[verificador] in numeros:
+                if str_entrada[verificador] in letras or \
+                   str_entrada[verificador] in numeros:
                     verificador = verificador + 1
                     switch = True
                 else:
@@ -181,10 +184,10 @@ def cambia_ventana():
             # Este ciclo for lo que hace es agregar la actividad ingresada
             # por el usuario al bloque que corresponda.
             for dia in letras:
-                if dia == lista_entrada[0]:
+                if dia == str_entrada[0]:
                     i = letras.index(dia) + 1
             for bloque in numeros:
-                if bloque == lista_entrada[1]:
+                if bloque == str_entrada[1]:
                     j = numeros.index(bloque) + 1
             # Este ciclo lo que hace es almacenar las actividades ingresadas
             # en la lista correspondiente de las 6 que fueron definidas
@@ -254,7 +257,7 @@ def cambia_ventana():
                 # del bloque ingresado (M 4, W 6, etc).
                 
                 with open(entrada_archivo.get() + ".csv","w") as calendario:
-                    lista_entrada = str(entrada.get()).split(" ")
+                    str_entrada = (entrada.get()).upper()
                     letras = ["L","M","W","J","V","S"]
                     numeros = ["1","2","3","4","5","6"]
 
@@ -269,14 +272,26 @@ def cambia_ventana():
             boton_guardar_archivo = Button(ventana_entrada, text = "Guardar", bg = "green",\
                                        font = ("Arial", 11), padx = 16, command = boton_guardar).grid(row = 9)
             
-            #Aquí se hace una comprobación del color de fondo de debe
+            #Aquí se hace una comprobación del color de fondo de debes
             #tener cada texto, dependiendo del bloque en el que esté.
-            if (i ) % 2 == 1 and (j) % 2 == 1:                
-                texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = j, column = i )
-            elif (i ) % 2 == 0 and (j ) % 2 == 0:
-                texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = j , column = i )        
+            #en el siguiente bloque se agregan las actividades al horario, 
+            #y si el texto es muy grande se acomoda con el primer if.
+            actividad_get=str(actividad.get())
+            if len(actividad_get)>15:
+                actividad_aponer=actividad_get[0:15]+"\n"+actividad_get[15:]
+                if (i ) % 2 == 1 and (j) % 2 == 1:                
+                    texto = Label(root2, text = actividad_aponer, bg = "lightgreen", font = ("Arial", 8)).grid(row = j, column = i )
+                elif (i ) % 2 == 0 and (j ) % 2 == 0:
+                    texto = Label(root2, text = actividad_aponer, bg = "lightgreen", font = ("Arial", 8)).grid(row = j , column = i )        
+                else:
+                    texto = Label(root2, text = actividad_aponer, bg = "lightblue", font = ("Arial", 8)).grid(row = j , column = i )
             else:
-                texto = Label(root2, text = actividad.get(), bg = "lightblue", font = ("Arial", 8)).grid(row = j , column = i )
+                if (i ) % 2 == 1 and (j) % 2 == 1:                
+                    texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = j, column = i )
+                elif (i ) % 2 == 0 and (j ) % 2 == 0:
+                    texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = j , column = i )        
+                else:
+                    texto = Label(root2, text = actividad.get(), bg = "lightblue", font = ("Arial", 8)).grid(row = j , column = i )
             
             # Al lado derecho, estará el botón verde que sirve para guardar
     # los datos ingresados en un archivo .csv
@@ -560,7 +575,7 @@ def cambia_ventana():
                    pady= 2.1, command = ventana_entra_act).grid(row=7, column = 3)
     # Al lado izquierdo estará el botón rojo de cerrar el programa
     boton_cerrar = Button(root2, text = "Cerrar", command = root.destroy, bg = "red", \
-                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 2)
+                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 4)
     
 # DEFINICIÓN DE CONSTANTES
 # De momento, en nuestro programa no se definió ninguna constante
@@ -578,9 +593,10 @@ root = Tk()
 root.title("Entrada")
 marco_principal1 = Frame()
 texto = Label(root,
-              text= "Este programa tiene la finalidad\nde ayudarte a organizar tu horario, para así\n"
-              "mejorar tu rendimiento académico\n y lograr optimizar tu tiempo,\npara esto debes pulsar el botón de abajo,\n"
-              "y cuando se abra la nueva ventana\ndebes pulsar el botón de la esquina\nsuperior izquierda",
+              text= "Este programa tiene la finalidad\nde ayudarte a organizar tu horario, para así\n"\
+              "mejorar tu rendimiento académico\n y lograr optimizar tu tiempo,\npara esto debes pulsar el botón de abajo\n"\
+              "para comenzar y cuando se abra \n"\
+              "la nueva ventana debes pulsar el botón\n celeste del centro",\
               bg = "pink")
 
 marco_principal1.grid(row=0, column=0)
