@@ -111,17 +111,19 @@ def cambia_ventana():
                 lista = []
                 for fila in calendario:
                     lista.append(fila.strip().split(";"))
-
+            # Hacemos un ciclo que borre el ultimo elemento de cada sublista
             i = 1
             while i < len(lista):                
                 lista[i].pop(-1)
                 i += 1
-            
+            # Este ciclo lo que hace es leer el archivo y hacer que se vea en la interfaz
+            # del programa
             i = 1
             while i < len(lista):
                 j = 1
                 while j < len(lista[1]):
-
+                    # aquí reasignamos los elementos de las listas definidas anteriormente, para
+                    # que no se pierda la información al guardarla de vuelta.
                     lista_bloque1[j] = lista[1][j]
                     lista_bloque2[j] = lista[2][j]
                     lista_bloque3[j] = lista[3][j]
