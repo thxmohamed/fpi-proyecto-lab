@@ -89,6 +89,20 @@ def cambia_ventana():
                             font = ("Arial", 9)).grid(row = 5, column = 0)
         entrada_archivo = Entry(ventana_entrada, bg = "aquamarine", fg = "black", width = 49)
         entrada_archivo.grid(row=6)
+
+        # Estas son listas de 7 strings que se definen para tener un lugar en donde
+        # guardar los datos ingresados por el usuario, la primera columna representa
+        # los bloques del día predefinidos por nosotros, y las siguientes 6 posiciones son
+        # las actividades de cada día en el bloque correspondiente, siendo la posición 1 de
+        # cada lista el lunes, la pos 2 el martes, y así hasta la pos 6 que es el sábado.
+        
+        lista_bloque1=["Bloque 1","","","","","","","",""]
+        lista_bloque2=["Bloque 2","","","","","","","",""]
+        lista_bloque3=["Bloque 3","","","","","","","",""]
+        lista_bloque4=["Bloque 4","","","","","","","",""]
+        lista_bloque5=["Bloque 5","","","","","","","",""]
+        lista_bloque6=["Bloque 6","","","","","","","",""]
+        
         # Aquí se define el botón de "asignar", al pulsar este botón, la actividad ingresada se
         # ubicará en el bloque ingresado
         def boton_subir():
@@ -97,10 +111,24 @@ def cambia_ventana():
                 lista = []
                 for fila in calendario:
                     lista.append(fila.strip().split(";"))
+
+            i = 1
+            while i < len(lista):                
+                lista[i].pop(-1)
+                i += 1
+            
             i = 1
             while i < len(lista):
                 j = 1
                 while j < len(lista[1]):
+
+                    lista_bloque1[j] = lista[1][j]
+                    lista_bloque2[j] = lista[2][j]
+                    lista_bloque3[j] = lista[3][j]
+                    lista_bloque4[j] = lista[4][j]
+                    lista_bloque5[j] = lista[5][j]
+                    lista_bloque6[j] = lista[6][j]
+
             # Esta de abajo es una comprobación meramente estética, para que los
             # colores del fondo coincidan con los colores del texto, mientras que el ciclo
             # lo que hace es ir agregando posición a posición la actividad del archivo
@@ -121,19 +149,6 @@ def cambia_ventana():
         # El botón que sirve para subir un archivo al programa, utilizará la función de arriba
         boton_subir=Button(ventana_entrada,text = "Subir Archivo",command=boton_subir,bg = "green", font = ("Arial", 12))        
         boton_subir.grid(row = 7)
-
-        # Estas son listas de 7 strings que se definen para tener un lugar en donde
-        # guardar los datos ingresados por el usuario, la primera columna representa
-        # los bloques del día predefinidos por nosotros, y las siguientes 6 posiciones son
-        # las actividades de cada día en el bloque correspondiente, siendo la posición 1 de
-        # cada lista el lunes, la pos 2 el martes, y así hasta la pos 6 que es el sábado.
-        
-        lista_bloque1=["Bloque 1","","","","","",""]
-        lista_bloque2=["Bloque 2","","","","","",""]
-        lista_bloque3=["Bloque 3","","","","","",""]
-        lista_bloque4=["Bloque 4","","","","","",""]
-        lista_bloque5=["Bloque 5","","","","","",""]
-        lista_bloque6=["Bloque 6","","","","","",""]
         
         def boton_enviar():
             # Aquí definimos una constante, que es una lista de 7 elementos, siendo el
