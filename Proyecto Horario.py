@@ -35,6 +35,7 @@ def cambia_ventana():
         # entrada es la variable que define el cuadro de texto en donde se ingresará el bloque
 
         entrada=Entry(ventana_entrada, bg = "aquamarine", fg = "black", width =49)
+        entrada.grid(row=1)
 
         marco1 = Frame(ventana_entrada)
         marco1.config(bg = "lightgreen", width = 300, height = 70)
@@ -73,7 +74,7 @@ def cambia_ventana():
         
         bloque = Label(ventana_entrada, text = "Ingrese el Bloque. Ej: (L5)",\
                        bg = "lightgreen", font = ("Arial", 9)).grid(row = 0, column = 0)
-        entrada.grid(row=1)
+        
         # una explicación de lo que tiene que ingresar el usuario en el segundo cuadro de texto
         explicacion = Label(ventana_entrada, text = "Ingrese su actividad, tras esto,\n"\
                             "pulse en asignar", bg = "lightgreen",
@@ -102,9 +103,9 @@ def cambia_ventana():
         lista_bloque4=["Bloque 4","","","","","","","",""]
         lista_bloque5=["Bloque 5","","","","","","","",""]
         lista_bloque6=["Bloque 6","","","","","","","",""]
-        def recordatorio():
-            dadads
+        
 
+        
         # Aquí se define el botón de "asignar", al pulsar este botón, la actividad ingresada se
         # ubicará en el bloque ingresado
         def boton_subir():
@@ -301,6 +302,17 @@ def cambia_ventana():
 
         boton_enviar=Button(ventana_entrada,text="Asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
         boton_enviar.grid(row=2)
+
+
+    # se define la funcion que hara el boton recordarotia al ser pulsado
+    def boton_recordar():
+        ventana_recordar = Toplevel()
+        ventana_recordar.title("Agregar Recordatorio")
+        ventana_recordar.geometry("300x500")
+        
+        
+
+
 
     #Primero se creará la ventana en donde se visualizará el horario
     #Esta tendrá un tamaño de 700x665 pixeles.
@@ -573,9 +585,12 @@ def cambia_ventana():
     # donde el usuario podrá ingresar sus actividades.
     boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5,\
                    pady= 2.1, command = ventana_entra_act).grid(row=7, column = 3)
-    # Al lado izquierdo estará el botón rojo de cerrar el programa
+    # Al lado derecho estará el botón rojo de cerrar el programa
     boton_cerrar = Button(root2, text = "Cerrar", command = root.destroy, bg = "red", \
-                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 4)
+                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 6)
+    # Mas a la derecha de color amarillo estara el boton recordatorio
+    boton_recordar = Button(root2, text = "Recordar", bg = "yellow", font = ("Arial",11),\
+                            padx= 2, pady= 2.1, command=boton_recordar ).grid(row = 7, column = 4)
     
 # DEFINICIÓN DE CONSTANTES
 # De momento, en nuestro programa no se definió ninguna constante
