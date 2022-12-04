@@ -35,7 +35,6 @@ def cambia_ventana():
         # entrada es la variable que define el cuadro de texto en donde se ingresará el bloque
 
         entrada=Entry(ventana_entrada, bg = "aquamarine", fg = "black", width =49)
-        entrada.grid(row=1)
 
         marco1 = Frame(ventana_entrada)
         marco1.config(bg = "lightgreen", width = 300, height = 70)
@@ -74,7 +73,7 @@ def cambia_ventana():
         
         bloque = Label(ventana_entrada, text = "Ingrese el Bloque. Ej: (L5)",\
                        bg = "lightgreen", font = ("Arial", 9)).grid(row = 0, column = 0)
-        
+        entrada.grid(row=1)
         # una explicación de lo que tiene que ingresar el usuario en el segundo cuadro de texto
         explicacion = Label(ventana_entrada, text = "Ingrese su actividad, tras esto,\n"\
                             "pulse en asignar", bg = "lightgreen",
@@ -103,9 +102,9 @@ def cambia_ventana():
         lista_bloque4=["Bloque 4","","","","","","","",""]
         lista_bloque5=["Bloque 5","","","","","","","",""]
         lista_bloque6=["Bloque 6","","","","","","","",""]
-        
+        def recordatorio():
+            dadads
 
-        
         # Aquí se define el botón de "asignar", al pulsar este botón, la actividad ingresada se
         # ubicará en el bloque ingresado
         def boton_subir():
@@ -152,7 +151,8 @@ def cambia_ventana():
                 i = i + 1
 
         # El botón que sirve para subir un archivo al programa, utilizará la función de arriba
-        boton_subir=Button(ventana_entrada,text = "Subir Archivo",command=boton_subir,bg = "green", font = ("Arial", 12))        
+        boton_subir=Button(ventana_entrada,text = "Subir Archivo",\
+                           command=boton_subir,bg = "green", font = ("Arial", 12))        
         boton_subir.grid(row = 7)
         
         def boton_enviar():
@@ -275,24 +275,46 @@ def cambia_ventana():
             
             #Aquí se hace una comprobación del color de fondo de debes
             #tener cada texto, dependiendo del bloque en el que esté.
-            #en el siguiente bloque se agregan las actividades al horario, 
-            #y si el texto es muy grande se acomoda con el primer if.
+            #en el siguiente bloque se agregan las actividades al horario.
             actividad_get=str(actividad.get())
+            #Con este if, lo que haremos será acomodar el texto al tamaño
+            #del cuadro, para que no se salga por los bordes, haciendo que
+            #el texto se acomode en 3 líneas, de ser necesario.
             if len(actividad_get)>15:
-                actividad_aponer=actividad_get[0:15]+"\n"+actividad_get[15:]
-                if (i ) % 2 == 1 and (j) % 2 == 1:                
-                    texto = Label(root2, text = actividad_aponer, bg = "lightgreen", font = ("Arial", 8)).grid(row = j, column = i )
-                elif (i ) % 2 == 0 and (j ) % 2 == 0:
-                    texto = Label(root2, text = actividad_aponer, bg = "lightgreen", font = ("Arial", 8)).grid(row = j , column = i )        
+                if len(actividad_get)>30:
+                    actividad_aponer=actividad_get[0:15]+"\n"+actividad_get[15:30] \
+                                      + "\n" + actividad_get[30:]
+                    if (i ) % 2 == 1 and (j) % 2 == 1:                
+                        texto = Label(root2, text = actividad_aponer, bg = "lightgreen",\
+                                      font = ("Arial", 8)).grid(row = j, column = i )
+                    elif (i ) % 2 == 0 and (j ) % 2 == 0:
+                        texto = Label(root2, text = actividad_aponer, bg = "lightgreen",\
+                                      font = ("Arial", 8)).grid(row = j , column = i )        
+                    else:
+                        texto = Label(root2, text = actividad_aponer, bg = "lightblue",\
+                                      font = ("Arial", 8)).grid(row = j , column = i )
+                        
                 else:
-                    texto = Label(root2, text = actividad_aponer, bg = "lightblue", font = ("Arial", 8)).grid(row = j , column = i )
+                    actividad_aponer=actividad_get[0:15]+"\n"+actividad_get[15:]
+                    if (i ) % 2 == 1 and (j) % 2 == 1:                
+                        texto = Label(root2, text = actividad_aponer, bg = "lightgreen",\
+                                      font = ("Arial", 8)).grid(row = j, column = i )
+                    elif (i ) % 2 == 0 and (j ) % 2 == 0:
+                        texto = Label(root2, text = actividad_aponer, bg = "lightgreen", \
+                                      font = ("Arial", 8)).grid(row = j , column = i )        
+                    else:
+                        texto = Label(root2, text = actividad_aponer, bg = "lightblue",\
+                                      font = ("Arial", 8)).grid(row = j , column = i )
             else:
                 if (i ) % 2 == 1 and (j) % 2 == 1:                
-                    texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = j, column = i )
+                    texto = Label(root2, text = actividad.get(), bg = "lightgreen",\
+                                  font = ("Arial", 8)).grid(row = j, column = i )
                 elif (i ) % 2 == 0 and (j ) % 2 == 0:
-                    texto = Label(root2, text = actividad.get(), bg = "lightgreen", font = ("Arial", 8)).grid(row = j , column = i )        
+                    texto = Label(root2, text = actividad.get(), bg = "lightgreen",\
+                                  font = ("Arial", 8)).grid(row = j , column = i )        
                 else:
-                    texto = Label(root2, text = actividad.get(), bg = "lightblue", font = ("Arial", 8)).grid(row = j , column = i )
+                    texto = Label(root2, text = actividad.get(), bg = "lightblue",\
+                                  font = ("Arial", 8)).grid(row = j , column = i )
             
             # Al lado derecho, estará el botón verde que sirve para guardar
     # los datos ingresados en un archivo .csv
@@ -300,19 +322,9 @@ def cambia_ventana():
             #Finalmente, el botón de asignar, lo que hace es enviar
             #la actividad ingresada al bloque correspondiente.
 
-        boton_enviar=Button(ventana_entrada,text="Asignar",command=boton_enviar,bg="green", font = ("Arial", 12))
+        boton_enviar=Button(ventana_entrada,text="Asignar",\
+                            command=boton_enviar,bg="green", font = ("Arial", 12))
         boton_enviar.grid(row=2)
-
-
-    # se define la funcion que hara el boton recordarotia al ser pulsado
-    def boton_recordar():
-        ventana_recordar = Toplevel()
-        ventana_recordar.title("Agregar Recordatorio")
-        ventana_recordar.geometry("300x500")
-        
-        
-
-
 
     #Primero se creará la ventana en donde se visualizará el horario
     #Esta tendrá un tamaño de 700x665 pixeles.
@@ -325,32 +337,38 @@ def cambia_ventana():
     #sus colores en un patrón de "ajedrez"
 
     lunes = Frame(root2)
-    textoL = Label(root2, text = "Lunes", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 1)
+    textoL = Label(root2, text = "Lunes", bg = "orange", \
+                   font = ("Arial",14)).grid(row = 0, column = 1)
     lunes.config(bg = "orange", width = 100, height =  30)
     lunes.grid(row = 0, column = 1)
 
     martes = Frame(root2)
-    textoM = Label(root2, text = "Martes", bg = "darkorange", font = ("Arial",14)).grid(row = 0, column = 2)
+    textoM = Label(root2, text = "Martes", bg = "darkorange", \
+                   font = ("Arial",14)).grid(row = 0, column = 2)
     martes.config(bg = "darkorange", width = 100, height = 30)
     martes.grid(row = 0, column =2)
 
     miercoles = Frame(root2)
-    textoW = Label(root2, text = "Miércoles", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 3)
+    textoW = Label(root2, text = "Miércoles", bg = "orange",\
+                   font = ("Arial",14)).grid(row = 0, column = 3)
     miercoles.config(bg = "orange", width = 100, height = 30)
     miercoles.grid(row = 0, column =3)
 
     jueves = Frame(root2)
-    textoJ = Label(root2, text = "Jueves", bg = "darkorange", font = ("Arial",14)).grid(row = 0, column = 4)
+    textoJ = Label(root2, text = "Jueves", bg = "darkorange", \
+                   font = ("Arial",14)).grid(row = 0, column = 4)
     jueves.config(bg = "darkorange", width = 100, height = 30)
     jueves.grid(row = 0, column =4)
 
     viernes = Frame(root2)
-    textoV = Label(root2, text = "Viernes", bg = "orange", font = ("Arial",14)).grid(row = 0, column = 5)
+    textoV = Label(root2, text = "Viernes", bg = "orange", \
+                   font = ("Arial",14)).grid(row = 0, column = 5)
     viernes.config(bg = "orange", width = 100, height = 30)
     viernes.grid(row = 0, column =5)
 
     sabado = Frame(root2)
-    textoV = Label(root2, text = "Sábado", bg = "darkorange", font = ("Arial",14)).grid(row = 0, column = 6)
+    textoV = Label(root2, text = "Sábado", bg = "darkorange", \
+                   font = ("Arial",14)).grid(row = 0, column = 6)
     sabado.config(bg = "darkorange", width = 100, height = 30)
     sabado.grid(row = 0, column =6)
 
@@ -363,32 +381,38 @@ def cambia_ventana():
     bloque0.grid(row = 0, column = 0)
     
     bloque1 = Frame(root2)
-    textoB1 = Label(root2, text = "Bloque 1\n08:15-09:35", bg = "orange", font = ("Arial",12)).grid(row = 1, column = 0)
+    textoB1 = Label(root2, text = "Bloque 1\n08:15-09:35", \
+                    bg = "orange", font = ("Arial",12)).grid(row = 1, column = 0)
     bloque1.config(bg = "orange", width = 100, height =  100)
     bloque1.grid(row = 1, column = 0)
 
     bloque2 = Frame(root2)
-    textoB2 = Label(root2, text = "Bloque 2\n09:50-11:10", bg = "darkorange", font = ("Arial",12)).grid(row = 2, column = 0)
+    textoB2 = Label(root2, text = "Bloque 2\n09:50-11:10", \
+                    bg = "darkorange", font = ("Arial",12)).grid(row = 2, column = 0)
     bloque2.config(bg = "darkorange", width = 100, height = 100)
     bloque2.grid(row = 2, column =0)
 
     bloque3 = Frame(root2)
-    textoB3 = Label(root2, text = "Bloque 3\n11:25-12:45", bg = "orange", font = ("Arial",12)).grid(row = 3, column = 0)
+    textoB3 = Label(root2, text = "Bloque 3\n11:25-12:45", \
+                    bg = "orange", font = ("Arial",12)).grid(row = 3, column = 0)
     bloque3.config(bg = "orange", width = 100, height = 100)
     bloque3.grid(row = 3, column =0)
 
     bloque4 = Frame(root2)
-    textoB4 = Label(root2, text = "Bloque 4\n13:45-15:05", bg = "darkorange", font = ("Arial",12)).grid(row = 4, column = 0)
+    textoB4 = Label(root2, text = "Bloque 4\n13:45-15:05", \
+                    bg = "darkorange", font = ("Arial",12)).grid(row = 4, column = 0)
     bloque4.config(bg = "darkorange", width = 100, height = 100)
     bloque4.grid(row = 4, column =0)
 
     bloque5 = Frame(root2)
-    textoB5 = Label(root2, text = "Bloque 5\n15:20-16:40", bg = "orange", font = ("Arial",12)).grid(row = 5, column = 0)
+    textoB5 = Label(root2, text = "Bloque 5\n15:20-16:40", \
+                    bg = "orange", font = ("Arial",12)).grid(row = 5, column = 0)
     bloque5.config(bg = "orange", width = 100, height = 100)
     bloque5.grid(row = 5, column =0)
 
     bloque6 = Frame(root2)
-    textoB6 = Label(root2, text = "Bloque 6\n16:55-18:15", bg = "darkorange", font = ("Arial",12)).grid(row = 6, column = 0)
+    textoB6 = Label(root2, text = "Bloque 6\n16:55-18:15", \
+                    bg = "darkorange", font = ("Arial",12)).grid(row = 6, column = 0)
     bloque6.config(bg = "darkorange", width = 100, height = 100)
     bloque6.grid(row = 6, column =0)
 
@@ -585,12 +609,9 @@ def cambia_ventana():
     # donde el usuario podrá ingresar sus actividades.
     boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5,\
                    pady= 2.1, command = ventana_entra_act).grid(row=7, column = 3)
-    # Al lado derecho estará el botón rojo de cerrar el programa
+    # Al lado izquierdo estará el botón rojo de cerrar el programa
     boton_cerrar = Button(root2, text = "Cerrar", command = root.destroy, bg = "red", \
-                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 6)
-    # Mas a la derecha de color amarillo estara el boton recordatorio
-    boton_recordar = Button(root2, text = "Recordar", bg = "yellow", font = ("Arial",11),\
-                            padx= 2, pady= 2.1, command=boton_recordar ).grid(row = 7, column = 4)
+                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 4)
     
 # DEFINICIÓN DE CONSTANTES
 # De momento, en nuestro programa no se definió ninguna constante
@@ -599,9 +620,11 @@ def cambia_ventana():
  
 # ENTRADA
 
-# La entrada está considerada dentro de la función ventana_entra_act(), definida más arriba.
+# La entrada está considerada dentro de la función
+#ventana_entra_act(), definida más arriba.
 
-# Ventana inicial, incluye una pequeña explicación de lo que hace el programa y un botón que lleva a la ventana del horario
+# Ventana inicial, incluye una pequeña explicación de lo
+#que hace el programa y un botón que lleva a la ventana del horario
 
 # PROCESAMIENTO
 root = Tk()
@@ -609,7 +632,8 @@ root.title("Entrada")
 marco_principal1 = Frame()
 texto = Label(root,
               text= "Este programa tiene la finalidad\nde ayudarte a organizar tu horario, para así\n"\
-              "mejorar tu rendimiento académico\n y lograr optimizar tu tiempo,\npara esto debes pulsar el botón de abajo\n"\
+              "mejorar tu rendimiento académico\n y lograr optimizar tu tiempo,\n"\
+              "para esto debes pulsar el botón de abajo\n"\
               "para comenzar y cuando se abra \n"\
               "la nueva ventana debes pulsar el botón\n celeste del centro",\
               bg = "pink")
@@ -620,7 +644,8 @@ texto.grid(row=0, column=0)
 marco_principal1.config(width = "260", height = "370")
 marco_principal1.config(bg = "pink")
 
-boton_inicio = Button(root,text="Comenzar", command=cambia_ventana, bg="red", width="28", font = ("Arial", 12), fg = "white").grid(row=1,column=0)
+boton_inicio = Button(root,text="Comenzar", command=cambia_ventana,\
+                      bg="red", width="28", font = ("Arial", 12), fg = "white").grid(row=1,column=0)
 
 # SALIDA
 root.mainloop()
