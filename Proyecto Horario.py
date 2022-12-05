@@ -165,22 +165,11 @@ def cambia_ventana():
             str_entrada = (entrada.get()).upper()     
             letras = ["L","M","W","J","V","S"]
             numeros = ["1","2","3","4","5","6"]
-            #El siguiente ciclo verificará si la entrada que ingresó el usuario
-            #tiene el formato correcto, utilizando una variable llamada "switch"
-            #si esta variable pasa de verdadero a falso y no vuelve a
-            #verdadero, significa que el usuario ingresó una entrada incorrecta,
-            #por lo que tirará un mensaje de error por pantalla.
-            
-            verificador = 0
-            switch = True
-            while verificador < len(str_entrada) and switch:
-                switch = False
-                if str_entrada[verificador] in letras or \
-                   str_entrada[verificador] in numeros:
-                    verificador = verificador + 1
-                    switch = True
-                else:
-                    showinfo(message = "Ingrese los horarios en un formato correcto", title = "Error")
+
+            #El siguiente if verificará si el bloque ingresado por el usuario sigue
+            #el formato pedido, de no hacerlo, mostrará un mensaje de error.
+            if str_entrada[0] not in letras or str_entrada[1] not in numeros:
+                    showinfo(message = "Ingrese los horarios en un formato correcto", title = "Error")                
 
             # Este ciclo for lo que hace es agregar la actividad ingresada
             # por el usuario al bloque que corresponda.
