@@ -30,26 +30,32 @@ min_bloque6 = t_bloque6.minute
 
 if t_actual < t_bloque1:
         t_restante= t_actual-t_bloque1
-        print(abs(t_restante))
+        t_restante=abs(t_restante)
+        print(t_restante)
 elif t_actual < t_bloque2:
         t_restante= t_actual-t_bloque2
-        print(abs(t_restante))
+        t_restante=abs(t_restante)
+        print(t_restante)
 elif t_actual < t_bloque3:
         t_restante= t_actual-t_bloque3
-        print(abs(t_restante))
+        t_restante=abs(t_restante)
+        print(t_restante)
 elif t_actual < t_bloque4:
         t_restante= t_actual-t_bloque4
-        print(abs(t_restante))
+        t_restante=abs(t_restante)
+        print(t_restante)
 elif t_actual < t_bloque5:
         t_restante= t_actual-t_bloque5
-        print(abs(t_restante))
+        t_restante=abs(t_restante)
+        print(t_restante)
 elif t_actual < t_bloque6:
         t_restante= t_actual-t_bloque6
-        print(abs(t_restante))
+        t_restante=abs(t_restante)
+        print(t_restante)
 
 
 #hago el t_restante una lista para operar con las horas y minutos de este
-lista_trestante= str(abs(t_restante)).split(":")
+lista_trestante= str(t_restante).split(":")
 print(lista_trestante)
 
 
