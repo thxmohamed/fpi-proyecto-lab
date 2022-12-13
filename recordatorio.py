@@ -52,7 +52,9 @@ elif t_actual < t_bloque6:
         t_restante= t_actual-t_bloque6
         t_restante=abs(t_restante)
         print(t_restante)
-
+else:
+        t_restante = -1
+        print(t_restante)        
 
 #hago el t_restante una lista para operar con las horas y minutos de este
 lista_trestante= str(t_restante).split(":")
