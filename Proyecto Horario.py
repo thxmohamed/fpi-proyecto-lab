@@ -6,10 +6,9 @@
 #
 # AUTORES
 # INTEGRANTES: -Mohamed Al-Marzuk/rut: 22.594.262-5 
-#               -Victor Duarte/rut: 21.467.246-4
-#               -Vicente Fernandez/rut: 20.957.898-0 
-#               -Rodrigo Sepulveda/rut: 20.651.185-0
-#               -Nicolas Morales/rut: 21.566.658-1.
+#              -Victor Duarte/rut: 21.467.246-4
+#              -Vicente Fernandez/rut: 20.957.898-0
+#              -Nicolas Morales/rut: 21.566.658-1.
 # CARRERA: Ingeniería Civil Informática e Ingenieria Civil Electrica
 
 # Este programa mostrará un horario separado por bloques de la universidad, donde el usuario podrá
