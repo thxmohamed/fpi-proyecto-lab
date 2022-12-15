@@ -3,12 +3,11 @@
 # PROFESOR DE TEORÍA: ALEJANDRO CISTERNA VILLALOBOS
 # PROFESOR DE LABORATORIO: Gery Gerena
 # GRUPO : 3
-#
 # AUTORES
 # INTEGRANTES: -Mohamed Al-Marzuk/rut: 22.594.262-5 
-#              -Victor Duarte/rut: 21.467.246-4
-#              -Vicente Fernandez/rut: 20.957.898-0
-#              -Nicolas Morales/rut: 21.566.658-1.
+#               -Victor Duarte/rut: 21.467.246-4
+#               -Vicente Fernandez/rut: 20.957.898-0 
+#               -Nicolas Morales/rut: 21.566.658-1.
 # CARRERA: Ingeniería Civil Informática e Ingenieria Civil Electrica
 
 # Este programa mostrará un horario separado por bloques de la universidad, donde el usuario podrá
@@ -21,12 +20,117 @@
 
 from tkinter import *
 from tkinter.messagebox import *
+from datetime import datetime
+import threading
+import time
 # DEFINICIÓN DE FUNCIONES
 # Definiremos la función que leerá el horario
 # Definición de la función que creará la ventana en la que será posible visualizar el horario.
 def cambia_ventana():
     root.withdraw()
 #Esta segunda función creará la ventana dedicada a ingresar las actividades.
+
+    lista_bloque1=["Bloque 1","","","","","","","",""]
+    lista_bloque2=["Bloque 2","","","","","","","",""]
+    lista_bloque3=["Bloque 3","","","","","","","",""]
+    lista_bloque4=["Bloque 4","","","","","","","",""]
+    lista_bloque5=["Bloque 5","","","","","","","",""]
+    lista_bloque6=["Bloque 6","","","","","","","",""]
+        
+    lista_bloques= ["111",lista_bloque1,lista_bloque2,lista_bloque3,lista_bloque4,lista_bloque5,lista_bloque6]
+
+
+    def recordatorio():
+
+        def recordatorio1():
+            while True:
+                t_actual= datetime.now()
+
+                #fecha
+                t_bloque1=datetime(t_actual.year,t_actual.month,t_actual.day,8,15,0000)
+                t_bloque2=datetime(t_actual.year,t_actual.month,t_actual.day,9,50,00,0000)
+                t_bloque3=datetime(t_actual.year,t_actual.month,t_actual.day,11,25,00,0000)
+                t_bloque4=datetime(t_actual.year,t_actual.month,t_actual.day,13,45,00,0000)
+                t_bloque5=datetime(t_actual.year,t_actual.month,t_actual.day,15,20,00,0000)
+                t_bloque6=datetime(t_actual.year,t_actual.month,t_actual.day,16,55,00,0000)
+
+                #hora
+                hr_bloque1= t_bloque1.hour
+                hr_bloque2= t_bloque2.hour
+                hr_bloque3= t_bloque3.hour
+                hr_bloque4= t_bloque4.hour
+                hr_bloque5= t_bloque5.hour
+                hr_bloque6= t_bloque6.hour
+
+                #minuto
+                min_bloque1 = t_bloque1.minute
+                min_bloque2 = t_bloque2.minute
+                min_bloque3 = t_bloque3.minute
+                min_bloque4 = t_bloque4.minute
+                min_bloque5 = t_bloque5.minute
+                min_bloque6 = t_bloque6.minute
+
+                #tiempo para prox actividad,se podria mostrar en pantalla
+
+                bloque_actual=0
+
+                if t_actual < t_bloque1:
+                    t_restante= t_actual-t_bloque1
+                    t_restante=abs(t_restante)
+                    bloque_actual=1
+
+                elif t_actual < t_bloque2:
+                    t_restante= t_actual-t_bloque2
+                    t_restante=abs(t_restante)
+                    bloque_actual=2
+                elif t_actual < t_bloque3:
+                    t_restante= t_actual-t_bloque3
+                    t_restante=abs(t_restante)
+                    bloque_actual=3
+
+                elif t_actual < t_bloque4:
+                    t_restante= t_actual-t_bloque4
+                    t_restante=abs(t_restante)
+                    bloque_actual=4
+
+                elif t_actual < t_bloque5:
+                    t_restante= t_actual-t_bloque5
+                    t_restante=abs(t_restante)
+                    bloque_actual=5
+
+                elif t_actual < t_bloque6:
+                    t_restante= t_actual-t_bloque6
+                    t_restante=abs(t_restante)
+                    bloque_actual=6
+                else:
+                    t_restante = "mas de un dia"
+
+                dia= t_actual.strftime("%w")
+
+
+
+                if t_restante == "mas de un dia" or dia == 0:
+                    actividad_arec = lista_bloques[1][int(dia)+1]
+                elif dia==6:
+                    actividad_arec = lista_bloques[1][1]
+                else:
+                    actividad_arec = lista_bloques[int(bloque_actual)][int(dia)]
+
+                #hago el t_restante una lista para operar con las horas y minutos de este
+                lista_trestante= str(t_restante).split(":")
+                if t_restante=="mas de un dia":
+                    showinfo(message = "queda "+ str(t_restante)+ " para "+str(actividad_arec), title = "Recordatorio")  
+                else:
+                    showinfo(message = "quedan "+ str(lista_trestante[0])+":"+str(lista_trestante[1])+ " (hrs) para "+str(actividad_arec), title = "Recordatorio")
+                    
+                    
+                time.sleep(600) #10 minuto
+                
+
+
+        t = threading.Thread(target = recordatorio1) # Se ejecuta en segundo plano
+        t.start()
+
     def ventana_entra_act():
         ventana_entrada = Toplevel()
         ventana_entrada.title("Agregar Actividad")
@@ -95,14 +199,7 @@ def cambia_ventana():
         # las actividades de cada día en el bloque correspondiente, siendo la posición 1 de
         # cada lista el lunes, la pos 2 el martes, y así hasta la pos 6 que es el sábado.
         
-        lista_bloque1=["Bloque 1","","","","","","","",""]
-        lista_bloque2=["Bloque 2","","","","","","","",""]
-        lista_bloque3=["Bloque 3","","","","","","","",""]
-        lista_bloque4=["Bloque 4","","","","","","","",""]
-        lista_bloque5=["Bloque 5","","","","","","","",""]
-        lista_bloque6=["Bloque 6","","","","","","","",""]
-        def recordatorio():
-            dadads
+
 
         # Aquí se define el botón de "asignar", al pulsar este botón, la actividad ingresada se
         # ubicará en el bloque ingresado
@@ -131,7 +228,7 @@ def cambia_ventana():
                     lista_bloque4[j] = lista[4][j]
                     lista_bloque5[j] = lista[5][j]
                     lista_bloque6[j] = lista[6][j]
-
+            
             # Esta de abajo es una comprobación meramente estética, para que los
             # colores del fondo coincidan con los colores del texto, mientras que el ciclo
             # lo que hace es ir agregando posición a posición la actividad del archivo
@@ -148,13 +245,13 @@ def cambia_ventana():
                                   font = ("Arial", 8)).grid(row = i, column = j)
                     j = j + 1
                 i = i + 1
-
+            lista_bloques= [lista_bloque1,lista_bloque2,lista_bloque3,lista_bloque4,lista_bloque5,lista_bloque6]
         # El botón que sirve para subir un archivo al programa, utilizará la función de arriba
         boton_subir=Button(ventana_entrada,text = "Subir Archivo",\
                            command=boton_subir,bg = "green", font = ("Arial", 12))        
         boton_subir.grid(row = 7)
         
-        def boton_enviar():
+        def boton_asignar():
             # Aquí definimos una constante, que es una lista de 7 elementos, siendo el
             # primero (pos 0) un string vacío, y los siguientes los días de la semana, esto
             # con el fin de guardarlo en un archivo.
@@ -194,6 +291,8 @@ def cambia_ventana():
                 lista_bloque5[i]=actividad.get()
             elif j==6:
                 lista_bloque6[i]=actividad.get()
+
+            lista_= [lista_bloque1,lista_bloque2,lista_bloque3,lista_bloque4,lista_bloque5,lista_bloque6]
         # Esta de aquí es la función para el botón guardar
             def boton_guardar():
 
@@ -310,9 +409,9 @@ def cambia_ventana():
             #Finalmente, el botón de asignar, lo que hace es enviar
             #la actividad ingresada al bloque correspondiente.
 
-        boton_enviar=Button(ventana_entrada,text="Asignar",\
-                            command=boton_enviar,bg="green", font = ("Arial", 12))
-        boton_enviar.grid(row=2)
+        boton_asignar=Button(ventana_entrada,text="Asignar",\
+                            command=boton_asignar,bg="green", font = ("Arial", 12))
+        boton_asignar.grid(row=2)
 
     #Primero se creará la ventana en donde se visualizará el horario
     #Esta tendrá un tamaño de 700x665 pixeles.
@@ -600,6 +699,10 @@ def cambia_ventana():
     # Al lado izquierdo estará el botón rojo de cerrar el programa
     boton_cerrar = Button(root2, text = "Cerrar", command = root.destroy, bg = "red", \
                           fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 4)
+    boton = Button(root2, text = "Recordatorio", bg= "yellow", font = ("Arial",11), padx=0.8,\
+                   pady= 2.1, command = recordatorio).grid(row=7, column = 2)
+
+                        
     
 # DEFINICIÓN DE CONSTANTES
 # De momento, en nuestro programa no se definió ninguna constante
