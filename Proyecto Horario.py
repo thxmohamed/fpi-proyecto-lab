@@ -114,7 +114,7 @@ def cambia_ventana():
                     bloque_actual=6
                 else:
                     i = 1
-                    while lista_bloques [i][int(dia)+1] == "":
+                    while lista_bloques [i][int(dia)+1] == "" and i < len(lista_bloques)-1:
                         i += 1
 
                     if i == 1:
@@ -144,14 +144,16 @@ def cambia_ventana():
                 if bloque_actual == -1 or dia == 0:
                     actividad_arec = lista_bloques[i][int(dia)+1]
                 elif dia==6:
-                    actividad_arec = lista_bloques[i][1]
+                    actividad_arec = lista_bloques[i][1]                 
                 else:
                     actividad_arec = lista_bloques[int(bloque_actual)][int(dia)]
 
                 #hago el t_restante una lista para operar con las horas y minutos de este
                 lista_trestante= str(t_restante).split(":")
-                if bloque_actual == -1:
-                    showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1]) + " (hrs) para "+str(actividad_arec), title = "Recordatorio")  
+                if bloque_actual == -1 and lista_bloques [i][int(dia)+1] != "":
+                    showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1]) + " (hrs) para "+str(actividad_arec), title = "Recordatorio")
+                elif lista_bloques [i][int(dia)+1] == "":
+                    showinfo(message = "No hay actividades para hoy ni para mañana", title = "Recordatorio")
                 else:
                     showinfo(message = "quedan "+ str(lista_trestante[0])+":"+str(lista_trestante[1])+ " (hrs) para "+str(actividad_arec), title = "Recordatorio")
                                        
