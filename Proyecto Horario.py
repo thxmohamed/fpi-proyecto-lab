@@ -41,7 +41,7 @@ def cambia_ventana():
     lista_bloque5=["Bloque 5","","","","","","","",""]
     lista_bloque6=["Bloque 6","","","","","","","",""]
         
-    lista_bloques= ["111",lista_bloque1,lista_bloque2,lista_bloque3,lista_bloque4,lista_bloque5,lista_bloque6]
+    lista_bloques= ["",lista_bloque1,lista_bloque2,lista_bloque3,lista_bloque4,lista_bloque5,lista_bloque6]
 
 #Aquí se define la función para el recordatorio
     def recordatorio():
@@ -51,12 +51,14 @@ def cambia_ventana():
                 t_actual= datetime.now()
 
                 #fecha
-                t_bloque1=datetime(t_actual.year,t_actual.month,t_actual.day,8,15,0000)
-                t_bloque2=datetime(t_actual.year,t_actual.month,t_actual.day,9,50,00,0000)
-                t_bloque3=datetime(t_actual.year,t_actual.month,t_actual.day,11,25,00,0000)
-                t_bloque4=datetime(t_actual.year,t_actual.month,t_actual.day,13,45,00,0000)
-                t_bloque5=datetime(t_actual.year,t_actual.month,t_actual.day,15,20,00,0000)
-                t_bloque6=datetime(t_actual.year,t_actual.month,t_actual.day,16,55,00,0000)
+                t_bloque1 = datetime(t_actual.year,t_actual.month,t_actual.day,8,15,0000)
+                t_bloque2 = datetime(t_actual.year,t_actual.month,t_actual.day,9,50,00,0000)
+                t_bloque3 = datetime(t_actual.year,t_actual.month,t_actual.day,11,25,00,0000)
+                t_bloque4 = datetime(t_actual.year,t_actual.month,t_actual.day,13,45,00,0000)
+                t_bloque5 = datetime(t_actual.year,t_actual.month,t_actual.day,15,20,00,0000)
+                t_bloque6 = datetime(t_actual.year,t_actual.month,t_actual.day,16,55,00,0000)
+                t_fin_dia = datetime(t_actual.year,t_actual.month,t_actual.day,23,59,59,0000)
+                t_dia_sgte = datetime(t_actual.year,t_actual.month,t_actual.day,00,00,00,0000)
 
                 #hora
                 hr_bloque1= t_bloque1.hour
@@ -77,41 +79,64 @@ def cambia_ventana():
                 #tiempo para prox actividad,se podria mostrar en pantalla
 
                 bloque_actual=0
+                dia= t_actual.strftime("%w")
 
                 if t_actual < t_bloque1:
-                    t_restante= t_actual-t_bloque1
+                    t_restante= t_actual - t_bloque1
                     t_restante=abs(t_restante)
                     bloque_actual=1
 
                 elif t_actual < t_bloque2:
-                    t_restante= t_actual-t_bloque2
+                    t_restante= t_actual - t_bloque2
                     t_restante=abs(t_restante)
                     bloque_actual=2
                 elif t_actual < t_bloque3:
-                    t_restante= t_actual-t_bloque3
+                    t_restante= t_actual - t_bloque3
                     t_restante=abs(t_restante)
                     bloque_actual=3
 
                 elif t_actual < t_bloque4:
-                    t_restante= t_actual-t_bloque4
+                    t_restante= t_actual - t_bloque4
                     t_restante=abs(t_restante)
                     bloque_actual=4
 
                 elif t_actual < t_bloque5:
-                    t_restante= t_actual-t_bloque5
+                    t_restante= t_actual - t_bloque5
                     t_restante=abs(t_restante)
                     bloque_actual=5
 
                 elif t_actual < t_bloque6:
-                    t_restante= t_actual-t_bloque6
+                    t_restante= t_actual - t_bloque6
                     t_restante=abs(t_restante)
                     bloque_actual=6
                 else:
-                    t_restante= t_actual-t_bloque1
-                    t_restante=abs(t_restante)
-                    bloque_actual = -1
+                    i = 1
+                    while lista_bloques [i][int(dia)+1] == "":
+                        i += 1
 
-                dia= t_actual.strftime("%w")
+                    if i == 1:
+                        t_restante= abs(t_actual - t_fin_dia) + t_bloque1 - t_dia_sgte
+                        bloque_actual = -1
+                        
+                    elif i == 2:
+                        t_restante= abs(t_actual - t_fin_dia) + t_bloque2 - t_dia_sgte
+                        bloque_actual = -1
+
+                    elif i == 3:
+                        t_restante= abs(t_actual - t_fin_dia) + t_bloque3 - t_dia_sgte
+                        bloque_actual = -1
+
+                    elif i == 4:
+                        t_restante= abs(t_actual - t_fin_dia) + t_bloque4 - t_dia_sgte
+                        bloque_actual = -1
+
+                    elif i == 5:
+                        t_restante= abs(t_actual - t_fin_dia) + t_bloque5 - t_dia_sgte
+                        bloque_actual = -1
+
+                    elif i == 6:
+                        t_restante= abs(t_actual - t_fin_dia) + t_bloque6 - t_dia_sgte
+                        bloque_actual = -1
 
                 if bloque_actual == -1 or dia == 0:
                     actividad_arec = lista_bloques[1][int(dia)+1]
