@@ -159,12 +159,12 @@ def cambia_ventana():
                 lista_trestante= str(t_restante).split(":")
                 if bloque_actual == -1 and lista_bloques [i][int(dia)+1] != "":
                     showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1]) \
-                             + " (hrs) para "+str(actividad_arec), title = "Recordatorio")
+                             + " (hrs) para " + str(actividad_arec), title = "Recordatorio")
                 elif lista_bloques [i][int(dia)+1] == "":
                     showinfo(message = "No hay actividades para hoy ni para mañana", title = "Recordatorio")
                 else:
-                    showinfo(message = "quedan "+ str(lista_trestante[0])+":"+str(lista_trestante[1])+\
-                             " (hrs) para "+str(actividad_arec), title = "Recordatorio")
+                    showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1])+\
+                             " (hrs) para " + str(actividad_arec), title = "Recordatorio")
                 #Todo esto se ejecutará cada 10 minutos, por lo que, pasados 10 minutos, se mostrará
                 #nuevamente el mensaje.
                 time.sleep(600)
@@ -266,41 +266,32 @@ def cambia_ventana():
             # colores del fondo coincidan con los colores del texto, mientras que el ciclo
             # lo que hace es ir agregando posición a posición la actividad del archivo
             # correspondiente.
-                    if len(lista[i][j])>15:
-                        if len(lista[i][j])>30:
-                            actividad_aponer=lista[i][j][0:15]+"\n"+lista[i][j][15:30] \
+                    if len(lista[i][j]) > 15:
+                        if len(lista[i][j]) > 30:
+                            actividad_a_poner = lista[i][j][0:15] + "\n" + lista[i][j][15:30] \
                                               + "\n" + lista[i][j][30:]
-                            if (i ) % 2 == 1 and (j) % 2 == 1:                
-                                texto = Label(root2, text = actividad_aponer, bg = "lightgreen",\
-                                              font = ("Arial", 8)).grid(row = i, column = j)
-                            elif (i ) % 2 == 0 and (j ) % 2 == 0:
-                                texto = Label(root2, text = actividad_aponer, bg = "lightgreen",\
-                                              font = ("Arial", 8)).grid(row = i, column = j)     
+                            if (i + j) % 2 == 0:
+                                texto = Label(root2, text = actividad_a_poner, bg = "lightgreen",\
+                                              font = ("Arial", 8)).grid(row = i, column = j)    
                             else:
-                                texto = Label(root2, text = actividad_aponer, bg = "lightblue",\
+                                texto = Label(root2, text = actividad_a_poner, bg = "lightblue",\
                                               font = ("Arial", 8)).grid(row = i, column = j)
                                 
                         else:
-                            actividad_aponer=lista[i][j][0:15]+"\n"+ lista[i][j][15:]
-                            if (i ) % 2 == 1 and (j) % 2 == 1:                
-                                texto = Label(root2, text = actividad_aponer, bg = "lightgreen",\
-                                              font = ("Arial", 8)).grid(row = i, column = j)
-                            elif (i ) % 2 == 0 and (j ) % 2 == 0:
-                                texto = Label(root2, text = actividad_aponer, bg = "lightgreen", \
+                            actividad_a_poner = lista[i][j][0:15] + "\n" + lista[i][j][15:]
+                            if (i + j) % 2 == 0:
+                                texto = Label(root2, text = actividad_a_poner, bg = "lightgreen",\
                                               font = ("Arial", 8)).grid(row = i, column = j)    
                             else:
-                                texto = Label(root2, text = actividad_aponer, bg = "lightblue",\
+                                texto = Label(root2, text = actividad_a_poner, bg = "lightblue",\
                                               font = ("Arial", 8)).grid(row = i, column = j)
                     else:
-                        if (i ) % 2 == 1 and (j) % 2 == 1:                
+                        if (i + j) % 2 == 0:
                             texto = Label(root2, text = lista[i][j], bg = "lightgreen",\
-                                          font = ("Arial", 8)).grid(row = i, column = i )
-                        elif (i ) % 2 == 0 and (j ) % 2 == 0:
-                            texto = Label(root2, text = lista[i][j], bg = "lightgreen",\
-                                          font = ("Arial", 8)).grid(row = i, column = j)      
+                                            font = ("Arial", 8)).grid(row = i, column = j)      
                         else:
                             texto = Label(root2, text = lista[i][j], bg = "lightblue",\
-                                          font = ("Arial", 8)).grid(row = i, column = j)
+                                            font = ("Arial", 8)).grid(row = i, column = j)
                     j = j + 1
                 i = i + 1
             lista_bloques= [lista_bloque1,lista_bloque2,lista_bloque3,lista_bloque4,lista_bloque5,lista_bloque6]
