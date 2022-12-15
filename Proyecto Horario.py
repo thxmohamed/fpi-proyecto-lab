@@ -107,11 +107,13 @@ def cambia_ventana():
                     t_restante=abs(t_restante)
                     bloque_actual=6
                 else:
-                    t_restante = "mas de un dia"
+                    t_restante= t_actual-t_bloque1
+                    t_restante=abs(t_restante)
+                    bloque_actual = -1
 
                 dia= t_actual.strftime("%w")
 
-                if t_restante == "mas de un dia" or dia == 0:
+                if bloque_actual == -1 or dia == 0:
                     actividad_arec = lista_bloques[1][int(dia)+1]
                 elif dia==6:
                     actividad_arec = lista_bloques[1][1]
@@ -120,8 +122,8 @@ def cambia_ventana():
 
                 #hago el t_restante una lista para operar con las horas y minutos de este
                 lista_trestante= str(t_restante).split(":")
-                if t_restante=="mas de un dia":
-                    showinfo(message = "queda "+ str(t_restante)+ " para "+str(actividad_arec), title = "Recordatorio")  
+                if bloque_actual == -1:
+                    showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1]) + " (hrs) para "+str(actividad_arec), title = "Recordatorio")  
                 else:
                     showinfo(message = "quedan "+ str(lista_trestante[0])+":"+str(lista_trestante[1])+ " (hrs) para "+str(actividad_arec), title = "Recordatorio")
                                        
