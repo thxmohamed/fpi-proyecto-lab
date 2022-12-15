@@ -62,6 +62,7 @@ def cambia_ventana():
                 T_BLOQUE6 = datetime(t_actual.year,t_actual.month,t_actual.day,16,55,00,0000)
                 T_FIN_DIA = datetime(t_actual.year,t_actual.month,t_actual.day,23,59,59,0000)
                 T_DIA_SGTE = datetime(t_actual.year,t_actual.month,t_actual.day,00,00,00,0000)
+                T_BLOQUES = ["",T_BLOQUE1,T_BLOQUE2,T_BLOQUE3,T_BLOQUE4,T_BLOQUE5,T_BLOQUE6,T_FIN_DIA,T_DIA_SGTE]
 
                 #Este es el procesamiento de lo que hace la función, la variable bloque actual
                 #sirve para saber en qué bloque está la actividad del usuario, y eso lo sabremos
@@ -69,81 +70,39 @@ def cambia_ventana():
                 #vacío, o cuando se salga del largo de la lista.
                 bloque_actual=0
                 #La variable dia indica el día en el que estamos, siendo 0 el domingo y 6 el sábado.
-                dia= t_actual.strftime("%w")
+                dia = t_actual.strftime("%w")
                 j = 1
-                i = 1
                 while lista_bloques[j][int(dia)] == "" and j < len(lista_bloques)-1 :
                     j += 1
                 #Una vez terminado el ciclo, tendremos estos ifs que lo que hacen es preguntar
                 # por el bloque en el que se detuvo el ciclo de arriba.
-                if j == 1:
-                    t_restante= t_actual - T_BLOQUE1
-                    t_restante=abs(t_restante)
-                    bloque_actual= 1
-
-                elif j == 2:
-                    t_restante= t_actual - T_BLOQUE2
-                    t_restante=abs(t_restante)
-                    bloque_actual= 2
-                elif j == 3:
-                    t_restante= t_actual - T_BLOQUE3
-                    t_restante=abs(t_restante)
-                    bloque_actual=3
-
-                elif j == 4:
-                    t_restante= t_actual - T_BLOQUE4
-                    t_restante=abs(t_restante)
-                    bloque_actual=4
-
-                elif j == 5:
-                    t_restante= t_actual - T_BLOQUE5
-                    t_restante=abs(t_restante)
-                    bloque_actual=5
+                if j != 6:
+                    t_restante= abs(t_actual - T_BLOQUES[j])
+                    bloque_actual = j
                 #Este último if tiene una condición aparte, pues está preguntando si el último
                 #bloque no es un string vacío.
                 elif j == 6 and lista_bloques[j][int(dia)] != "":
-                    t_restante= t_actual - T_BLOQUE6
-                    t_restante=abs(t_restante)
-                    bloque_actual=6
+                    t_restante = abs(t_actual - T_BLOQUE6)
+                    bloque_actual = 6
                 #Si no se cumple ninguna de estas condiciones, se pasará al día siguiente, y se
                 #hará el mismo proceso, buscando actividades en ese día, siempre y cuando el
                 #dia en que estemos no sea sábado (6), pues el día 6+1 no existe.
 
                 elif dia != 6:
                     #Este ciclo lo único que hace es buscar actividades en el día siguiente.
-                    while lista_bloques [i][int(dia)+1] == "" and i < len(lista_bloques)-1:
+                    i = 1
+                    while lista_bloques [i][int(dia) + 1] == "" and i < len(lista_bloques)-1:
                         i += 1
                     #Aquí se pregunta por el bloque en el que se detuvo el ciclo anterior.
-                    if i == 1:
                         #A la variable bloque actual le asignaremos un valor de -1 en todos los casos,
                         #para indicar que en el día actual no hay nada y nos pasamos al día siguiente.
-                        t_restante= abs(t_actual - T_FIN_DIA) + T_BLOQUE1 - T_DIA_SGTE
-                        bloque_actual = -1
-                        
-                    elif i == 2:
-                        t_restante= abs(t_actual - T_FIN_DIA) + T_BLOQUE2 - T_DIA_SGTE
-                        bloque_actual = -1
-
-                    elif i == 3:
-                        t_restante= abs(t_actual - T_FIN_DIA) + T_BLOQUE3 - T_DIA_SGTE
-                        bloque_actual = -1
-
-                    elif i == 4:
-                        t_restante= abs(t_actual - T_FIN_DIA) + T_BLOQUE4 - T_DIA_SGTE
-                        bloque_actual = -1
-
-                    elif i == 5:
-                        t_restante= abs(t_actual - T_FIN_DIA) + T_BLOQUE5 - T_DIA_SGTE
-                        bloque_actual = -1
-
-                    elif i == 6:
-                        t_restante= abs(t_actual - T_FIN_DIA) + T_BLOQUE6 - T_DIA_SGTE
-                        bloque_actual = -1
+                    t_restante= abs(t_actual - T_FIN_DIA) + T_BLOQUES[i] - T_DIA_SGTE
+                    bloque_actual = -1
                 #Comprobaciones finales, primero, preguntamos si nos pasamos al día siguiente,
                 #o si hoy es domingo (0), en tal caso, la actividad a recordar será lo que ahora mismo está
                 #guardado en la lista_bloques, en el bloque i, y el día actual+1.
                 if bloque_actual == -1 or dia == 0:
-                    actividad_arec = lista_bloques[i][int(dia)+1]
+                    actividad_arec = lista_bloques[i][int(dia) + 1]
                 #Aquí preguntamos si el día actual es sábado (6), en tal caso, la actividad a recordar
                 #será lo que hay guardado en la lista_bloques en el bloque i, y día lunes (1).
                 elif dia==6:
@@ -160,7 +119,7 @@ def cambia_ventana():
                 if bloque_actual == -1 and lista_bloques [i][int(dia)+1] != "":
                     showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1]) \
                              + " (hrs) para " + str(actividad_arec), title = "Recordatorio")
-                elif lista_bloques [i][int(dia)+1] == "":
+                elif lista_bloques [i][int(dia) + 1] == "":
                     showinfo(message = "No hay actividades para hoy ni para mañana", title = "Recordatorio")
                 else:
                     showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1])+\
