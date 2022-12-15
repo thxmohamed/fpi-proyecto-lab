@@ -72,6 +72,7 @@ def cambia_ventana():
                 #La variable dia indica el día en el que estamos, siendo 0 el domingo y 6 el sábado.
                 dia = t_actual.strftime("%w")
                 j = 1
+                i = 1
                 while lista_bloques[j][int(dia)] == "" and j < len(lista_bloques)-1 :
                     j += 1
                 #Una vez terminado el ciclo, tendremos estos ifs que lo que hacen es preguntar
@@ -90,7 +91,6 @@ def cambia_ventana():
 
                 elif dia != 6:
                     #Este ciclo lo único que hace es buscar actividades en el día siguiente.
-                    i = 1
                     while lista_bloques [i][int(dia) + 1] == "" and i < len(lista_bloques)-1:
                         i += 1
                     #Aquí se pregunta por el bloque en el que se detuvo el ciclo anterior.
