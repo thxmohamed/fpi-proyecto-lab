@@ -420,34 +420,25 @@ def cambia_ventana():
                 if len(actividad_get)>30:
                     actividad_aponer=actividad_get[0:15]+"\n"+actividad_get[15:30] \
                                       + "\n" + actividad_get[30:]
-                    if (i ) % 2 == 1 and (j) % 2 == 1:                
+                    if (i + j) % 2 == 0:                
                         texto = Label(root2, text = actividad_aponer, bg = "lightgreen",\
-                                      font = ("Arial", 8)).grid(row = j, column = i )
-                    elif (i ) % 2 == 0 and (j ) % 2 == 0:
-                        texto = Label(root2, text = actividad_aponer, bg = "lightgreen",\
-                                      font = ("Arial", 8)).grid(row = j , column = i )        
+                                      font = ("Arial", 8)).grid(row = j, column = i)      
                     else:
                         texto = Label(root2, text = actividad_aponer, bg = "lightblue",\
-                                      font = ("Arial", 8)).grid(row = j , column = i )
+                                      font = ("Arial", 8)).grid(row = j , column = i)
                         
                 else:
                     actividad_aponer=actividad_get[0:15]+"\n"+actividad_get[15:]
-                    if (i ) % 2 == 1 and (j) % 2 == 1:                
+                    if (i + j) % 2 == 0:                
                         texto = Label(root2, text = actividad_aponer, bg = "lightgreen",\
-                                      font = ("Arial", 8)).grid(row = j, column = i )
-                    elif (i ) % 2 == 0 and (j ) % 2 == 0:
-                        texto = Label(root2, text = actividad_aponer, bg = "lightgreen", \
-                                      font = ("Arial", 8)).grid(row = j , column = i )        
+                                      font = ("Arial", 8)).grid(row = j, column = i)        
                     else:
                         texto = Label(root2, text = actividad_aponer, bg = "lightblue",\
-                                      font = ("Arial", 8)).grid(row = j , column = i )
+                                      font = ("Arial", 8)).grid(row = j , column = i)
             else:
-                if (i ) % 2 == 1 and (j) % 2 == 1:                
+                if (i + j) % 2 == 0:                
                     texto = Label(root2, text = actividad.get(), bg = "lightgreen",\
-                                  font = ("Arial", 8)).grid(row = j, column = i )
-                elif (i ) % 2 == 0 and (j ) % 2 == 0:
-                    texto = Label(root2, text = actividad.get(), bg = "lightgreen",\
-                                  font = ("Arial", 8)).grid(row = j , column = i )        
+                                  font = ("Arial", 8)).grid(row = j, column = i)
                 else:
                     texto = Label(root2, text = actividad.get(), bg = "lightblue",\
                                   font = ("Arial", 8)).grid(row = j , column = i )
