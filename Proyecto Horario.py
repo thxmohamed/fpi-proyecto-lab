@@ -60,6 +60,7 @@ def cambia_ventana():
                 t_fin_dia = datetime(t_actual.year,t_actual.month,t_actual.day,23,59,59,0000)
                 t_dia_sgte = datetime(t_actual.year,t_actual.month,t_actual.day,00,00,00,0000)
 
+                '''
                 #hora
                 hr_bloque1= t_bloque1.hour
                 hr_bloque2= t_bloque2.hour
@@ -75,37 +76,39 @@ def cambia_ventana():
                 min_bloque4 = t_bloque4.minute
                 min_bloque5 = t_bloque5.minute
                 min_bloque6 = t_bloque6.minute
-
+                '''
                 #tiempo para prox actividad,se podria mostrar en pantalla
 
                 bloque_actual=0
                 dia= t_actual.strftime("%w")
-
-                if t_actual < t_bloque1:
+                j = 1
+                while lista_bloques[j][int(dia)] == "" and j < len(lista_bloques)-1 :
+                    j += 1
+                if j == 1:
                     t_restante= t_actual - t_bloque1
                     t_restante=abs(t_restante)
-                    bloque_actual=1
+                    bloque_actual= 1
 
-                elif t_actual < t_bloque2:
+                elif j == 2:
                     t_restante= t_actual - t_bloque2
                     t_restante=abs(t_restante)
-                    bloque_actual=2
-                elif t_actual < t_bloque3:
+                    bloque_actual= 2
+                elif j == 3:
                     t_restante= t_actual - t_bloque3
                     t_restante=abs(t_restante)
                     bloque_actual=3
 
-                elif t_actual < t_bloque4:
+                elif j == 4:
                     t_restante= t_actual - t_bloque4
                     t_restante=abs(t_restante)
                     bloque_actual=4
 
-                elif t_actual < t_bloque5:
+                elif j == 5:
                     t_restante= t_actual - t_bloque5
                     t_restante=abs(t_restante)
                     bloque_actual=5
 
-                elif t_actual < t_bloque6:
+                elif j == 6 and lista_bloques[j][int(dia)] != "":
                     t_restante= t_actual - t_bloque6
                     t_restante=abs(t_restante)
                     bloque_actual=6
@@ -139,9 +142,9 @@ def cambia_ventana():
                         bloque_actual = -1
 
                 if bloque_actual == -1 or dia == 0:
-                    actividad_arec = lista_bloques[1][int(dia)+1]
+                    actividad_arec = lista_bloques[i][int(dia)+1]
                 elif dia==6:
-                    actividad_arec = lista_bloques[1][1]
+                    actividad_arec = lista_bloques[i][1]
                 else:
                     actividad_arec = lista_bloques[int(bloque_actual)][int(dia)]
 
@@ -286,18 +289,6 @@ def cambia_ventana():
                         else:
                             texto = Label(root2, text = lista[i][j], bg = "lightblue",\
                                           font = ("Arial", 8)).grid(row = i, column = j)
-                    """
-                    if (i ) % 2 == 1 and (j) % 2 == 1:                
-                        texto = Label(root2, text = lista[i][j], bg = "lightgreen",\
-                                  font = ("Arial", 8)).grid(row = i, column = j)
-                        
-                    elif (i ) % 2 == 0 and (j ) % 2 == 0:
-                        texto = Label(root2, text = lista[i][j], bg = "lightgreen",\
-                                  font = ("Arial", 8)).grid(row = i, column = j)      
-                    else:
-                        texto = Label(root2, text = lista[i][j], bg = "lightblue",\
-                                  font = ("Arial", 8)).grid(row = i, column = j)
-                    """
                     j = j + 1
                 i = i + 1
             lista_bloques= [lista_bloque1,lista_bloque2,lista_bloque3,lista_bloque4,lista_bloque5,lista_bloque6]
