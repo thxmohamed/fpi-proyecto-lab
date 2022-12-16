@@ -41,7 +41,8 @@ def cambia_ventana():
     lista_bloque5=["Bloque 5","","","","","","","",""]
     lista_bloque6=["Bloque 6","","","","","","","",""]
         
-    lista_bloques= ["",lista_bloque1,lista_bloque2,lista_bloque3,lista_bloque4,lista_bloque5,lista_bloque6]
+    lista_bloques= ["",lista_bloque1,lista_bloque2,lista_bloque3,
+                    lista_bloque4,lista_bloque5,lista_bloque6]
 
 #Aquí se define la función para el recordatorio
     def recordatorio():
