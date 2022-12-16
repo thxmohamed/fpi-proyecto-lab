@@ -63,7 +63,8 @@ def cambia_ventana():
                 T_BLOQUE6 = datetime(t_actual.year,t_actual.month,t_actual.day,16,55,00,0000)
                 T_FIN_DIA = datetime(t_actual.year,t_actual.month,t_actual.day,23,59,59,0000)
                 T_DIA_SGTE = datetime(t_actual.year,t_actual.month,t_actual.day,00,00,00,0000)
-                T_BLOQUES = ["",T_BLOQUE1,T_BLOQUE2,T_BLOQUE3,T_BLOQUE4,T_BLOQUE5,T_BLOQUE6,T_FIN_DIA,T_DIA_SGTE]
+                T_BLOQUES = ["",T_BLOQUE1,T_BLOQUE2,T_BLOQUE3,T_BLOQUE4,
+                             T_BLOQUE5,T_BLOQUE6,T_FIN_DIA,T_DIA_SGTE]
 
                 #Este es el procesamiento de lo que hace la función, la variable bloque actual
                 #sirve para saber en qué bloque está la actividad del usuario, y eso lo sabremos
