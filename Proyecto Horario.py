@@ -47,11 +47,11 @@ def cambia_ventana():
 
 #Aquí se define la función para el recordatorio
     def recordatorio():
-        def recordatorio1():
+        def recordatorio1(run):
             # Este ciclo está hecho para que se repita siempre
             # sin embargo, no hará que se pegue el programa, pues
             # se ejecuta en segundo plano.
-            while True:
+            while run.is_set():
                 #Esta variable de aquí lo que hace es guardar la hora actual del sistema
                 t_actual= datetime.now()
                 #Estas son constantes que se utilizarán para calcular el tiempo restante
@@ -116,15 +116,24 @@ def cambia_ventana():
                         delta = dia - int(t_actual.strftime("%w"))
                     else:
                         delta = dia - int(t_actual.strftime("%w")) + 7
-                    T_BLOQUES[bloque_siguiente] += timedelta(days = delta)
-                    t_restante = T_BLOQUES[bloque_siguiente] - t_actual
-                    #Finalmente soltamos la notificación
+                    bloque_arec = T_BLOQUES[bloque_siguiente] 
+                    bloque_arec += timedelta(days = delta)
+                    t_restante = bloque_arec - t_actual
+                    #Ahora soltamos la notificación
                     showinfo(message= "Le queda " + str(t_restante) + " para " + str(actividad_arec),
                              title="RECORDATORIO")
-                time.sleep(600)
         #Finalmente, esta parte es para que se ejecute en segundo plano.
-        t = threading.Thread(target = recordatorio1) # Se ejecuta en segundo plano
+                time.sleep(1)
+        run = threading.Event()
+        run.set()
+        t = threading.Thread(target = recordatorio1, args = (run,)) # Se ejecuta en segundo plano
         t.start()
+        #El siguiente botón será para detener los recordatorios
+        def detener():
+            run.clear()
+            showinfo(message= "Se han detenido los recordatorios", title="STOP")
+        boton_detener = Button(root2, text = "Detener", bg= "red", font = ("Arial",11), padx= 18,\
+                   pady= 2.1, command = detener, fg = "white").grid(row=7, column = 2)
     #Esta segunda función creará la ventana dedicada a ingresar las actividades.
     def ventana_entra_act():
         ventana_entrada = Toplevel()
@@ -689,12 +698,12 @@ def cambia_ventana():
     # cyan, que se encargará de llevar a una nueva ventana, en
     # donde el usuario podrá ingresar sus actividades.
     boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5,\
-                   pady= 2.1, command = ventana_entra_act).grid(row=7, column = 3)
+                   pady= 2.1, command = ventana_entra_act).grid(row=7, column = 4)
     # Al lado izquierdo estará el botón rojo de cerrar el programa
     boton_cerrar = Button(root2, text = "Cerrar", command = root.destroy, bg = "red", \
-                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 4)
-    boton = Button(root2, text = "Recordatorio", bg= "yellow", font = ("Arial",11), padx=0.8,\
-                   pady= 2.1, command = recordatorio).grid(row=7, column = 2)
+                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 5)
+    boton_recordatorio = Button(root2, text = "Recordatorio", bg= "yellow", font = ("Arial",11), padx=0.8,\
+                   pady= 2.1, command = recordatorio).grid(row=7, column = 3)
     
 # DEFINICIÓN DE CONSTANTES
 # De momento, en nuestro programa no se definió ninguna constante
