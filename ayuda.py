@@ -89,28 +89,38 @@ def cambia_ventana():
                     actividad_arec = lista_bloques[bloque_siguiente][dia]
                 #Este ciclo cubrirá el caso en el que el alumno tenga alguna ventana en su horario
                 #Recorrerá el calendario hasta encontrar alguna actividad que no sea: ""
-                while actividad_arec == "" and bloque_siguiente < len(lista_bloques):
-                    bloque_siguiente += 1
-                    if bloque_siguiente != 7:
-                        actividad_arec = lista_bloques[bloque_siguiente][dia]
-                    else:
-                        bloque_siguiente = 1
-                        dia += 1
-                        if dia != 7:
+                #Para que no se quede trabada, hay que verificar que el horario no esté vacío
+                if lista_bloque1 == ["Bloque 1","","","","","","","",""] and \
+                    lista_bloque2 ==["Bloque 2","","","","","","","",""] and \
+                    lista_bloque3 == ["Bloque 3","","","","","","","",""] and \
+                    lista_bloque4 == ["Bloque 4","","","","","","","",""] and \
+                    lista_bloque5 == ["Bloque 5","","","","","","","",""] and \
+                    lista_bloque6 == ["Bloque 6","","","","","","","",""]:
+                    showinfo(message= "No tiene ninguna actividad en su horario...",
+                             title="RECORDATORIO")
+                else:
+                    while actividad_arec == "" and bloque_siguiente < len(lista_bloques):
+                        bloque_siguiente += 1
+                        if bloque_siguiente != 7:
                             actividad_arec = lista_bloques[bloque_siguiente][dia]
                         else:
-                            dia = 1
-                            actividad_arec = lista_bloques[bloque_siguiente][dia]
-                #Ahora que tenemos las coordenadas de la actividad, calculamos el tiempo restante
-                if dia >= int(t_actual.strftime("%w")):
-                    delta = dia - int(t_actual.strftime("%w"))
-                else:
-                    delta = dia - int(t_actual.strftime("%w")) + 7
-                T_BLOQUES[bloque_siguiente] += timedelta(days = delta)
-                t_restante = T_BLOQUES[bloque_siguiente] - t_actual
-                #Finalmente soltamos la notificación
-                showinfo(message= "Le queda " + str(t_restante) + " para " + str(actividad_arec),
-                         title="RECORDATORIO")
+                            bloque_siguiente = 1
+                            dia += 1
+                            if dia != 7:
+                                actividad_arec = lista_bloques[bloque_siguiente][dia]
+                            else:
+                                dia = 1
+                                actividad_arec = lista_bloques[bloque_siguiente][dia]
+                    #Ahora que tenemos las coordenadas de la actividad, calculamos el tiempo restante
+                    if dia >= int(t_actual.strftime("%w")):
+                        delta = dia - int(t_actual.strftime("%w"))
+                    else:
+                        delta = dia - int(t_actual.strftime("%w")) + 7
+                    T_BLOQUES[bloque_siguiente] += timedelta(days = delta)
+                    t_restante = T_BLOQUES[bloque_siguiente] - t_actual
+                    #Finalmente soltamos la notificación
+                    showinfo(message= "Le queda " + str(t_restante) + " para " + str(actividad_arec),
+                             title="RECORDATORIO")
                 time.sleep(5)
         #Finalmente, esta parte es para que se ejecute en segundo plano.
         t = threading.Thread(target = recordatorio1) # Se ejecuta en segundo plano
