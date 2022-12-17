@@ -64,7 +64,7 @@ def cambia_ventana():
                 T_FIN_DIA = datetime(t_actual.year,t_actual.month,t_actual.day,23,59,59,0000)
                 T_DIA_SGTE = datetime(t_actual.year,t_actual.month,t_actual.day,00,00,00,0000)
                 T_BLOQUES = ["",T_BLOQUE1,T_BLOQUE2,T_BLOQUE3,T_BLOQUE4,
-                             T_BLOQUE5,T_BLOQUE6,T_FIN_DIA,T_DIA_SGTE]
+                             T_BLOQUE5,T_BLOQUE6]
 
                 #Este es el procesamiento de lo que hace la función, la variable bloque actual
                 #sirve para saber en qué bloque está la actividad del usuario, y eso lo sabremos
@@ -73,57 +73,87 @@ def cambia_ventana():
                 bloque_actual=0
                 #La variable dia indica el día en el que estamos, siendo 0 el domingo y 6 el sábado.
                 dia = t_actual.strftime("%w")
-                j = 1
+                j = -1
                 i = 1
-                while lista_bloques[j][int(dia)] == "" and j < len(lista_bloques)-1 :
-                    j += 1
+                t_restante = 0
+                while j > -len(lista_bloques) and lista_bloques[j][int(dia)] == "" and t_actual<T_BLOQUES[j]:
+                    j -= 1
+                
                 #Una vez terminado el ciclo, tendremos estos ifs que lo que hacen es preguntar
                 # por el bloque en el que se detuvo el ciclo de arriba.
-                if j != 6:
-                    t_restante= abs(t_actual - T_BLOQUES[j])
-                    bloque_actual = j
+                if j != -1:
+                   
+                    if t_actual < T_BLOQUES[j]: 
+                        t_restante= abs(t_actual - T_BLOQUES[j])
+                    bloque_actual = j+7
+                
                 #Este último if tiene una condición aparte, pues está preguntando si el último
                 #bloque no es un string vacío.
-                elif j == 6 and lista_bloques[j][int(dia)] != "":
-                    t_restante = abs(t_actual - T_BLOQUE6)
+                if j == -1 and lista_bloques[j][int(dia)] != "":
+                    
+                    if t_actual < T_BLOQUE6:
+                        t_restante = abs(t_actual - T_BLOQUE6)
                     bloque_actual = 6
                 #Si no se cumple ninguna de estas condiciones, se pasará al día siguiente, y se
                 #hará el mismo proceso, buscando actividades en ese día, siempre y cuando el
                 #dia en que estemos no sea sábado (6), pues el día 6+1 no existe.
-
-                elif dia != 6:
+                if j == -1 or dia != 6:
                     #Este ciclo lo único que hace es buscar actividades en el día siguiente.
-                    while lista_bloques [i][int(dia) + 1] == "" and i < len(lista_bloques)-1:
+                    while lista_bloques[i][int(dia) + 1] == "" and i < len(lista_bloques)-1:
+                        
                         i += 1
                     #Aquí se pregunta por el bloque en el que se detuvo el ciclo anterior.
                         #A la variable bloque actual le asignaremos un valor de -1 en todos los casos,
                         #para indicar que en el día actual no hay nada y nos pasamos al día siguiente.
                     t_restante= abs(t_actual - T_FIN_DIA) + T_BLOQUES[i] - T_DIA_SGTE
                     bloque_actual = -1
+                    
+                if dia == 6:
+                    while lista_bloques[i][1] == "" and i < len(lista_bloques)-1:
+                        i += 1
+                    t_restante= t_actual + T_FIN_DIA - abs(T_DIA_SGTE- T_BLOQUES[i])
+                    bloque_actual = -1
+                    
+
+
+
+
+
                 #Comprobaciones finales, primero, preguntamos si nos pasamos al día siguiente,
                 #o si hoy es domingo (0), en tal caso, la actividad a recordar será lo que ahora mismo está
                 #guardado en la lista_bloques, en el bloque i, y el día actual+1.
                 if bloque_actual == -1 or dia == 0:
                     actividad_arec = lista_bloques[i][int(dia) + 1]
+                    lista_trestante= str(t_restante).split(":")
+                    
                 #Aquí preguntamos si el día actual es sábado (6), en tal caso, la actividad a recordar
                 #será lo que hay guardado en la lista_bloques en el bloque i, y día lunes (1).
                 elif dia==6:
                     actividad_arec = lista_bloques[i][1]
+                    lista_trestante= str(t_restante).split(":")
+                    
                 #Si no se cumplen estas condiciones especiales, es porque la actividad a recordar
                 #está en el mismo día en el que estamos, por lo que simplemente se mostrará la
                 #actividad del bloque más cercano en el día actual.
-                else:
+                elif t_restante != 0 and bloque_actual != 0:
+             
                     actividad_arec = lista_bloques[int(bloque_actual)][int(dia)]
-
                 #aquí se transforma el t_restante en una lista para trabajar más fácil con ello
                 #siendo la posición 0 las horas faltantes, y la posición 1 los minutos.
-                lista_trestante= str(t_restante).split(":")
+                    lista_trestante= str(t_restante).split(":")
+             
+                    
+
+
+
                 if bloque_actual == -1 and lista_bloques [i][int(dia)+1] != "":
                     showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1]) \
                              + " (hrs) para " + str(actividad_arec), title = "Recordatorio")
-                elif lista_bloques [i][int(dia) + 1] == "":
+
+                elif lista_bloques[i][int(dia) + 1] == "" or t_restante == 0:
                     showinfo(message = "No hay actividades para hoy ni para mañana", title = "Recordatorio")
-                else:
+                    
+                elif lista_bloques [i][int(dia) + 1] != "":
                     showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1])+\
                              " (hrs) para " + str(actividad_arec), title = "Recordatorio")
                 #Todo esto se ejecutará cada 10 minutos, por lo que, pasados 10 minutos, se mostrará
