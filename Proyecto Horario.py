@@ -123,7 +123,7 @@ def cambia_ventana():
                     showinfo(message= "Le queda " + str(t_restante) + " para " + str(actividad_arec),
                              title="RECORDATORIO")
         #Finalmente, esta parte es para que se ejecute en segundo plano.
-                time.sleep(1)
+                time.sleep(30)
         run = threading.Event()
         run.set()
         t = threading.Thread(target = recordatorio1, args = (run,)) # Se ejecuta en segundo plano
