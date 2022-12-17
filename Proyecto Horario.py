@@ -99,7 +99,7 @@ def cambia_ventana():
                     showinfo(message= "No tiene ninguna actividad en su horario...",
                              title="RECORDATORIO")
                 else:
-                    while actividad_arec == "" and bloque_siguiente < len(lista_bloques):
+                    while actividad_arec == "":
                         bloque_siguiente += 1
                         if bloque_siguiente != 7:
                             actividad_arec = lista_bloques[bloque_siguiente][dia]
