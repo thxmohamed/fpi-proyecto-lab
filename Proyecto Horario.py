@@ -82,7 +82,6 @@ def cambia_ventana():
                 if dia == 0 or dia == 7:
                     dia = "domingo"
                 # Ahora que tenemos el bloque y el día en el que estamos tenemos la actividad a recordar
-                actividad_arec = lista_bloques[bloque_siguiente][dia]
                 #Esto cubrirá el caso en el que el día de hoy sea domingo
                 if dia == "domingo":
                     dia = 1
@@ -112,18 +111,23 @@ def cambia_ventana():
                                 dia = 1
                                 actividad_arec = lista_bloques[bloque_siguiente][dia]
                     #Ahora que tenemos las coordenadas de la actividad, calculamos el tiempo restante
-                    if dia >= int(t_actual.strftime("%w")):
+                    if dia >= int(t_actual.strftime("%w")) and t_actual < T_BLOQUE6:
                         delta = dia - int(t_actual.strftime("%w"))
                     else:
                         delta = dia - int(t_actual.strftime("%w")) + 7
                     bloque_arec = T_BLOQUES[bloque_siguiente] 
                     bloque_arec += timedelta(days = delta)
                     t_restante = bloque_arec - t_actual
+
+                    if "days" in str(t_restante):
+                        t_restante = str(t_restante).replace("days", "días")
+                    elif "day" in str(t_restante):
+                        t_restante = str(t_restante).replace("day", "día")
                     #Ahora soltamos la notificación
-                    showinfo(message= "Le queda " + str(t_restante) + " para " + str(actividad_arec),
+                    showinfo(message= "Le queda " + str(t_restante) + " horas" + " para " + str(actividad_arec),
                              title="RECORDATORIO")
         #Finalmente, esta parte es para que se ejecute en segundo plano.
-                time.sleep(30)
+                time.sleep(600)
         run = threading.Event()
         run.set()
         t = threading.Thread(target = recordatorio1, args = (run,)) # Se ejecuta en segundo plano
