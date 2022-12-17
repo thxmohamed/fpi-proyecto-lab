@@ -21,6 +21,7 @@
 from tkinter import *
 from tkinter.messagebox import *
 from datetime import datetime
+from datetime import timedelta
 import threading
 import time
 # DEFINICIÓN DE FUNCIONES
@@ -65,89 +66,52 @@ def cambia_ventana():
                 T_DIA_SGTE = datetime(t_actual.year,t_actual.month,t_actual.day,00,00,00,0000)
                 T_BLOQUES = ["",T_BLOQUE1,T_BLOQUE2,T_BLOQUE3,T_BLOQUE4,
                              T_BLOQUE5,T_BLOQUE6,T_FIN_DIA,T_DIA_SGTE]
-
-                #Este es el procesamiento de lo que hace la función, la variable bloque actual
-                #sirve para saber en qué bloque está la actividad del usuario, y eso lo sabremos
-                #gracias al ciclo while, que se detendrá cuando encuentre el primer string no
-                #vacío, o cuando se salga del largo de la lista.
-                bloque_actual=0
-                #La variable dia indica el día en el que estamos, siendo 0 el domingo y 6 el sábado.
+                actividad_arec = "No hay actividades para hoy"
+                #El objetivo es calcular la actividad a recordar
+                #Calculamos el bloque en el que estamos actualmente con un ciclo
+                bloque_siguiente = 1
+                while bloque_siguiente < len(lista_bloques) + 1 and t_actual > T_BLOQUES[bloque_siguiente]:
+                    bloque_siguiente += 1
+                #Calculamos el día en el que estamos con formato 1 = lunes y 6 = sábado, 0 = domingo
                 dia = t_actual.strftime("%w")
-                j = 1
-                i = 1
-                t_restante = 0
-                while lista_bloques[j][int(dia)] == "" and j < len(lista_bloques)-1 :
-                    j += 1
-                print(j)
-                #Una vez terminado el ciclo, tendremos estos ifs que lo que hacen es preguntar
-                # por el bloque en el que se detuvo el ciclo de arriba.
-                if j != 6:
-                    if t_actual < T_BLOQUES[j]: 
-                        t_restante= abs(t_actual - T_BLOQUES[j])
-                    bloque_actual = j
-                #Este último if tiene una condición aparte, pues está preguntando si el último
-                #bloque no es un string vacío.
-                elif j == 6 and lista_bloques[j][int(dia)] != "":
-                    if t_actual < T_BLOQUE6:
-                        t_restante = abs(t_actual - T_BLOQUE6)
-                    bloque_actual = 6
-                #Si no se cumple ninguna de estas condiciones, se pasará al día siguiente, y se
-                #hará el mismo proceso, buscando actividades en ese día, siempre y cuando el
-                #dia en que estemos no sea sábado (6), pues el día 6+1 no existe.
-
-                elif j == 6 and dia != 6:
-                    #Este ciclo lo único que hace es buscar actividades en el día siguiente.
-                    while lista_bloques[i][int(dia) + 1] == "" and i < len(lista_bloques)-1:
-                        i += 1
-                    #Aquí se pregunta por el bloque en el que se detuvo el ciclo anterior.
-                        #A la variable bloque actual le asignaremos un valor de -1 en todos los casos,
-                        #para indicar que en el día actual no hay nada y nos pasamos al día siguiente.
-                    t_restante= abs(t_actual - T_FIN_DIA) + T_BLOQUES[i] - T_DIA_SGTE
-                    bloque_actual = -1
-                elif dia == 6:
-                    while lista_bloques[i][1] == "" and i < len(lista_bloques)-1:
-                        i += 1
-                    t_restante= t_actual + T_FIN_DIA - abs(T_DIA_SGTE- T_BLOQUES[i])
-                    bloque_actual = -1
-                #Comprobaciones finales, primero, preguntamos si nos pasamos al día siguiente,
-                #o si hoy es domingo (0), en tal caso, la actividad a recordar será lo que ahora mismo está
-                #guardado en la lista_bloques, en el bloque i, y el día actual+1.
-                if bloque_actual == -1 or dia == 0:
-                    actividad_arec = lista_bloques[i][int(dia) + 1]
-                    lista_trestante= str(t_restante).split(":")
-                #Aquí preguntamos si el día actual es sábado (6), en tal caso, la actividad a recordar
-                #será lo que hay guardado en la lista_bloques en el bloque i, y día lunes (1).
-                elif dia==6:
-                    actividad_arec = lista_bloques[i][1]
-                    lista_trestante= str(t_restante).split(":")
-                #Si no se cumplen estas condiciones especiales, es porque la actividad a recordar
-                #está en el mismo día en el que estamos, por lo que simplemente se mostrará la
-                #actividad del bloque más cercano en el día actual.
-                elif t_restante != 0 and bloque_actual != 0:
-                    print(lista_bloques)
-                    actividad_arec = lista_bloques[int(bloque_actual)][int(dia)]
-                #aquí se transforma el t_restante en una lista para trabajar más fácil con ello
-                #siendo la posición 0 las horas faltantes, y la posición 1 los minutos.
-                    lista_trestante= str(t_restante).split(":")
-                    
-                if bloque_actual == -1 and lista_bloques [i][int(dia)+1] != "":
-                    print(lista_bloques[i][int(dia) + 1])
-                    print(t_restante)
-                    showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1]) \
-                             + " (hrs) para " + str(actividad_arec), title = "Recordatorio")
-
-                elif lista_bloques[i][int(dia) + 1] == "" or t_restante == 0:
-                    print(lista_bloques[i][int(dia) + 1])
-                    print(t_restante)
-                    print(dia)
-                    showinfo(message = "No hay actividades para hoy ni para mañana", title = "Recordatorio")
-                    
-                elif lista_bloques [i][int(dia) + 1] != "":
-                    showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1])+\
-                             " (hrs) para " + str(actividad_arec), title = "Recordatorio")
-                #Todo esto se ejecutará cada 10 minutos, por lo que, pasados 10 minutos, se mostrará
-                #nuevamente el mensaje.
-                time.sleep(600)
+                dia = int(dia)
+                #Si estamos después del bloque 6; bloque_siguiente = 7
+                if bloque_siguiente == 7:
+                    dia += 1
+                    bloque_siguiente = 1
+                if dia == 0 or dia == 7:
+                    dia = "domingo"
+                # Ahora que tenemos el bloque y el día en el que estamos tenemos la actividad a recordar
+                actividad_arec = lista_bloques[bloque_siguiente][dia]
+                #Esto cubrirá el caso en el que el día de hoy sea domingo
+                if dia == "domingo":
+                    dia = 1
+                    actividad_arec = lista_bloques[bloque_siguiente][dia]
+                #Este ciclo cubrirá el caso en el que el alumno tenga alguna ventana en su horario
+                #Recorrerá el calendario hasta encontrar alguna actividad que no sea: ""
+                while actividad_arec == "" and bloque_siguiente < len(lista_bloques):
+                    bloque_siguiente += 1
+                    if bloque_siguiente != 7:
+                        actividad_arec = lista_bloques[bloque_siguiente][dia]
+                    else:
+                        bloque_siguiente = 1
+                        dia += 1
+                        if dia != 7:
+                            actividad_arec = lista_bloques[bloque_siguiente][dia]
+                        else:
+                            dia = 1
+                            actividad_arec = lista_bloques[bloque_siguiente][dia]
+                #Ahora que tenemos las coordenadas de la actividad, calculamos el tiempo restante
+                if dia >= int(t_actual.strftime("%w")):
+                    delta = dia - int(t_actual.strftime("%w"))
+                else:
+                    delta = dia - int(t_actual.strftime("%w")) + 7
+                T_BLOQUES[bloque_siguiente] += timedelta(days = delta)
+                t_restante = T_BLOQUES[bloque_siguiente] - t_actual
+                #Finalmente soltamos la notificación
+                showinfo(message= "Le queda " + str(t_restante) + " para " + str(actividad_arec),
+                         title="RECORDATORIO")
+                time.sleep(5)
         #Finalmente, esta parte es para que se ejecute en segundo plano.
         t = threading.Thread(target = recordatorio1) # Se ejecuta en segundo plano
         t.start()
