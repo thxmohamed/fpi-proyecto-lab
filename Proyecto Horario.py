@@ -21,7 +21,6 @@
 from tkinter import *
 from tkinter.messagebox import *
 from datetime import datetime
-from datetime import timedelta
 import threading
 import time
 # DEFINICIÓN DE FUNCIONES
@@ -47,11 +46,11 @@ def cambia_ventana():
 
 #Aquí se define la función para el recordatorio
     def recordatorio():
-        def recordatorio1(run):
+        def recordatorio1():
             # Este ciclo está hecho para que se repita siempre
             # sin embargo, no hará que se pegue el programa, pues
             # se ejecuta en segundo plano.
-            while run.is_set():
+            while True:
                 #Esta variable de aquí lo que hace es guardar la hora actual del sistema
                 t_actual= datetime.now()
                 #Estas son constantes que se utilizarán para calcular el tiempo restante
@@ -65,79 +64,96 @@ def cambia_ventana():
                 T_FIN_DIA = datetime(t_actual.year,t_actual.month,t_actual.day,23,59,59,0000)
                 T_DIA_SGTE = datetime(t_actual.year,t_actual.month,t_actual.day,00,00,00,0000)
                 T_BLOQUES = ["",T_BLOQUE1,T_BLOQUE2,T_BLOQUE3,T_BLOQUE4,
-                             T_BLOQUE5,T_BLOQUE6,T_FIN_DIA,T_DIA_SGTE]
-                actividad_arec = "No hay actividades para hoy"
-                #El objetivo es calcular la actividad a recordar
-                #Calculamos el bloque en el que estamos actualmente con un ciclo
-                bloque_siguiente = 1
-                while bloque_siguiente < len(lista_bloques) + 1 and t_actual > T_BLOQUES[bloque_siguiente]:
-                    bloque_siguiente += 1
-                #Calculamos el día en el que estamos con formato 1 = lunes y 6 = sábado, 0 = domingo
-                dia = t_actual.strftime("%w")
-                dia = int(dia)
-                #Si estamos después del bloque 6; bloque_siguiente = 7
-                if bloque_siguiente == 7:
-                    dia += 1
-                    bloque_siguiente = 1
-                if dia == 0 or dia == 7:
-                    dia = "domingo"
-                # Ahora que tenemos el bloque y el día en el que estamos tenemos la actividad a recordar
-                #Esto cubrirá el caso en el que el día de hoy sea domingo
-                if dia == "domingo":
-                    dia = 1
-                    actividad_arec = lista_bloques[bloque_siguiente][dia]
-                #Este ciclo cubrirá el caso en el que el alumno tenga alguna ventana en su horario
-                #Recorrerá el calendario hasta encontrar alguna actividad que no sea: ""
-                #Para que no se quede trabada, hay que verificar que el horario no esté vacío
-                if lista_bloque1 == ["Bloque 1","","","","","","","",""] and \
-                    lista_bloque2 ==["Bloque 2","","","","","","","",""] and \
-                    lista_bloque3 == ["Bloque 3","","","","","","","",""] and \
-                    lista_bloque4 == ["Bloque 4","","","","","","","",""] and \
-                    lista_bloque5 == ["Bloque 5","","","","","","","",""] and \
-                    lista_bloque6 == ["Bloque 6","","","","","","","",""]:
-                    showinfo(message= "No tiene ninguna actividad en su horario...",
-                             title="RECORDATORIO")
-                else:
-                    while actividad_arec == "":
-                        bloque_siguiente += 1
-                        if bloque_siguiente != 7:
-                            actividad_arec = lista_bloques[bloque_siguiente][dia]
-                        else:
-                            bloque_siguiente = 1
-                            dia += 1
-                            if dia != 7:
-                                actividad_arec = lista_bloques[bloque_siguiente][dia]
-                            else:
-                                dia = 1
-                                actividad_arec = lista_bloques[bloque_siguiente][dia]
-                    #Ahora que tenemos las coordenadas de la actividad, calculamos el tiempo restante
-                    if dia >= int(t_actual.strftime("%w")) and t_actual < T_BLOQUE6:
-                        delta = dia - int(t_actual.strftime("%w"))
-                    else:
-                        delta = dia - int(t_actual.strftime("%w")) + 7
-                    bloque_arec = T_BLOQUES[bloque_siguiente] 
-                    bloque_arec += timedelta(days = delta)
-                    t_restante = bloque_arec - t_actual
+                             T_BLOQUE5,T_BLOQUE6]
 
-                    if "days" in str(t_restante):
-                        t_restante = str(t_restante).replace("days", "días")
-                    elif "day" in str(t_restante):
-                        t_restante = str(t_restante).replace("day", "día")
-                    #Ahora soltamos la notificación
-                    showinfo(message= "Le queda " + str(t_restante) + " horas" + " para " + str(actividad_arec),
-                             title="RECORDATORIO")
-        #Finalmente, esta parte es para que se ejecute en segundo plano.
+                #Este es el procesamiento de lo que hace la función, la variable bloque actual
+                #sirve para saber en qué bloque está la actividad del usuario, y eso lo sabremos
+                #gracias al ciclo while, que se detendrá cuando encuentre el primer string no
+                #vacío, o cuando se salga del largo de la lista.
+                bloque_actual=0
+                #La variable dia indica el día en el que estamos, siendo 0 el domingo y 6 el sábado.
+                dia = t_actual.strftime("%w")
+                j = -1
+                i = 1
+                t_restante = 0
+                while j > -len(lista_bloques) and lista_bloques[j][int(dia)] == "" and t_actual<T_BLOQUES[j]:
+                    j -= 1
+                
+                #Una vez terminado el ciclo, tendremos estos ifs que lo que hacen es preguntar
+                # por el bloque en el que se detuvo el ciclo de arriba.
+                if j != -1:
+                   
+                    if t_actual < T_BLOQUES[j]: 
+                        t_restante= abs(t_actual - T_BLOQUES[j])
+                    bloque_actual = j+7
+                
+                #Este último if tiene una condición aparte, pues está preguntando si el último
+                #bloque no es un string vacío.
+                if j == -1 and lista_bloques[j][int(dia)] != "":
+                    
+                    if t_actual < T_BLOQUE6:
+                        t_restante = abs(t_actual - T_BLOQUE6)
+                    bloque_actual = 6
+                #Si no se cumple ninguna de estas condiciones, se pasará al día siguiente, y se
+                #hará el mismo proceso, buscando actividades en ese día, siempre y cuando el
+                #dia en que estemos no sea sábado (6), pues el día 6+1 no existe.
+                if j == -1 or dia != 6:
+                    #Este ciclo lo único que hace es buscar actividades en el día siguiente.
+                    while lista_bloques[i][int(dia) + 1] == "" and i < len(lista_bloques)-1:
+                        i += 1
+                    #Aquí se pregunta por el bloque en el que se detuvo el ciclo anterior.
+                        #A la variable bloque actual le asignaremos un valor de -1 en todos los casos,
+                        #para indicar que en el día actual no hay nada y nos pasamos al día siguiente.
+                    t_restante= abs(t_actual - T_FIN_DIA) + T_BLOQUES[i] - T_DIA_SGTE
+                    bloque_actual = -1
+                if dia == 6:
+                    while lista_bloques[i][1] == "" and i < len(lista_bloques)-1:
+                        i += 1
+                    t_restante= t_actual + T_FIN_DIA - abs(T_DIA_SGTE- T_BLOQUES[i])
+                    bloque_actual = -1
+                #Comprobaciones finales, primero, preguntamos si nos pasamos al día siguiente,
+                #o si hoy es domingo (0), en tal caso, la actividad a recordar será lo que ahora mismo está
+                #guardado en la lista_bloques, en el bloque i, y el día actual+1.
+                if bloque_actual == -1 or dia == 0:
+                    actividad_arec = lista_bloques[i][int(dia) + 1]
+                    lista_trestante= str(t_restante).split(":")
+                    
+                #Aquí preguntamos si el día actual es sábado (6), en tal caso, la actividad a recordar
+                #será lo que hay guardado en la lista_bloques en el bloque i, y día lunes (1).
+                elif dia==6:
+                    actividad_arec = lista_bloques[i][1]
+                    lista_trestante= str(t_restante).split(":")
+                    
+                #Si no se cumplen estas condiciones especiales, es porque la actividad a recordar
+                #está en el mismo día en el que estamos, por lo que simplemente se mostrará la
+                #actividad del bloque más cercano en el día actual.
+                elif t_restante != 0 and bloque_actual != 0:
+             
+                    actividad_arec = lista_bloques[int(bloque_actual)][int(dia)]
+                #aquí se transforma el t_restante en una lista para trabajar más fácil con ello
+                #siendo la posición 0 las horas faltantes, y la posición 1 los minutos.
+                    lista_trestante= str(t_restante).split(":")
+             
+                    
+
+
+
+                if bloque_actual == -1 and lista_bloques [i][int(dia)+1] != "":
+                    showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1]) \
+                             + " (hrs) para " + str(actividad_arec), title = "Recordatorio")
+
+                elif lista_bloques[i][int(dia) + 1] == "" or t_restante == 0:
+                    showinfo(message = "No hay actividades para hoy ni para mañana", title = "Recordatorio")
+                    
+                elif lista_bloques [i][int(dia) + 1] != "":
+                    showinfo(message = "quedan " + str(lista_trestante[0]) + ":" + str(lista_trestante[1])+\
+                             " (hrs) para " + str(actividad_arec), title = "Recordatorio")
+                #Todo esto se ejecutará cada 10 minutos, por lo que, pasados 10 minutos, se mostrará
+                #nuevamente el mensaje.
                 time.sleep(600)
-        run = threading.Event()
-        run.set()
-        t = threading.Thread(target = recordatorio1, args = (run,)) # Se ejecuta en segundo plano
+        #Finalmente, esta parte es para que se ejecute en segundo plano.
+        t = threading.Thread(target = recordatorio1) # Se ejecuta en segundo plano
         t.start()
-        #El siguiente botón será para detener los recordatorios
-        def detener():
-            run.clear()
-            showinfo(message= "Se han detenido los recordatorios", title="STOP")
-        boton_detener = Button(root2, text = "Detener", bg= "red", font = ("Arial",11), padx= 18,\
-                   pady= 2.1, command = detener, fg = "white").grid(row=7, column = 2)
     #Esta segunda función creará la ventana dedicada a ingresar las actividades.
     def ventana_entra_act():
         ventana_entrada = Toplevel()
@@ -431,39 +447,39 @@ def cambia_ventana():
     #sus colores en un patrón de "ajedrez"
 
     lunes = Frame(root2)
-    textoL = Label(root2, text = "Lunes", bg = "orange", \
+    textoL = Label(root2, text = "Lunes", bg = "cyan2", \
                    font = ("Arial",14)).grid(row = 0, column = 1)
-    lunes.config(bg = "orange", width = 100, height =  30)
+    lunes.config(bg = "cyan2", width = 100, height =  30)
     lunes.grid(row = 0, column = 1)
 
     martes = Frame(root2)
-    textoM = Label(root2, text = "Martes", bg = "darkorange", \
+    textoM = Label(root2, text = "Martes", bg = "spring green", \
                    font = ("Arial",14)).grid(row = 0, column = 2)
-    martes.config(bg = "darkorange", width = 100, height = 30)
+    martes.config(bg = "spring green", width = 100, height = 30)
     martes.grid(row = 0, column =2)
 
     miercoles = Frame(root2)
-    textoW = Label(root2, text = "Miércoles", bg = "orange",\
+    textoW = Label(root2, text = "Miércoles", bg = "cyan2",\
                    font = ("Arial",14)).grid(row = 0, column = 3)
-    miercoles.config(bg = "orange", width = 100, height = 30)
+    miercoles.config(bg = "cyan2", width = 100, height = 30)
     miercoles.grid(row = 0, column =3)
 
     jueves = Frame(root2)
-    textoJ = Label(root2, text = "Jueves", bg = "darkorange", \
+    textoJ = Label(root2, text = "Jueves", bg = "spring green", \
                    font = ("Arial",14)).grid(row = 0, column = 4)
-    jueves.config(bg = "darkorange", width = 100, height = 30)
+    jueves.config(bg = "spring green", width = 100, height = 30)
     jueves.grid(row = 0, column =4)
 
     viernes = Frame(root2)
-    textoV = Label(root2, text = "Viernes", bg = "orange", \
+    textoV = Label(root2, text = "Viernes", bg = "cyan2", \
                    font = ("Arial",14)).grid(row = 0, column = 5)
-    viernes.config(bg = "orange", width = 100, height = 30)
+    viernes.config(bg = "cyan2", width = 100, height = 30)
     viernes.grid(row = 0, column =5)
 
     sabado = Frame(root2)
-    textoV = Label(root2, text = "Sábado", bg = "darkorange", \
+    textoV = Label(root2, text = "Sábado", bg = "spring green", \
                    font = ("Arial",14)).grid(row = 0, column = 6)
-    sabado.config(bg = "darkorange", width = 100, height = 30)
+    sabado.config(bg = "spring green", width = 100, height = 30)
     sabado.grid(row = 0, column =6)
 
     # Asignacion de bloques, se visualizarán en la columna de la izquierda e indicarán el bloque
@@ -471,43 +487,43 @@ def cambia_ventana():
     # abajo
 
     bloque0 = Frame(root2)
-    bloque0.config(bg = "darkorange", width = 100, height = 30)
+    bloque0.config(bg = "spring green", width = 100, height = 30)
     bloque0.grid(row = 0, column = 0)
     
     bloque1 = Frame(root2)
     textoB1 = Label(root2, text = "Bloque 1\n08:15-09:35", \
-                    bg = "orange", font = ("Arial",12)).grid(row = 1, column = 0)
-    bloque1.config(bg = "orange", width = 100, height =  100)
+                    bg = "cyan2", font = ("Arial",12)).grid(row = 1, column = 0)
+    bloque1.config(bg = "cyan2", width = 100, height =  100)
     bloque1.grid(row = 1, column = 0)
 
     bloque2 = Frame(root2)
     textoB2 = Label(root2, text = "Bloque 2\n09:50-11:10", \
-                    bg = "darkorange", font = ("Arial",12)).grid(row = 2, column = 0)
-    bloque2.config(bg = "darkorange", width = 100, height = 100)
+                    bg = "spring green", font = ("Arial",12)).grid(row = 2, column = 0)
+    bloque2.config(bg = "spring green", width = 100, height = 100)
     bloque2.grid(row = 2, column =0)
 
     bloque3 = Frame(root2)
     textoB3 = Label(root2, text = "Bloque 3\n11:25-12:45", \
-                    bg = "orange", font = ("Arial",12)).grid(row = 3, column = 0)
-    bloque3.config(bg = "orange", width = 100, height = 100)
+                    bg = "cyan2", font = ("Arial",12)).grid(row = 3, column = 0)
+    bloque3.config(bg = "cyan2", width = 100, height = 100)
     bloque3.grid(row = 3, column =0)
 
     bloque4 = Frame(root2)
     textoB4 = Label(root2, text = "Bloque 4\n13:45-15:05", \
-                    bg = "darkorange", font = ("Arial",12)).grid(row = 4, column = 0)
-    bloque4.config(bg = "darkorange", width = 100, height = 100)
+                    bg = "spring green", font = ("Arial",12)).grid(row = 4, column = 0)
+    bloque4.config(bg = "spring green", width = 100, height = 100)
     bloque4.grid(row = 4, column =0)
 
     bloque5 = Frame(root2)
     textoB5 = Label(root2, text = "Bloque 5\n15:20-16:40", \
-                    bg = "orange", font = ("Arial",12)).grid(row = 5, column = 0)
-    bloque5.config(bg = "orange", width = 100, height = 100)
+                    bg = "cyan2", font = ("Arial",12)).grid(row = 5, column = 0)
+    bloque5.config(bg = "cyan2", width = 100, height = 100)
     bloque5.grid(row = 5, column =0)
 
     bloque6 = Frame(root2)
     textoB6 = Label(root2, text = "Bloque 6\n16:55-18:15", \
-                    bg = "darkorange", font = ("Arial",12)).grid(row = 6, column = 0)
-    bloque6.config(bg = "darkorange", width = 100, height = 100)
+                    bg = "spring green", font = ("Arial",12)).grid(row = 6, column = 0)
+    bloque6.config(bg = "spring green", width = 100, height = 100)
     bloque6.grid(row = 6, column =0)
 
     #Aqui se mostrará la última fila, en donde se agregarán los botones
@@ -515,7 +531,7 @@ def cambia_ventana():
     #blanco al fondo de la ventana.
     
     fila_botones = Frame(root2)
-    fila_botones.config(bg = "orange", width = 100, height = 35)
+    fila_botones.config(bg = "cyan2", width = 100, height = 35)
     fila_botones.grid(row = 7, column = 0)
     
     ultima1 = Frame(root2)
@@ -702,12 +718,12 @@ def cambia_ventana():
     # cyan, que se encargará de llevar a una nueva ventana, en
     # donde el usuario podrá ingresar sus actividades.
     boton = Button(root2, text = "Agregar", bg= "cyan", font = ("Arial",11), padx=17.5,\
-                   pady= 2.1, command = ventana_entra_act).grid(row=7, column = 4)
+                   pady= 2.1, command = ventana_entra_act).grid(row=7, column = 3)
     # Al lado izquierdo estará el botón rojo de cerrar el programa
     boton_cerrar = Button(root2, text = "Cerrar", command = root.destroy, bg = "red", \
-                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 5)
-    boton_recordatorio = Button(root2, text = "Recordatorio", bg= "yellow", font = ("Arial",11), padx=0.8,\
-                   pady= 2.1, command = recordatorio).grid(row=7, column = 3)
+                          fg = "white", padx = 20, font = ("Arial", 11)).grid(row = 7, column = 4)
+    boton = Button(root2, text = "Recordatorio", bg= "yellow", font = ("Arial",11), padx=0.8,\
+                   pady= 2.1, command = recordatorio).grid(row=7, column = 2)
     
 # DEFINICIÓN DE CONSTANTES
 # De momento, en nuestro programa no se definió ninguna constante
@@ -726,22 +742,18 @@ def cambia_ventana():
 root = Tk()
 root.title("Entrada")
 marco_principal1 = Frame()
-texto = Label(root,
-              text= "Este programa tiene la finalidad\nde ayudarte a organizar tu horario, para así\n"\
-              "mejorar tu rendimiento académico\n y lograr optimizar tu tiempo,\n"\
-              "para esto debes pulsar el botón de abajo\n"\
-              "para comenzar y cuando se abra \n"\
-              "la nueva ventana debes pulsar el botón\n celeste del centro",\
-              bg = "pink")
+img= PhotoImage(file="primer_fondo.png")
 
+
+texto = Label(root,image=img).place(x=0,y=0,relwidth=1,relheight=1)
 marco_principal1.grid(row=0, column=0)
-texto.grid(row=0, column=0)
 
-marco_principal1.config(width = "260", height = "370")
-marco_principal1.config(bg = "pink")
+
+marco_principal1.config(width = "330", height = "370")
+
 
 boton_inicio = Button(root,text="Comenzar", command=cambia_ventana,\
-                      bg="red", width="28", font = ("Arial", 12), fg = "white").grid(row=1,column=0)
+                      bg="purple", width="38", font = ("Arial", 12), fg = "white").grid(row=1,column=0)
 
 # SALIDA
 root.mainloop()
