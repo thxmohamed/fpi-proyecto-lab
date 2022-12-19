@@ -79,13 +79,13 @@ def cambia_ventana():
                 if bloque_siguiente == 7:
                     dia += 1
                     bloque_siguiente = 1
-                if dia == 0 or dia == 7:
+                if dia == 0 or dia >= 7:
                     dia = "domingo"
                 # Ahora que tenemos el bloque y el día en el que estamos tenemos la actividad a recordar
                 #Esto cubrirá el caso en el que el día de hoy sea domingo
                 if dia == "domingo":
                     dia = 1
-                    actividad_arec = lista_bloques[bloque_siguiente][dia]
+                actividad_arec = lista_bloques[bloque_siguiente][dia]
                 #Este ciclo cubrirá el caso en el que el alumno tenga alguna ventana en su horario
                 #Recorrerá el calendario hasta encontrar alguna actividad que no sea: ""
                 #Para que no se quede trabada, hay que verificar que el horario no esté vacío
